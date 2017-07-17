@@ -1,6 +1,8 @@
 #include "Effect.h"
 
-Effect::Effect() {}
+Effect::Effect() {
+
+}
 
 Effect::Effect(LPD3DXSPRITE _SpriteHandler, World *_manager)
 {

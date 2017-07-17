@@ -1,8 +1,9 @@
-#ifndef _EFFECT_H_
+﻿#ifndef _EFFECT_H_
 #define _EFFECT_H_
 
 #include "GameObject.h"
 
+//class này chưa được sử dụng trong project
 class Effect :
 	public GameObject
 

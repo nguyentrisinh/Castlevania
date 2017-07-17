@@ -73,6 +73,144 @@ bool GameObject::isCollide(GameObject *target)
 
 	// ko thoả điều kiện nào hết => đang nằm lồng vào nhau
 	return true;
+
+}
+
+//hàm thực thi sweptAABB
+// trả về 
+float GameObject::sweptAABB(GameObject *target, float _deltatime)
+{
+	//normalX, normalY là giá trị để xác định kết quả phản ứng sau quá trình va chạm.
+	//normalX chỉ vật A va chạm với vật B theo trục Ox, 
+	//normalY chỉ vật A va chạm với vật B theo trục Oy, 
+	float normalX, normalY;
+
+	//xInvEntry, yInvEntry chỉ khoảng cách 2 cạnh GẦN NHẤT của vật xét va chạm xét 2 chiều x và y 
+	//xInvEntry khoảng cách 2 cạnh gần nhất của 2 vật trên trục x
+	//yInvEntry khoảng cách 2 cạnh gần nhất của 2 vật trên trục y
+	float xInvEntry, yInvEntry;
+	//xInvExit, yInvExit chỉ khoảng cách 2 cạnh XA NHẤT của 2 vật xét va chạm theo 2 trục x và y
+	//xInvExit khoảng cách 2 cạnh xa nhất của 2 vật trên trục x
+	//xInvExit khoảng cách 2 cạnh xa nhất của 2 vật trên trục y
+	float xInvExit, yInvExit;
+
+	//nếu như vật đi về bên phải --->
+	if (this->velocityX > 0)
+	{
+		//với postX là vị trí tại tâm của vật  thì, hình mô tả A là this, B là target
+		//  [A]  ----->  [B]
+		//target->postX + target->collider->left = vị trí cạnh trái của target
+		//this->postX + this->collider->right = vị trí của cạnh phải this
+		xInvEntry = (target->postX + target->collider->left) - (this->postX + this->collider->right);
+		//target->postX + target->collider->right = vị trí cạnh phải của target
+		//this->postX + this->collider->left = vị trí của cạnh trái this
+		xInvExit = (target->postX + target->collider->right) - (this->postX + this->collider->left);
+	}
+	else
+	{
+		//với postX là vị trí tại tâm của vật  thì, hình mô tả A là this, B là target
+		//  [B]  <-----  [A]
+		//target->postX + target->collider->right = vị trí cạnh phải của target
+		//this->postX + this->collider->left = vị trí của cạnh trái this
+		xInvEntry = (target->postX + target->collider->right) - (this->postX + this->collider->left);
+		//target->postX + target->collider->left = vị trí cạnh trái của target
+		//this->postX + this->collider->right = vị trí của cạnh phải this
+		xInvExit = (target->postX + target->collider->left) - (this->postX + this->collider->right);
+	}
+
+	//Nếu vật đi xuống dưới
+	if (this->velocityY > 0.0f)
+	{
+		yInvEntry = (target->postY + target->collider->top) - (this->postY + this->collider->bottom);
+		yInvExit = (target->postY + target->collider->bottom) - (this->postY + this->collider->top);
+	}
+	else
+	{
+		yInvEntry = (target->postY + this->collider->bottom) - (this->postY + this->collider->top);
+		yInvExit = (target->postY + target->collider->top) - (this->postY + this->collider->bottom);
+	}
+
+
+
+	//Xác định thời gian xảy ra va chạm (có loại bỏ trường hợp lỗi khi chia cho 0)
+	float xEntry, yEntry;
+	float xExit, yExit;
+
+	// Xác định thời gian bắt đầu xảy ra va chạm và kết thuc va chạm theo trục X
+	if (this->velocityX == 0.0f)
+	{
+		//Trường hợp vận tốc bằng 0 thì tất cả các thông số là vô cực
+		xEntry = -std::numeric_limits<float>::infinity();
+		xExit = std::numeric_limits<float>::infinity();
+	}
+	else
+	{
+		xEntry = xInvEntry / this->velocityX; //Khoảng thời gian bắt đầu va chạm theo chiều X
+		xExit = xInvExit / this->velocityX; //Khoảng thời gian kết thúc va chạm theo chiều X
+	}
+
+	//Xác định thời gian bắt đầu xảy ra va chạm và kết thúc va chạm theo chiều Y
+	if (this->velocityY == 0.0f)
+	{
+		//Trường hợp vận tốc bằng 0 thì tất cả các thông số là vô cực
+		yEntry = -std::numeric_limits<float>::infinity();
+		yExit = std::numeric_limits<float>::infinity();
+	}
+	else
+	{
+		yEntry = yInvEntry / this->velocityY; //Khoảng thời gian bắt đầu va chạm theo chiều Y
+		yExit = yInvExit / this->velocityY; //Khoảng thời gian kết thúc va chạm theo chiều Y
+	}
+
+	//tìm khoảng thời gian bắt đầu và kết thúc va chạm 
+	float entryTime = max(xEntry, yEntry);
+	float exitTime = max(xExit, yExit);
+
+	//Trường hợp không xảy ra va chạm
+	//DK1: thời gian bắt đầu va chạm trễ hơn thời gian kết thúc va chạm
+	//DK2: thời gian bắt đầu va chạm trên cả 2 chiều đều âm
+	//Dk3: 1 trong 2 thời gian bắt đầu va chạm theo chiều X và Y lớn hơn 1 lần vận tốc (trong frame này không thể va chạm với nhau)
+	if (entryTime > exitTime || (xEntry < 0.0f && yEntry < 0.0f) || (xEntry > 1.0f || yEntry > 1.0f))
+	{
+		normalX = 0.0f;
+		normalY = 0.0f;
+		return 1.0f;
+	}
+	else
+	{
+		// 1 vật thể được thể hiện bởi 1 hộp va chạm hình chữ nhật thì có 4 trường hợp tương tác va chạm xảy ra
+		if (xEntry > yEntry)
+		{
+			if (xInvEntry < 0.0f)
+			{
+				normalX = 1.0f;
+				normalY = 0.0f;
+			}
+			else
+			{
+				normalX = -1.0f;
+				normalY = 0.0f;
+			}
+		}
+		else
+		{
+			if (yInvEntry < 0.0f)
+			{
+				normalX = 0.0f;
+				normalY = 1.0f;
+			}
+			else
+			{
+				normalX = 0.0f;
+				normalY = -1.0f;
+			}
+		}
+
+		return entryTime;
+	}
+
+
+
 }
 
 

@@ -3,6 +3,7 @@
 #ifndef _GAMEOBJECT_H_
 #define _GAMEOBJECT_H_
 
+#include <iostream>
 #include <d3dx9.h>
 #include "../engine/Sprite.h"
 #include "Misc.h"
@@ -61,6 +62,8 @@ public:
 	D3DXVECTOR3 vecCollide(GameObject *target);
 	// xét coi có va chạm ko
 	bool isCollide(GameObject *target);
+	//Hàm va chạm sweptAABB
+	float sweptAABB(GameObject *target,const float _deltatime);
 
 	// ====== các phương thức ảo =====
 	virtual void Init(int _X, int _Y);
@@ -71,54 +74,6 @@ public:
 	
 };
 
+#endif // !_GAMEOBJECT_H_
 
 
-
-//// ========= COLLIDER ===========
-//class Collider
-//	{
-//	public:
-//		// các biến
-//		// trục Y hướng lên
-//		int top;	// luôn > 0
-//		int bottom;	// luôn < 0
-//					// trục X hướng qua phải
-//		int left;	// luôn < 0
-//		int right;	// luôn > 0
-//	
-//		GameObject *owner;
-//	
-//		//Khởi tạo và huỷ
-//		Collider();
-//		Collider(GameObject *_owner, int _top, int _bottom, int _left, int _right)
-//			:owner(_owner), top(_top), bottom(_bottom), left(_left), right(_right) {};
-//		~Collider();
-//	};
-
-
-
-// ========== WORLD =============
-//class World
-//{
-//public:
-//	LPD3DXSPRITE spriteHandler;
-//	Sprite *background;
-//
-//
-//	GameObject *Simon;
-//	GameObject *Ground;
-//
-//	int isPause;
-//	int timer;
-//	int deltaTime;
-//
-//	World(LPD3DXSPRITE _SpriteHandler);
-//	~World();
-//
-//	void Init();
-//	void Update(int _deltaTime);
-//	void Render();
-//	void Destroy();
-//};
-
-#endif

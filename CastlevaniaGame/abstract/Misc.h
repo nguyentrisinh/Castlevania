@@ -24,6 +24,8 @@ class DropTable
 
 
 // ========= COLLIDER ===========
+// đây là class dùng để quyết định xem vật thể đó có xét va chạm hay không
+//và dùng để xét intersect cho va chạm
 class Collider
 {
 public:

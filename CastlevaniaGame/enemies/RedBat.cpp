@@ -4,17 +4,9 @@
 
 RedBat::RedBat() {}
 
-RedBat::RedBat(LPD3DXSPRITE _SpriteHandler, World *_manager)
+RedBat::RedBat(LPD3DXSPRITE _SpriteHandler, World *_manager) : Enemy(_SpriteHandler, _manager)
 {
-	manager = _manager;
-	collider = new Collider();
 	collider->setCollider(14, -14, -10, 10);
-	isActive = false;
-
-	spriteLeft = new Sprite(_SpriteHandler, "Resources\\Sprites\\creep_left.bmp", sizeWidth, sizeHeight, 29, 6);
-	spriteRight = new Sprite(_SpriteHandler, "Resources\\Sprites\\creep_right.bmp", sizeWidth, sizeHeight, 29, 6);
-	sprite = spriteLeft;
-
 
 }
 

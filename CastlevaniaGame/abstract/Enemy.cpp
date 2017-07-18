@@ -8,6 +8,15 @@ Enemy::Enemy()
 
 Enemy::Enemy(LPD3DXSPRITE _SpriteHandler, World *_manager)
 {
+	manager = _manager;
+	collider = new Collider();
+	sizeWidth = 64;
+	sizeHeight = 64;
+	isActive = false;
+	spriteHandler = _SpriteHandler;
+	spriteLeft = new Sprite(_SpriteHandler, "Resources\\Sprites\\creep_left.bmp", sizeWidth, sizeHeight, 29, 6);
+	spriteRight = new Sprite(_SpriteHandler, "Resources\\Sprites\\creep_right.bmp", sizeWidth, sizeHeight, 29, 6);
+	sprite = spriteLeft;
 }
 
 Enemy :: ~Enemy()

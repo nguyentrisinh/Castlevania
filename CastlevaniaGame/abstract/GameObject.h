@@ -35,6 +35,7 @@ class GameObject
 public:
 	// các biến
 	World *manager;
+	LPD3DXSPRITE spriteHandler; // Nguyen them
 
 	bool isActive;
 	int objectType;

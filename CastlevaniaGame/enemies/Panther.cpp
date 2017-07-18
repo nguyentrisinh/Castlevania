@@ -3,16 +3,10 @@
 
 Panther::Panther() {}
 
-Panther::Panther(LPD3DXSPRITE _SpriteHandler, World *_manager)
+Panther::Panther(LPD3DXSPRITE _SpriteHandler, World *_manager) : Enemy(_SpriteHandler, _manager)
 {
-	manager = _manager;
-	collider = new Collider();
-	collider->setCollider(24, -24, -14, 14);
-	isActive = false;
 
-	spriteLeft = new Sprite(_SpriteHandler, "Resources\\Sprites\\creep_left.bmp", sizeWidth, sizeHeight, 29, 6);
-	spriteRight = new Sprite(_SpriteHandler, "Resources\\Sprites\\creep_right.bmp", sizeWidth, sizeHeight, 29, 6);
-	sprite = spriteLeft;
+	collider->setCollider(6, -32, -14, 14);
 
 
 }

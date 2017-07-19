@@ -49,11 +49,6 @@ public:
 
 	Collider *collider;
 
-	//float position.x;
-	//float position.y;
-	//float velocity.x;
-	//float velocity.y;
-
 	//Vector2 position
 	D3DXVECTOR2 position;
 	D3DXVECTOR2 velocity;

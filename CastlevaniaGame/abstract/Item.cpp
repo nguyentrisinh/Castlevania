@@ -9,8 +9,8 @@ Item::Item(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	sizeWidth = 128;
 	sizeHeight = 128;
 
-	postX = 400;
-	velocityX = 0.2f;
+	position.x = 400;
+	velocity.x = 0.2f;
 
 	spriteLeft = new Sprite(_SpriteHandler, "bonus.bmp", sizeWidth, sizeHeight, 22, 6);
 	sprite = spriteRight;
@@ -28,16 +28,16 @@ void Item::Init(int _X, int _Y)
 
 void Item::Update(const float &_DeltaTime)
 {
-	postX += (velocityX * _DeltaTime);
-	if (postX < 0 || postX > 500)
+	position.x += (velocity.x * _DeltaTime);
+	if (position.x < 0 || position.x > 500)
 	{
-		postX -= (velocityX * _DeltaTime);
-		velocityX = -velocityX;
-		postX += (velocityX * _DeltaTime);
+		position.x -= (velocity.x * _DeltaTime);
+		velocity.x = -velocity.x;
+		position.x += (velocity.x * _DeltaTime);
 	}
-	postY = 94;
+	position.y = 94;
 
-	if (velocityX > 0)
+	if (velocity.x > 0)
 		sprite = spriteRight;
 	else
 		sprite = spriteLeft;
@@ -46,7 +46,7 @@ void Item::Update(const float &_DeltaTime)
 
 void Item::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void Item::Destroy()

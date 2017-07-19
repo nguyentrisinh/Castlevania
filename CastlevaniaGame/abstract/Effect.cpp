@@ -27,7 +27,7 @@ void Effect::Update(const int &_deltaTime)
 
 void Effect::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void Effect::Destroy()

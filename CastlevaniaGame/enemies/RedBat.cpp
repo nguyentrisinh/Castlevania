@@ -18,13 +18,13 @@ RedBat :: ~RedBat()
 void RedBat::Init(int _X, int _Y, bool isRight)
 {
 	isActive = true;
-	postY = _Y;
-	postX = _X;
+	position.y = _Y;
+	position.x = _X;
 	a = 0;
 	if (isRight)
-		velocityX = -150;
+		velocity.x = -150;
 	else
-		velocityX = 150;
+		velocity.x = 150;
 }
 void RedBat::Init(int _X, int _Y)
 {
@@ -32,16 +32,16 @@ void RedBat::Init(int _X, int _Y)
 
 void RedBat::Update(const float &_DeltaTime)
 {
-	if (velocityX > 0)
+	if (velocity.x > 0)
 		sprite = spriteRight;
 	else
 		sprite = spriteLeft;
-	postX += velocityX * _DeltaTime;
+	position.x += velocity.x * _DeltaTime;
 	a += 0.05;
 	timerSprite += _DeltaTime;
 	if (timerSprite >= 0.2f)
 	{
-		postY = 20*sin(a) + 94;
+		position.y = 20*sin(a) + 94;
 		sprite->Next(7, 10);
 		timerSprite = 0;
 	}
@@ -52,7 +52,7 @@ void RedBat::Update(const float &_DeltaTime)
 
 void RedBat::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void RedBat::Destroy()
@@ -67,6 +67,6 @@ void RedBat::Collision()
 
 void RedBat::CheckActive()
 {
-	if (postX < Sprite::cameraXLeft || postX > Sprite::cameraXRight)
+	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
 		isActive = false;
 }

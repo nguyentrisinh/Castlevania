@@ -22,13 +22,13 @@ void Fish::Init(int _X, int _Y, bool isRight)
 {
 	isFiring = 0;
 	isActive = true;
-	postY += 10;
-	velocityY = 450;
-	postX = _X;
+	position.y += 10;
+	velocity.y = 450;
+	position.x = _X;
 	if (isRight)
-		velocityX = -80;
+		velocity.x = -80;
 	else
-		velocityX = 80;
+		velocity.x = 80;
 	jumping = true;
 	
 }
@@ -40,20 +40,20 @@ void Fish::Update(const float &_DeltaTime)
 {
 	srand(time(NULL));
 	timer = (rand() % 300 + 50) / 100.0;
-	if (velocityX > 0)
+	if (velocity.x > 0)
 		sprite = spriteRight;
 	else
 		sprite = spriteLeft;
 
-	velocityY += -(600 *_DeltaTime);
-	postY += (velocityY * _DeltaTime);
+	velocity.y += -(600 *_DeltaTime);
+	position.y += (velocity.y * _DeltaTime);
 
-	if (velocityY < 0 && postY < 94)
+	if (velocity.y < 0 && position.y < 94)
 	{
 		
 		jumping = false;
-		postY = 94;
-		postX += velocityX * _DeltaTime;
+		position.y = 94;
+		position.x += velocity.x * _DeltaTime;
 		isFiring += _DeltaTime;
 		timerSprite += _DeltaTime;
 		if (timerSprite >= 2*ANIM_TIME)
@@ -63,7 +63,7 @@ void Fish::Update(const float &_DeltaTime)
 			{
 				sprite->_Index = 11;
 				isFiring = 0;
-				velocityX = -velocityX;
+				velocity.x = -velocity.x;
 			}
 			else
 			{
@@ -82,7 +82,7 @@ void Fish::Update(float _X, float _Y)
 
 void Fish::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void Fish::Destroy()
@@ -97,6 +97,6 @@ void Fish::Collision()
 
 void Fish::CheckActive()
 {
-	if (postX < Sprite::cameraXLeft || postX > Sprite::cameraXRight)
+	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
 		isActive = false;
 }

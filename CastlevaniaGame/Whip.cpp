@@ -3,8 +3,8 @@
 Whip::Whip(LPD3DXSPRITE _SpriteHandler, World *_manager)
 {
 	collider = new Collider();
-	postX = 0;
-	postY = 0;
+	position.x = 0;
+	position.y = 0;
 	sizeWidth = 256;
 	sizeHeight = 64;
 	spriteLeft = new Sprite(_SpriteHandler, "Resources\\Sprites\\whip_left.bmp", sizeWidth, sizeHeight, 18, 3);
@@ -27,8 +27,8 @@ Whip::~Whip()
 void Whip::Init(int _X, int _Y)
 {
 	sprite->_Index = 2;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 }
 void Whip::Update(const float &_DeltaTime)
 {
@@ -36,7 +36,7 @@ void Whip::Update(const float &_DeltaTime)
 }
 void Whip::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void Whip::Render(float X, float Y, int simonIndex, bool isRight)
@@ -52,15 +52,15 @@ void Whip::Render(float X, float Y, int simonIndex, bool isRight)
 		collider->setCollider(18, 4, -72, -26);
 	}
 		
-	postX = X, postY = Y;
+	position.x = X, position.y = Y;
 	sprite->_Index = simonIndex - 11;
 	Render();
 }
 
 void Whip::Update(float X, float Y)
 {
-	postX = X;
-	postY = Y;
+	position.x = X;
+	position.y = Y;
 }
 void Whip::Destroy()
 {

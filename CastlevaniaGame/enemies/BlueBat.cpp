@@ -22,14 +22,14 @@ BlueBat :: ~BlueBat()
 void BlueBat::Init(int _X, int _Y, bool isRight)
 {
 	isActive = true;
-	postX = _X;
-	postY = _Y;
-	velocityY = -250;
+	position.x = _X;
+	position.y = _Y;
+	velocity.y = -250;
 
 	if (isRight)
-		velocityX = -160;
+		velocity.x = -160;
 	else
-		velocityX = 160;
+		velocity.x = 160;
 }
 void BlueBat::Init(int _X, int _Y)
 {
@@ -38,20 +38,20 @@ void BlueBat::Init(int _X, int _Y)
 void BlueBat::Update(const float &_DeltaTime)
 {
 	// set sprites with direction
-	if (velocityX > 0)
+	if (velocity.x > 0)
 		sprite = spriteRight;
 	else
 		sprite = spriteLeft;
 	// move
 
-	postX += velocityX * _DeltaTime;
+	position.x += velocity.x * _DeltaTime;
 	
-	postY += velocityY * _DeltaTime;
+	position.y += velocity.y * _DeltaTime;
 
 	timerSprite += _DeltaTime;
 		if (timerSprite >= 0.2f)
 	{
-		velocityY = velocityY / 2;
+		velocity.y = velocity.y / 2;
 		sprite->Next(19, 22);
 		timerSprite -= 0.2f;
 	}
@@ -62,7 +62,7 @@ void BlueBat::Update(const float &_DeltaTime)
 
 void BlueBat::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void BlueBat::Destroy()
@@ -77,6 +77,6 @@ void BlueBat::Collision()
 
 void BlueBat::CheckActive()
 {
-	if (postX < Sprite::cameraXLeft || postX > Sprite::cameraXRight)
+	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
 		isActive = false;
 }

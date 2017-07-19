@@ -27,7 +27,7 @@ void Ground::Update(const int &_deltaTime)
 
 void Ground::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void Ground::Destroy()

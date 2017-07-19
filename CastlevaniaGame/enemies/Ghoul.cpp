@@ -18,26 +18,26 @@ Ghoul :: ~Ghoul()
 void Ghoul::Init(int _X, int _Y, bool isRight)
 {
 	isActive = true;
-	postY = _Y;
-	postX = _X;
+	position.y = _Y;
+	position.x = _X;
 	if (isRight)
-		velocityX = -70;
+		velocity.x = -70;
 	else
-		velocityX = 70;
+		velocity.x = 70;
 }
 void Ghoul::Init(int _X, int _Y)
 {
 	isActive = true;
-	postY = _Y;
-	postX = _X;
-	velocityX = -70;
+	position.y = _Y;
+	position.x = _X;
+	velocity.x = -70;
 }
 
 void Ghoul::Update(const float &_DeltaTime)
 {
 	
-	postX += velocityX * _DeltaTime;
-	if (velocityX > 0)
+	position.x += velocity.x * _DeltaTime;
+	if (velocity.x > 0)
 		sprite = spriteRight;
 	else
 		sprite = spriteLeft;
@@ -55,7 +55,7 @@ void Ghoul::Update(const float &_DeltaTime)
 
 void Ghoul::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void Ghoul::Destroy()
@@ -70,6 +70,6 @@ void Ghoul::Collision()
 
 void Ghoul::CheckActive()
 {
-	if (postX < Sprite::cameraXLeft || postX > Sprite::cameraXRight)
+	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
 		isActive = false;
 }

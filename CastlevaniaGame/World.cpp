@@ -69,9 +69,9 @@ void World::Render()
 	if (!redBat->isActive)
 	{
 		if (Simon->isRight)
-			redBat->Init(Sprite::cameraXRight, Simon->postY, Simon->isRight);
+			redBat->Init(Sprite::cameraXRight, Simon->position.y, Simon->isRight);
 		else
-			redBat->Init(Sprite::cameraXLeft, Simon->postY, Simon->isRight);
+			redBat->Init(Sprite::cameraXLeft, Simon->position.y, Simon->isRight);
 	}
 	else
 	{
@@ -82,9 +82,9 @@ void World::Render()
 	if (!blueBat->isActive)
 	{
 		if (Simon->isRight)
-			blueBat->Init(Sprite::cameraXRight, Simon->postY + 60, Simon->isRight);
+			blueBat->Init(Sprite::cameraXRight, Simon->position.y + 60, Simon->isRight);
 		else
-			blueBat->Init(Sprite::cameraXLeft, Simon->postY + 60, Simon->isRight);
+			blueBat->Init(Sprite::cameraXLeft, Simon->position.y + 60, Simon->isRight);
 	}
 	else
 	{
@@ -124,9 +124,9 @@ void World::Render()
 	if (Simon->isAttack && Simon->sprite->_Index >= 11)
 	{
 		if (Simon->isCrouch)
-			whip->Render(Simon->postX, Simon->postY - 14, (Simon->sprite->_Index - 3), Simon->isRight);
+			whip->Render(Simon->position.x, Simon->position.y - 14, (Simon->sprite->_Index - 3), Simon->isRight);
 		else
-			whip->Render(Simon->postX, Simon->postY, Simon->sprite->_Index, Simon->isRight);
+			whip->Render(Simon->position.x, Simon->position.y, Simon->sprite->_Index, Simon->isRight);
 	}
 
 	//kiem tra hoat dong va xet va cham cua con ma ca rong

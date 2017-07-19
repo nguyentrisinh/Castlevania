@@ -33,12 +33,12 @@ Player::Player(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	invincibleTimer = 0;
 
 	weaponLevel = 1;
-	weaponPosY = -2;// animate weapon at postY - 2
+	weaponPosY = -2;// animate weapon at position.y - 2
 	weaponNumber = 1;
 
 	heart = 5;
 	health = 16;
-	postY = 94;
+	position.y = 94;
 }
 
 
@@ -77,8 +77,8 @@ void Player::Init(int _X, int _Y)
 
 	invincibleTimer = 0;
 
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 
 	weaponLevel = 1;
 	weaponPosY = -2;
@@ -106,8 +106,8 @@ void Player::Update(const float &_DeltaTime)
 
 	if (isAttack)
 	{
-		if (postY < tempGround)
-			postY = tempGround;
+		if (position.y < tempGround)
+			position.y = tempGround;
 		timerSprite += _DeltaTime;
 		//truong hop ngoi danh
 		if (isCrouch)
@@ -147,21 +147,21 @@ void Player::Update(const float &_DeltaTime)
 		}
 	}
 	else
-		postX += (velocityX * _DeltaTime);
+		position.x += (velocity.x * _DeltaTime);
 
 
-	velocityY += -(1000 * _DeltaTime);
-	postY += (velocityY * _DeltaTime);
+	velocity.y += -(1000 * _DeltaTime);
+	position.y += (velocity.y * _DeltaTime);
 	if (isJump)
 	{
-		if (velocityY > 0)
+		if (velocity.y > 0)
 		{
 			//sprite->Next(4, 4);
 		}
 		else if (downJump)
 		{
 			downJump = false;
-			postY -= 10;
+			position.y -= 10;
 			if(!isAttack)
 			{
 				sprite->Next(0, 0);
@@ -171,9 +171,9 @@ void Player::Update(const float &_DeltaTime)
 		}
 	}
 
-	if (postY < tempGround)
+	if (position.y < tempGround)
 	{
-		postY = tempGround;
+		position.y = tempGround;
 		isJump = false;
 		if (isHitted)
 		{
@@ -184,7 +184,7 @@ void Player::Update(const float &_DeltaTime)
 			timerSprite = 0;
 		}
 
-		velocityY = 0;
+		velocity.y = 0;
 	}
 
 	//sprite->Next(0, 0);
@@ -193,7 +193,7 @@ void Player::Update(const float &_DeltaTime)
 	
 	/*else
 	{
-		if (velocityX != 0)
+		if (velocity.x != 0)
 		{
 			timerSprite += _DeltaTime;
 			if (timerSprite > ANIM_TIME)
@@ -216,7 +216,7 @@ void Player::Update(const float &_DeltaTime)
 
 
 	//////////
-	Sprite::cameraX = postX - 256;
+	Sprite::cameraX = position.x - 256;
 	if (Sprite::cameraX < Sprite::cameraXLeft)
 	{
 		Sprite::cameraX = Sprite::cameraXLeft;
@@ -229,7 +229,7 @@ void Player::Update(const float &_DeltaTime)
 
 void Player::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void Player::Destroy() {}
@@ -251,22 +251,22 @@ void Player::Move(int moveKey, const float &_DeltaTime)
 		switch (moveKey)
 		{
 		case -1:
-			velocityX = -70;
+			velocity.x = -70;
 			isRight = false;
 			sprite = spriteLeft;
 			break;
 		case 1:
-			velocityX = 70;
+			velocity.x = 70;
 			isRight = true;
 			sprite = spriteRight;
 			break;
 		default:
-			velocityX = 0;
+			velocity.x = 0;
 			sprite->Next(0, 0);
 			break;
 		}
 
-		if (velocityX != 0)
+		if (velocity.x != 0)
 		{
 			timerSprite += _DeltaTime;
 			if (timerSprite > ANIM_TIME)
@@ -286,14 +286,14 @@ void Player::Up(int upKey)
 	switch (upKey)
 	{
 	case -1:
-		velocityX = -0.2;
-		velocityY = 0.2;
+		velocity.x = -0.2;
+		velocity.y = 0.2;
 		isRight = false;
 		sprite = spriteLeft;
 		break;
 	case 1:
-		velocityX = 0.2;
-		velocityY = 0.2;
+		velocity.x = 0.2;
+		velocity.y = 0.2;
 		isRight = true;
 		sprite = spriteRight;
 		break;
@@ -344,14 +344,14 @@ void Player::Down(int downKey)
 	switch (downKey)
 	{
 	case -1:
-		velocityX = -0.2;
-		velocityY = -0.2;
+		velocity.x = -0.2;
+		velocity.y = -0.2;
 		isRight = false;
 		sprite = spriteLeft;
 		break;
 	case 1:
-		velocityX = 0.2;
-		velocityY = -0.2;
+		velocity.x = 0.2;
+		velocity.y = -0.2;
 		isRight = true;
 		sprite = spriteRight;
 		break;
@@ -367,8 +367,8 @@ void Player::Jump()
 	{
 		isJump = true;
 		downJump = true;
-		postY += 10;
-		velocityY = 410;
+		position.y += 10;
+		velocity.y = 410;
 		sprite->Next(4, 4);
 		collider->top = 14;
 	}
@@ -390,14 +390,14 @@ void Player::Injured()
 		return;
 	if (isHitted)
 		return;
-	velocityY = 300;
+	velocity.y = 300;
 	isHitted = true;
 	sprite->Next(9, 9);
 	if (isRight)
 	{
-		velocityX = -80;
+		velocity.x = -80;
 	}
 	else
-		velocityX = 80;
+		velocity.x = 80;
 }
 	

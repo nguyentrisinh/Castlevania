@@ -16,10 +16,10 @@ GameObject::GameObject()
 	timerSprite = 0;
 	collider = NULL;
 
-	postX = 0;
-	postY = 0;
-	velocityX = 0;
-	velocityY = 0;
+	position.x = 0;
+	position.y = 0;
+	velocity.x = 0;
+	velocity.y = 0;
 }
 
 
@@ -56,19 +56,19 @@ bool GameObject::isCollide(GameObject *target)
 		return false;
 	
 	// cạnh trái của this > cạnh phải của target
-	if ((postX + collider->left) > (target->postX + target->collider->right))
+	if ((position.x + collider->left) > (target->position.x + target->collider->right))
 		return false;
 
 	// cạnh phải của this < cạnh trái của target
-	if ((postX + collider->right) < (target->postX + target->collider->left))
+	if ((position.x + collider->right) < (target->position.x + target->collider->left))
 		return false;
 
 	// cạnh trên của this < cạnh dưới của target
-	if ((postY + collider->top) < (target->postY + target->collider->bottom))
+	if ((position.y + collider->top) < (target->position.y + target->collider->bottom))
 		return false;
 
 	// cạnh dưới của this > cạnh trên của target
-	if ((postY + collider->bottom) > (target->postY + target->collider->top))
+	if ((position.y + collider->bottom) > (target->position.y + target->collider->top))
 		return false;
 
 	// ko thoả điều kiện nào hết => đang nằm lồng vào nhau
@@ -95,39 +95,39 @@ float GameObject::sweptAABB(GameObject *target, float _deltatime)
 	float xInvExit, yInvExit;
 
 	//nếu như vật đi về bên phải --->
-	if (this->velocityX > 0)
+	if (this->velocity.x > 0)
 	{
-		//với postX là vị trí tại tâm của vật  thì, hình mô tả A là this, B là target
+		//với position.x là vị trí tại tâm của vật  thì, hình mô tả A là this, B là target
 		//  [A]  ----->  [B]
-		//target->postX + target->collider->left = vị trí cạnh trái của target
-		//this->postX + this->collider->right = vị trí của cạnh phải this
-		xInvEntry = (target->postX + target->collider->left) - (this->postX + this->collider->right);
-		//target->postX + target->collider->right = vị trí cạnh phải của target
-		//this->postX + this->collider->left = vị trí của cạnh trái this
-		xInvExit = (target->postX + target->collider->right) - (this->postX + this->collider->left);
+		//target->position.x + target->collider->left = vị trí cạnh trái của target
+		//this->position.x + this->collider->right = vị trí của cạnh phải this
+		xInvEntry = (target->position.x + target->collider->left) - (this->position.x + this->collider->right);
+		//target->position.x + target->collider->right = vị trí cạnh phải của target
+		//this->position.x + this->collider->left = vị trí của cạnh trái this
+		xInvExit = (target->position.x + target->collider->right) - (this->position.x + this->collider->left);
 	}
 	else
 	{
-		//với postX là vị trí tại tâm của vật  thì, hình mô tả A là this, B là target
+		//với position.x là vị trí tại tâm của vật  thì, hình mô tả A là this, B là target
 		//  [B]  <-----  [A]
-		//target->postX + target->collider->right = vị trí cạnh phải của target
-		//this->postX + this->collider->left = vị trí của cạnh trái this
-		xInvEntry = (target->postX + target->collider->right) - (this->postX + this->collider->left);
-		//target->postX + target->collider->left = vị trí cạnh trái của target
-		//this->postX + this->collider->right = vị trí của cạnh phải this
-		xInvExit = (target->postX + target->collider->left) - (this->postX + this->collider->right);
+		//target->position.x + target->collider->right = vị trí cạnh phải của target
+		//this->position.x + this->collider->left = vị trí của cạnh trái this
+		xInvEntry = (target->position.x + target->collider->right) - (this->position.x + this->collider->left);
+		//target->position.x + target->collider->left = vị trí cạnh trái của target
+		//this->position.x + this->collider->right = vị trí của cạnh phải this
+		xInvExit = (target->position.x + target->collider->left) - (this->position.x + this->collider->right);
 	}
 
 	//Nếu vật đi xuống dưới
-	if (this->velocityY > 0.0f)
+	if (this->velocity.y > 0.0f)
 	{
-		yInvEntry = (target->postY + target->collider->top) - (this->postY + this->collider->bottom);
-		yInvExit = (target->postY + target->collider->bottom) - (this->postY + this->collider->top);
+		yInvEntry = (target->position.y + target->collider->top) - (this->position.y + this->collider->bottom);
+		yInvExit = (target->position.y + target->collider->bottom) - (this->position.y + this->collider->top);
 	}
 	else
 	{
-		yInvEntry = (target->postY + this->collider->bottom) - (this->postY + this->collider->top);
-		yInvExit = (target->postY + target->collider->top) - (this->postY + this->collider->bottom);
+		yInvEntry = (target->position.y + this->collider->bottom) - (this->position.y + this->collider->top);
+		yInvExit = (target->position.y + target->collider->top) - (this->position.y + this->collider->bottom);
 	}
 
 
@@ -137,7 +137,7 @@ float GameObject::sweptAABB(GameObject *target, float _deltatime)
 	float xExit, yExit;
 
 	// Xác định thời gian bắt đầu xảy ra va chạm và kết thuc va chạm theo trục X
-	if (this->velocityX == 0.0f)
+	if (this->velocity.x == 0.0f)
 	{
 		//Trường hợp vận tốc bằng 0 thì tất cả các thông số là vô cực
 		xEntry = -std::numeric_limits<float>::infinity();
@@ -145,12 +145,12 @@ float GameObject::sweptAABB(GameObject *target, float _deltatime)
 	}
 	else
 	{
-		xEntry = xInvEntry / this->velocityX; //Khoảng thời gian bắt đầu va chạm theo chiều X
-		xExit = xInvExit / this->velocityX; //Khoảng thời gian kết thúc va chạm theo chiều X
+		xEntry = xInvEntry / this->velocity.x; //Khoảng thời gian bắt đầu va chạm theo chiều X
+		xExit = xInvExit / this->velocity.x; //Khoảng thời gian kết thúc va chạm theo chiều X
 	}
 
 	//Xác định thời gian bắt đầu xảy ra va chạm và kết thúc va chạm theo chiều Y
-	if (this->velocityY == 0.0f)
+	if (this->velocity.y == 0.0f)
 	{
 		//Trường hợp vận tốc bằng 0 thì tất cả các thông số là vô cực
 		yEntry = -std::numeric_limits<float>::infinity();
@@ -158,8 +158,8 @@ float GameObject::sweptAABB(GameObject *target, float _deltatime)
 	}
 	else
 	{
-		yEntry = yInvEntry / this->velocityY; //Khoảng thời gian bắt đầu va chạm theo chiều Y
-		yExit = yInvExit / this->velocityY; //Khoảng thời gian kết thúc va chạm theo chiều Y
+		yEntry = yInvEntry / this->velocity.y; //Khoảng thời gian bắt đầu va chạm theo chiều Y
+		yExit = yInvExit / this->velocity.y; //Khoảng thời gian kết thúc va chạm theo chiều Y
 	}
 
 	//tìm khoảng thời gian bắt đầu và kết thúc va chạm 

@@ -19,12 +19,12 @@ Panther :: ~Panther()
 void Panther::Init(int _X, int _Y, bool isRight)
 {
 	isActive = true;
-	postY = _Y;
-	postX = _X;
+	position.y = _Y;
+	position.x = _X;
 	if (isRight)
-		velocityX = -150;
+		velocity.x = -150;
 	else
-		velocityX = 150;
+		velocity.x = 150;
 }
 void Panther::Init(int _X, int _Y)
 {
@@ -33,8 +33,8 @@ void Panther::Init(int _X, int _Y)
 void Panther::Update(const float &_DeltaTime)
 {
 
-	postX += velocityX * _DeltaTime;
-	if (velocityX > 0)
+	position.x += velocity.x * _DeltaTime;
+	if (velocity.x > 0)
 		sprite = spriteRight;
 	else
 		sprite = spriteLeft;
@@ -52,7 +52,7 @@ void Panther::Update(const float &_DeltaTime)
 
 void Panther::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void Panther::Destroy()
@@ -67,6 +67,6 @@ void Panther::Collision()
 
 void Panther::CheckActive()
 {
-	if (postX < Sprite::cameraXLeft || postX > Sprite::cameraXRight)
+	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
 		isActive = false;
 }

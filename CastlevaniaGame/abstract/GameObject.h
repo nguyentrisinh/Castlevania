@@ -49,10 +49,14 @@ public:
 
 	Collider *collider;
 
-	float postX;
-	float postY;
-	float velocityX;
-	float velocityY;
+	//float position.x;
+	//float position.y;
+	//float velocity.x;
+	//float velocity.y;
+
+	//Vector2 position
+	D3DXVECTOR2 position;
+	D3DXVECTOR2 velocity;
 
 	// constructor và destructor
 	GameObject();

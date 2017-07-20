@@ -153,8 +153,7 @@ void Game::_LoadSound()
 		MessageBox(NULL, "Unable to init DirectSound", "ERROR", MB_OK);
 	}
 	
-	//DSBuffer = LoadWaveToSoundBuffer("sound.wav");
-	 DSBuffer = LoadWaveToSoundBuffer("Resources\\Sounds\\stage-01.wav");
+	DSBuffer = LoadWaveToSoundBuffer("Resources\\Sounds\\stage-01.wav");
 	if (!DSBuffer)
 	{
 		MessageBox(NULL, "Unable to load sound.wav", "ERROR", MB_OK);

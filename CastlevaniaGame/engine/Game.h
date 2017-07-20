@@ -53,8 +53,7 @@ public:
 
 	//Bien dung cho Game time
 	DWORD _DeltaTime;							//Thoi gian tu frame truoc den frame nay
-	//DWORD _SleepTime;			// failed on using GetTickCount()
-	int _FrameRate;								//Thuong la 30 hinh/giay
+	int _FrameRate;								//30 hinh/giay
 
 	//Cac thuoc tinh man hinh
 	int _IsFullScreen;		

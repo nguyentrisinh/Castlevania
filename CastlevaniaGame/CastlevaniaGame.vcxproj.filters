@@ -54,16 +54,10 @@
     <ClCompile Include="enemies\RedBat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="abstract\Effect.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="engine\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="engine\MainGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="abstract\Item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="abstract\Player.cpp">
@@ -119,16 +113,10 @@
     <ClInclude Include="enemies\RedBat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="abstract\Effect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="engine\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="engine\MainGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="abstract\Item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="abstract\Player.h">

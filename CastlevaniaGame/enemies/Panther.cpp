@@ -64,9 +64,3 @@ void Panther::Collision()
 {
 
 }
-
-void Panther::CheckActive()
-{
-	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
-		isActive = false;
-}

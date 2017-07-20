@@ -64,9 +64,3 @@ void RedBat::Collision()
 {
 
 }
-
-void RedBat::CheckActive()
-{
-	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
-		isActive = false;
-}

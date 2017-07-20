@@ -94,9 +94,3 @@ void Fish::Collision()
 {
 
 }
-
-void Fish::CheckActive()
-{
-	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
-		isActive = false;
-}

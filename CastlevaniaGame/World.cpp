@@ -37,113 +37,39 @@ void World::Init()
 void World::Update(float _DeltaTime)
 {
 	Simon->Update(_DeltaTime);
-	if (ghoul->isActive)
-		ghoul->Update(_DeltaTime);
-	if (redBat->isActive)
-		redBat->Update(_DeltaTime);
-	if (blueBat->isActive)
-		blueBat->Update(_DeltaTime);
-	if (panther->isActive)
-		panther->Update(_DeltaTime);
-	if (fish->isActive)
-		fish->Update(_DeltaTime);
+
+	
+	UpdateCreep(_DeltaTime);
 }
 
-// gọi ở cuối game_run, bên trong BeginScene() và EndScene();
-void World::Render()
+void World::UpdateCreep(float _DeltaTime)
 {
-	//kiem tra dieu kien va render ma ca rong
-	if (!ghoul->isActive)
-	{
-		if (Simon->isRight)
-			ghoul->Init(Sprite::cameraXRight, 94, Simon->isRight);
-		else
-			ghoul->Init(Sprite::cameraXLeft, 94, Simon->isRight);
-	}
-	else
-	{
-		ghoul->Render();
-	}
 
-	// kiem tra dieu kien va render dơi đỏ
-	if (!redBat->isActive)
-	{
-		if (Simon->isRight)
-			redBat->Init(Sprite::cameraXRight, Simon->position.y, Simon->isRight);
-		else
-			redBat->Init(Sprite::cameraXLeft, Simon->position.y, Simon->isRight);
-	}
-	else
-	{
-		redBat->Render();
-	}
+	// update quái nếu nó sống  ||| và tạo lại nếu nó chết rồi
 
-	//kiem tra điều kiện và render dơi xanh
-	if (!blueBat->isActive)
-	{
-		if (Simon->isRight)
-			blueBat->Init(Sprite::cameraXRight, Simon->position.y + 60, Simon->isRight);
-		else
-			blueBat->Init(Sprite::cameraXLeft, Simon->position.y + 60, Simon->isRight);
-	}
-	else
-	{
-		blueBat->Render();
-	}
-
-	//kiem tra dieu kien va render con beo
-	if (!panther->isActive)
-	{
-		if (Simon->isRight)
-			panther->Init(Sprite::cameraXRight, 94, Simon->isRight);
-		else
-			panther->Init(Sprite::cameraXLeft, 94, Simon->isRight);
-	}
-	else
-	{
-		panther->Render();
-	}
-
-	//kiem tra dieu kien va render con quỷ Cá xấu xí
-	if (!fish->isActive)
-	{
-		//srand(time(NULL));
-		local = (rand() % Sprite::cameraXRight + Sprite::cameraXLeft) / 2;
-		fish->Init(local, 94, Simon->isRight);
-	}
-	else
-	{
-		fish->Render();
-	}
-
-	// render nhân vật
-	Simon->Render();
-
-
-	//kiem tra dieu kien va render cai roi
-	if (Simon->isAttack && Simon->sprite->_Index >= 11)
-	{
-		if (Simon->isCrouch)
-			whip->Render(Simon->position.x, Simon->position.y - 14, (Simon->sprite->_Index - 3), Simon->isRight);
-		else
-			whip->Render(Simon->position.x, Simon->position.y, Simon->sprite->_Index, Simon->isRight);
-	}
-
-	//kiem tra hoat dong va xet va cham cua con ma ca rong
-	ghoul->CheckActive();
 	if (ghoul->isActive)
 	{
+		ghoul->Update(_DeltaTime);
+
 		if (ghoul->isCollide(Simon) && !Simon->isImmortal)
 			Simon->Injured();
 		if (Simon->isAttack && Simon->killingMoment)
 			if (ghoul->isCollide(whip))
 				ghoul->isActive = false;
 	}
+	else
+	{
+		if (Simon->isRight)
+			ghoul->Init(Sprite::cameraXRight, 94, Simon->isRight);
+		else
+			ghoul->Init(Sprite::cameraXLeft, 94, Simon->isRight);
+	}
 
-	//kiem tra hoat dong va xet va cham cua doi do
-	redBat->CheckActive();
+
 	if (redBat->isActive)
 	{
+		redBat->Update(_DeltaTime);
+
 		if (redBat->isCollide(Simon) && !Simon->isImmortal)
 		{
 			Simon->Injured();
@@ -154,11 +80,18 @@ void World::Render()
 			if (redBat->isCollide(whip))
 				redBat->isActive = false;
 	}
+	else
+	{
+		if (Simon->isRight)
+			redBat->Init(Sprite::cameraXRight, Simon->position.y, Simon->isRight);
+		else
+			redBat->Init(Sprite::cameraXLeft, Simon->position.y, Simon->isRight);
+	}
 
-	//kiem tra hoat dong va xet va cham cua doi xanh
-	blueBat->CheckActive();
 	if (blueBat->isActive)
 	{
+		blueBat->Update(_DeltaTime);
+
 		if (blueBat->isCollide(Simon) && !Simon->isImmortal)
 		{
 			Simon->Injured();
@@ -169,28 +102,97 @@ void World::Render()
 			if (blueBat->isCollide(whip))
 				blueBat->isActive = false;
 	}
+	else
+	{
+		if (Simon->isRight)
+			blueBat->Init(Sprite::cameraXRight, Simon->position.y + 60, Simon->isRight);
+		else
+			blueBat->Init(Sprite::cameraXLeft, Simon->position.y + 60, Simon->isRight);
+	}
 
-	//kiem tra hoat dong va xet va cham cua con beo
-	panther->CheckActive();
 	if (panther->isActive)
 	{
+		panther->Update(_DeltaTime);
+
 		if (panther->isCollide(Simon) && !Simon->isImmortal)
 			Simon->Injured();
 		if (Simon->isAttack && Simon->killingMoment)
 			if (panther->isCollide(whip))
 				panther->isActive = false;
 	}
+	else
+	{
+		if (Simon->isRight)
+			panther->Init(Sprite::cameraXRight, 94, Simon->isRight);
+		else
+			panther->Init(Sprite::cameraXLeft, 94, Simon->isRight);
+	}
 
-	fish->CheckActive();
 	if (fish->isActive)
 	{
+		fish->Update(_DeltaTime);
+
+
 		if (fish->isCollide(Simon) && !Simon->isImmortal)
 			Simon->Injured();
 		if (Simon->isAttack && Simon->killingMoment)
 			if (fish->isCollide(whip))
 				fish->isActive = false;
 	}
-	
+	else
+	{
+		local = (rand() % Sprite::cameraXRight + Sprite::cameraXLeft) / 2;
+		fish->Init(local, 94, Simon->isRight);
+	}
+
+
+
+}
+
+// gọi ở cuối game_run, bên trong BeginScene() và EndScene();
+void World::Render()
+{
+	if (ghoul->isActive)
+	{
+		ghoul->Render();
+	}
+
+
+	if (redBat->isActive)
+	{
+		redBat->Render();
+	}
+
+	if (blueBat->isActive)
+	{
+		blueBat->Render();
+	}
+
+	if (panther->isActive)
+	{
+		panther->Render();
+	}
+
+	if (fish->isActive)
+	{
+		fish->Render();
+	}
+
+	Simon->Render();
+
+
+	//The whip
+	if (Simon->isAttack && Simon->sprite->_Index >= 11)
+	{
+		if (Simon->isCrouch)
+			whip->Render(Simon->position.x, Simon->position.y - 14, (Simon->sprite->_Index - 3), Simon->isRight);
+		else
+			whip->Render(Simon->position.x, Simon->position.y, Simon->sprite->_Index, Simon->isRight);
+	}
+
+
+
+
 }
 
 void World::Destroy()

@@ -67,9 +67,3 @@ void Ghoul::Collision()
 {
 
 }
-
-void Ghoul::CheckActive()
-{
-	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
-		isActive = false;
-}

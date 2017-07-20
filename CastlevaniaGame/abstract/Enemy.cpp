@@ -51,9 +51,3 @@ void Enemy::Collision()
 {
 
 }
-
-
-
-void Enemy::CheckActive()
-{
-}

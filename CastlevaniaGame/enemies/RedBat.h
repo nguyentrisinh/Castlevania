@@ -20,6 +20,5 @@ public:
 	virtual void Collision();
 
 	virtual void Init(int _X, int _Y, bool isRight);
-	virtual void CheckActive();
 };
 #endif // !_REDBAT_H_

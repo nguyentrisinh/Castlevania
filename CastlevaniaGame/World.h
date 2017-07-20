@@ -37,6 +37,8 @@ public:
 	void Update(float _DeltaTime);
 	void Render();
 	void Destroy();
+
+	void UpdateCreep(float _DeltaTime);
 };
 
 

@@ -23,8 +23,7 @@ public:
 	virtual void Destroy();
 	virtual void Collision();
 
-	//ham ao moi tao
-	virtual void CheckActive();
+
 	virtual void Init(int _X, int _Y, bool isRight);
 };
 #endif // !_ENEMY_H_

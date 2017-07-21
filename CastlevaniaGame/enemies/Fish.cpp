@@ -1,4 +1,4 @@
-#include "Fish.h"
+﻿#include "Fish.h"
 #include "../engine/Sprite.h"
 #include <time.h>
 
@@ -7,20 +7,20 @@ Fish::Fish() {}
 Fish::Fish(LPD3DXSPRITE _SpriteHandler, World *_manager): Enemy(_SpriteHandler, _manager)
 {
 	collider->setCollider(22, -32, -13, 13);
-	isFiring = false;
+	//isFiring = false;
 	timer = 5;
 	sprite->_Index = 12;
 	spriteRight->_Index = 12;
 }
 
-Fish :: ~Fish()
+Fish:: ~Fish()
 {
 
 }
 
 void Fish::Init(int _X, int _Y, bool isRight)
 {
-	isFiring = 0;
+	//isFiring = 0;
 	isActive = true;
 	position.y += 10;
 	velocity.y = 450;
@@ -38,8 +38,6 @@ void Fish::Init(int _X, int _Y)
 
 void Fish::Update(const float &_DeltaTime)
 {
-	srand(time(NULL));
-	timer = (rand() % 300 + 50) / 100.0;
 	if (velocity.x > 0)
 		sprite = spriteRight;
 	else
@@ -50,24 +48,15 @@ void Fish::Update(const float &_DeltaTime)
 
 	if (velocity.y < 0 && position.y < 94)
 	{
-		
+		//Kết thúc nhảy
 		jumping = false;
 		position.y = 94;
 		position.x += velocity.x * _DeltaTime;
-		isFiring += _DeltaTime;
 		timerSprite += _DeltaTime;
-		if (timerSprite >= 2*ANIM_TIME)
-		{
-			if (isFiring >= timer)
-			{
-				sprite->_Index = 11;
-				isFiring = 0;
-				velocity.x = -velocity.x;
-			}
-			else
-			{
-				sprite->Next(11, 13);
-			}
+
+		if (timerSprite >= 2 * ANIM_TIME)
+		{	
+			sprite->Next(11, 13);
 			timerSprite = 0;
 		}
 	}

@@ -115,7 +115,6 @@ void World::UpdateCreep(float _DeltaTime)
 	if (panther->isActive)
 	{
 		panther->Update(_DeltaTime);
-
 		if (panther->isCollide(Simon) && !Simon->isImmortal)
 			Simon->Injured();
 		if (Simon->isAttack && Simon->killingMoment)

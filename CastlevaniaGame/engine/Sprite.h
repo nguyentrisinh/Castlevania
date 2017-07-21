@@ -41,7 +41,6 @@ public:
 	void Render(int X, int Y);
 	void Render(LPDIRECT3DSURFACE9 Target, int X, int Y);
 	~Sprite();
-
 };
 
 #endif

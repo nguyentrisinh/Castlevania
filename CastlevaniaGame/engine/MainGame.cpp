@@ -13,11 +13,8 @@ MainGame::MainGame(HINSTANCE hInstance, LPCSTR Name, int IsFullScreen, int Frame
 	//Just for test
 	score = 5896;
 	timeUI = 523;
-
 	curHealth = 7;
 	curEnemy = 16;
-
-	// create world
 }
 
 void MainGame::LoadResources(LPDIRECT3DDEVICE9 _d3ddevice)
@@ -28,13 +25,11 @@ void MainGame::LoadResources(LPDIRECT3DDEVICE9 _d3ddevice)
 	_d3ddevice->CreateOffscreenPlainSurface(_ScreenWidth, _ScreenHeight, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &Background, NULL);
 	 D3DXLoadSurfaceFromFile(Background, NULL, NULL, BACKGROUND_FILE, NULL, D3DX_DEFAULT, 0, NULL);
 	
-	// dùng tạm
+	//set background
 	bg = new Sprite(_SpriteHandler, BACKGROUND_FILE, 5770, 896, 1, 1);
 	world = new World(_SpriteHandler, this);
 	world->Init();
 	Sprite::cameraY = 448;
-
-
 
 	//Hình dùng để render thanh máu, trái tim, khung chứa đồ trên thanh status 
 	statusBar = new Sprite(_SpriteHandler, "Resources\\Sprites\\bar_health.bmp", 8, 16, 4, 4);
@@ -66,6 +61,8 @@ string MainGame::convertScoreFormat(int score)
 	else
 		return std::to_string(score);
 }
+
+
 string MainGame::convertTimeFormat(int timeUI)
 {
 	if (timeUI < 10)
@@ -77,6 +74,7 @@ string MainGame::convertTimeFormat(int timeUI)
 	else
 		return std::to_string(score);
 }
+
 string MainGame::convertTwoDigitFormat(int digit)
 {
 	if (digit < 10)

@@ -37,8 +37,6 @@ void World::Init()
 void World::Update(float _DeltaTime)
 {
 	Simon->Update(_DeltaTime);
-
-	
 	UpdateCreep(_DeltaTime);
 }
 
@@ -46,7 +44,7 @@ void World::UpdateCreep(float _DeltaTime)
 {
 
 	// update quái nếu nó sống  ||| và tạo lại nếu nó chết rồi
-
+	
 	if (ghoul->isActive)
 	{
 		ghoul->Update(_DeltaTime);
@@ -57,6 +55,8 @@ void World::UpdateCreep(float _DeltaTime)
 			if (ghoul->isCollide(whip))
 				ghoul->isActive = false;
 	}
+
+
 	else
 	{
 		if (Simon->isRight)
@@ -87,10 +87,12 @@ void World::UpdateCreep(float _DeltaTime)
 		else
 			redBat->Init(Sprite::cameraXLeft, Simon->position.y, Simon->isRight);
 	}
-
+	
 	if (blueBat->isActive)
 	{
 		blueBat->Update(_DeltaTime);
+		if (blueBat->position.x < 0)
+			blueBat->isActive = false;
 
 		if (blueBat->isCollide(Simon) && !Simon->isImmortal)
 		{
@@ -105,11 +107,11 @@ void World::UpdateCreep(float _DeltaTime)
 	else
 	{
 		if (Simon->isRight)
-			blueBat->Init(Sprite::cameraXRight, Simon->position.y + 60, Simon->isRight);
+			blueBat->Init(Simon->position.x + 200, Simon->position.y + 60, 1);
 		else
-			blueBat->Init(Sprite::cameraXLeft, Simon->position.y + 60, Simon->isRight);
+			blueBat->Init(Simon->position.x + 200, Simon->position.y + 60, 1);
 	}
-
+	
 	if (panther->isActive)
 	{
 		panther->Update(_DeltaTime);
@@ -144,9 +146,6 @@ void World::UpdateCreep(float _DeltaTime)
 		local = (rand() % Sprite::cameraXRight + Sprite::cameraXLeft) / 2;
 		fish->Init(local, 94, Simon->isRight);
 	}
-
-
-
 }
 
 // gọi ở cuối game_run, bên trong BeginScene() và EndScene();

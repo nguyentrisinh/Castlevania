@@ -58,7 +58,6 @@ void Fish::Update(const float &_DeltaTime)
 		timerSprite += _DeltaTime;
 		if (timerSprite >= 2*ANIM_TIME)
 		{
-	
 			if (isFiring >= timer)
 			{
 				sprite->_Index = 11;
@@ -67,7 +66,7 @@ void Fish::Update(const float &_DeltaTime)
 			}
 			else
 			{
-				sprite->Next(12, 13);
+				sprite->Next(11, 13);
 			}
 			timerSprite = 0;
 		}

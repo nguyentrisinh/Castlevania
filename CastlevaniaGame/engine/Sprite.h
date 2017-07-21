@@ -17,9 +17,6 @@ protected:
 	int _Count;								// Number of sprites
 	int _SpritePerRow;						// Number of sprites per row
 
-
-	
-
 public:
 	// bien index, da bi di doi sang public
 	int _Index;								// Current sprite index, [0,n-1]
@@ -30,7 +27,6 @@ public:
 	static int cameraX;
 	static int cameraY;
 	
-
 	//================================
 
 	Sprite::Sprite(LPD3DXSPRITE SpriteHandler, LPCSTR FilePath, int Width, int Height, int Count, int SpritePerRow);

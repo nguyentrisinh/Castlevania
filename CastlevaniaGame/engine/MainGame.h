@@ -10,14 +10,13 @@ public:
 	MainGame() {}
 	MainGame(HINSTANCE hInstance, LPCSTR Name, int IsFullScreen, int FrameRate);
 	~MainGame();
-
-	LPD3DXSPRITE _SpriteHandler;		//Dung truyen vao spritehandler cua class Sprite
+	//Dung truyen vao spritehandler cua class Sprite
+	LPD3DXSPRITE _SpriteHandler;		
 	DWORD last_time;
 	LPDIRECT3DSURFACE9 Background;
 
 	Sprite* bg;
 	World *world;
-
 
 	// UI
 	int score;
@@ -26,26 +25,28 @@ public:
 	int curHealth;
 	int curEnemy;
 
-
-
 	Sprite* statusBar;
 	Sprite* redEdge;
 	Sprite* heart;
 
 protected:
+
 	string convertScoreFormat(int score);
 	string convertTimeFormat(int timeUI);
 	string convertTwoDigitFormat(int digit);
 	void LoadStatusBar(int curHealth, int curEnemy);
-	//////////////////////////////////////////
-	virtual void LoadResources(LPDIRECT3DDEVICE9 d3ddevice);
-	virtual void UpdateFrame(float _DeltaTime);
-	virtual void RenderFrame(LPDIRECT3DDEVICE9 d3ddevice);// , int Delta);
-	//////////////////////////////////////
-	virtual void ProcessInput(LPDIRECT3DDEVICE9 d3ddevice, float _DeltaTime);
 	
-	virtual void OnKeyDown(int KeyCode);
-	virtual void OnKeyUp(int KeyCode);
+	//Main load resources: maps, bar, sprites
+	void LoadResources(LPDIRECT3DDEVICE9 d3ddevice);
+
+	//Main update game
+	void UpdateFrame(float _DeltaTime);
+	void RenderFrame(LPDIRECT3DDEVICE9 d3ddevice);// , int Delta);
+	
+	void ProcessInput(LPDIRECT3DDEVICE9 d3ddevice, float _DeltaTime);
+	
+	void OnKeyDown(int KeyCode);
+	void OnKeyUp(int KeyCode);
 };
 
 #endif

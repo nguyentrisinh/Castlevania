@@ -378,7 +378,6 @@ void Game::UpdateFrame(float _DeltaTime) {}
 void Game::RenderFrame(LPDIRECT3DDEVICE9 d3ddv)// , int Delta)
 {
 	d3ddv->ColorFill(backbuffer, NULL, D3DCOLOR_XRGB(0, 0, 0));
-	
 }
 
 void Game::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, float _DeltaTime) { }

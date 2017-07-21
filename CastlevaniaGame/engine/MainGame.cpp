@@ -35,7 +35,6 @@ void MainGame::LoadResources(LPDIRECT3DDEVICE9 _d3ddevice)
 	statusBar = new Sprite(_SpriteHandler, "Resources\\Sprites\\bar_health.bmp", 8, 16, 4, 4);
 	redEdge = new Sprite(_SpriteHandler, "Resources\\Sprites\\redEdge.bmp", 80, 59, 1, 1);
 	heart = new Sprite(_SpriteHandler, "Resources\\Sprites\\heart.bmp", 16, 13, 1, 1);
-
 }
 
 // --- MAIN UPDATE FUNCTION ---
@@ -131,18 +130,23 @@ void MainGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv)// , int t)
 		"\n" +
 		"\nPLAYER" +
 		"\nENEMY";
+
+	//Số mạng của Simon
 	statusZone2 = "P - " + convertTwoDigitFormat(world->Simon->heart);
 }
 
-
 void MainGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, float _DeltaTime)		//Chạy khi nhấn giữ
 {
+	//Ngồi xuống
 	if (IsKeyDown(DIK_DOWN))
 	{
+		//Vừa ngồi vừa sang trái
 		if (IsKeyDown(DIK_LEFT))
 		{
 			world->Simon->isRight = false;
 		}
+
+		//Vừa ngồi vừa sang phải
 		else if (IsKeyDown(DIK_RIGHT))
 		{
 			world->Simon->isRight = true;
@@ -185,6 +189,7 @@ void MainGame::OnKeyDown(int KeyCode)					//Chỉ nhảy khi vừa nhấn, nhấ
 	}
 }
 
+//Nhả phím
 void MainGame::OnKeyUp(int KeyCode) {}
 
 MainGame::~MainGame()

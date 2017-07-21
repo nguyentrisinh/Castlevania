@@ -187,38 +187,14 @@ void Player::Update(const float &_DeltaTime)
 		velocity.y = 0;
 	}
 
-	//sprite->Next(0, 0);
-	
-
-	
-	/*else
-	{
-		if (velocity.x != 0)
-		{
-			timerSprite += _DeltaTime;
-			if (timerSprite > ANIM_TIME)
-			{
-				timerSprite -= ANIM_TIME;
-				sprite->Next(0, 3);
-			}
-		}
-	}*/
-	
-	
 
 
-
-	/*
-	if (onStair == 1)
-		sprite->Next(7, 8);
-	if (onStair == -1)
-		sprite->Next(5, 6);*/
-
-
-	//////////
+	////////// update camera 
 	Sprite::cameraX = position.x - 256;
+	//nếu cạnh của camera bé hơn giới hạn trái
 	if (Sprite::cameraX < Sprite::cameraXLeft)
 	{
+		//Cho cạnh camera chính là giới hạn trái 
 		Sprite::cameraX = Sprite::cameraXLeft;
 	}
 	else if (Sprite::cameraX > Sprite::cameraXRight)
@@ -282,22 +258,7 @@ void Player::Move(int moveKey, const float &_DeltaTime)
 
 void Player::Up(int upKey)
 {
-	/*onStair = 1;
-	switch (upKey)
-	{
-	case -1:
-		velocity.x = -0.2;
-		velocity.y = 0.2;
-		isRight = false;
-		sprite = spriteLeft;
-		break;
-	case 1:
-		velocity.x = 0.2;
-		velocity.y = 0.2;
-		isRight = true;
-		sprite = spriteRight;
-		break;
-	}*/
+
 }
 
 void Player::Down(int downKey)
@@ -305,7 +266,6 @@ void Player::Down(int downKey)
 	if (onStair)
 	{
 		return;
-		// changed in future
 	}
 	if (isJump)
 	{
@@ -339,23 +299,6 @@ void Player::Down(int downKey)
 		sprite->Next(4, 4);
 	}
 
-	/*
-	onStair = -1;
-	switch (downKey)
-	{
-	case -1:
-		velocity.x = -0.2;
-		velocity.y = -0.2;
-		isRight = false;
-		sprite = spriteLeft;
-		break;
-	case 1:
-		velocity.x = 0.2;
-		velocity.y = -0.2;
-		isRight = true;
-		sprite = spriteRight;
-		break;
-	}*/
 }
 
 void Player::Jump()

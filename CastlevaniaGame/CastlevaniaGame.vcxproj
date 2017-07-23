@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="abstract\Zone.cpp" />
     <ClCompile Include="enemies\BlueBat.cpp" />
     <ClCompile Include="engine\sound\dsutil.cpp" />
     <ClCompile Include="engine\sound\dxutil.cpp" />
@@ -146,10 +147,13 @@
     <ClCompile Include="abstract\Projectile.cpp" />
     <ClCompile Include="enemies\RedBat.cpp" />
     <ClCompile Include="engine\Sprite.cpp" />
+    <ClCompile Include="QuadTree_and_File\TileMap.cpp" />
     <ClCompile Include="Whip.cpp" />
     <ClCompile Include="World.cpp" />
+    <ClCompile Include="zone\GateWay.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="abstract\Zone.h" />
     <ClInclude Include="enemies\BlueBat.h" />
     <ClInclude Include="engine\sound\dsutil.h" />
     <ClInclude Include="engine\sound\dxutil.h" />
@@ -166,9 +170,20 @@
     <ClInclude Include="abstract\Projectile.h" />
     <ClInclude Include="enemies\RedBat.h" />
     <ClInclude Include="engine\Sprite.h" />
+    <ClInclude Include="QuadTree_and_File\TileMap.h" />
     <ClInclude Include="ThamSo.h" />
     <ClInclude Include="Whip.h" />
     <ClInclude Include="World.h" />
+    <ClInclude Include="zone\GateWay.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resources\map1.txt" />
+    <Text Include="Resources\map2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\map1_tiled.PNG" />
+    <Image Include="Resources\map2_tiled.PNG" />
+    <Image Include="Resources\Sprites\FF00FF.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,9 +1,9 @@
 ﻿#include "Sprite.h"
 
 // --------- init static ------------------
-int Sprite::cameraXLeft = 0;
+int Sprite::cameraXLeft = 32;
 int Sprite::cameraXRight = 992;
-int Sprite::cameraX = 0;
+int Sprite::cameraX = 32;
 int Sprite::cameraY = 0;
 // ----------------------------------------
 

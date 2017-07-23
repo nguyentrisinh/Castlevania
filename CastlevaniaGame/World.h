@@ -8,6 +8,9 @@
 #include "enemies/Panther.h"
 #include "enemies/Fish.h"
 
+//change Stage
+#include "zone\GateWay.h"
+
 class World
 {
 public:
@@ -25,6 +28,10 @@ public:
 	BlueBat *blueBat;
 	Panther *panther;
 	Fish *fish;
+
+	//object to change stage
+	GateWay *castleDoor;
+
 
 	int isPause;
 	float timer;

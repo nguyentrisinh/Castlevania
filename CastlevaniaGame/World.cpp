@@ -30,13 +30,27 @@ void World::Init()
 	panther = new Panther(spriteHandler, this);
 	fish = new Fish(spriteHandler, this);
 
-	Simon->Init(50, 150);
+	Simon->Init(70, 120);
+
+	//Init object to change screen
+	castleDoor = new GateWay(spriteHandler, this);
+	castleDoor->Init(128, 64, 1024, 1086, 100, 560, 32, 5408, 896);
 }
 
 // gọi ở đầu game_run
 void World::Update(float _DeltaTime)
 {
 	Simon->Update(_DeltaTime);
+
+	//Update condition Simon collide with gateway and change the stage
+	if (Simon->isCollide(castleDoor))
+	{
+		if ((castleDoor->objectType) == ZONE_TYPE)
+		{
+			castleDoor->Collision(Simon, _DeltaTime);
+		}
+	}
+	//---------------------------------------
 
 	
 	UpdateCreep(_DeltaTime);
@@ -152,6 +166,7 @@ void World::UpdateCreep(float _DeltaTime)
 // gọi ở cuối game_run, bên trong BeginScene() và EndScene();
 void World::Render()
 {
+
 	if (ghoul->isActive)
 	{
 		ghoul->Render();
@@ -190,6 +205,10 @@ void World::Render()
 			whip->Render(Simon->position.x, Simon->position.y, Simon->sprite->_Index, Simon->isRight);
 	}
 
+
+	//Render GateWay to change stage
+	castleDoor->Render();
+	//------------------------
 
 
 

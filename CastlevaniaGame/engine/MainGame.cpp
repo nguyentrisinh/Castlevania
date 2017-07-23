@@ -5,7 +5,7 @@
 
 #define SIMON_SPEED 0.2f
 #define GROUND 94
-#define BACKGROUND_FILE "Resources\\map1.bmp"
+#define BACKGROUND_FILE "Resources\\map1_tiled.PNG"
 #define VIEW_PORT_Y 448
 
 MainGame::MainGame(HINSTANCE hInstance, LPCSTR Name, int IsFullScreen, int FrameRate):Game(hInstance, Name, IsFullScreen, FrameRate)
@@ -32,7 +32,15 @@ void MainGame::LoadResources(LPDIRECT3DDEVICE9 _d3ddevice)
 	bg = new Sprite(_SpriteHandler, BACKGROUND_FILE, 5770, 896, 1, 1);
 	world = new World(_SpriteHandler, this);
 	world->Init();
-	Sprite::cameraY = 448;
+	Sprite::cameraY = 464;
+
+	map_1 = new TileMap();
+	map_1->source = new Sprite(_SpriteHandler, BACKGROUND_FILE, 32, 32, 180, 18);
+	map_2 = new TileMap();
+	map_2->source = new Sprite(_SpriteHandler, "Resources\\map2_tiled.PNG", 32, 32, 66, 11);
+
+	map_1->ReadMatrixFromFile("Resources\\map1.txt", &map_1_Matrix, "\t");
+	map_2->ReadMatrixFromFile("Resources\\map2.txt", &map_2_Matrix, "\t");
 
 
 
@@ -87,28 +95,50 @@ string MainGame::convertTwoDigitFormat(int digit)
 
 void MainGame::LoadStatusBar(int curHealth, int curEnemy)
 {
+	//for (int i = 0; i < curHealth; i++)
+	//{
+	//	statusBar->Next(0, 0);
+	//	statusBar->Render(70 + i * 8 + heart->cameraX, 410);
+	//}
+	//for (int i = curHealth; i < 16; i++)
+	//{
+	//	statusBar->Next(1, 1);
+	//	statusBar->Render(70 + i * 8 + heart->cameraX, 410);
+	//}
+	//for (int i = 0; i < curEnemy; i++)
+	//{
+	//	statusBar->Next(2, 2);
+	//	statusBar->Render(70 + i * 8 + heart->cameraX, 396);
+	//}
+	//for (int i = curEnemy; i < 16; i++)
+	//{
+	//	statusBar->Next(3, 3);
+	//	statusBar->Render(70 + i * 8 + heart->cameraX, 396);
+	//}
+	//redEdge->Render(250 + heart->cameraX, 396);
+	//heart->Render(300 + heart->cameraX, 410);
 	for (int i = 0; i < curHealth; i++)
 	{
 		statusBar->Next(0, 0);
-		statusBar->Render(70 + i * 8 + heart->cameraX, 410);
+		statusBar->Render(70 + i * 8 + Sprite::cameraX, 410 + Sprite::cameraY - _ScreenHeight);
 	}
 	for (int i = curHealth; i < 16; i++)
 	{
 		statusBar->Next(1, 1);
-		statusBar->Render(70 + i * 8 + heart->cameraX, 410);
+		statusBar->Render(70 + i * 8 + Sprite::cameraX, 410 + Sprite::cameraY - _ScreenHeight);
 	}
 	for (int i = 0; i < curEnemy; i++)
 	{
 		statusBar->Next(2, 2);
-		statusBar->Render(70 + i * 8 + heart->cameraX, 396);
+		statusBar->Render(70 + i * 8 + Sprite::cameraX, 396 + Sprite::cameraY - _ScreenHeight);
 	}
 	for (int i = curEnemy; i < 16; i++)
 	{
 		statusBar->Next(3, 3);
-		statusBar->Render(70 + i * 8 + heart->cameraX, 396);
+		statusBar->Render(70 + i * 8 + Sprite::cameraX, 396 + Sprite::cameraY - _ScreenHeight);
 	}
-	redEdge->Render(250 + heart->cameraX, 396);
-	heart->Render(300 + heart->cameraX, 410);
+	redEdge->Render(250 + Sprite::cameraX, 396 + Sprite::cameraY - _ScreenHeight);
+	heart->Render(300 + Sprite::cameraX, 410 + Sprite::cameraY - _ScreenHeight);
 
 }
 
@@ -117,13 +147,29 @@ void MainGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv)// , int t)
 {
 	
 	
-	d3ddv->ColorFill(backbuffer, NULL, D3DCOLOR_XRGB(0, 0, 0));
-		
+	//d3ddv->ColorFill(backbuffer, NULL, D3DCOLOR_XRGB(0, 0, 0));
+	//	
+	//_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+	//
+	////bg->Render(2850, 448);
+	//map_1->LoadTiledMap(map_1_Matrix);
+	//world->Render();
+	//
+	//LoadStatusBar(curHealth, curEnemy);
+	//_SpriteHandler->End();
+	////Mấy dòng chữ sẽ hiện lên Status bar
+	//statusZone1 = "SCORE - " + convertScoreFormat(score) + "                  TIME "
+	//	+ convertTimeFormat(timeUI) +
+	//	"                 STAGE "
+	//	"\n" +
+	//	"\nPLAYER" +
+	//	"\nENEMY";
+	//statusZone2 = "P - " + convertTwoDigitFormat(world->Simon->heart);
+	
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	
-	bg->Render(2850, 448);
+	map_1->LoadTiledMap(map_1_Matrix);
 	world->Render();
-	
+
 	LoadStatusBar(curHealth, curEnemy);
 	_SpriteHandler->End();
 	//Mấy dòng chữ sẽ hiện lên Status bar

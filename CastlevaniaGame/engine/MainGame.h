@@ -1,8 +1,15 @@
 #pragma once
 #ifndef _RECTANGLES_H_
 #define _RECTANGLES_H_
-#include "game.h"
+#include <vector>
+using namespace std;
+
+#include "Game.h"
 #include "../World.h"
+#include "../QuadTree_and_File/TileMap.h"
+
+class TileMap;
+
 
 class MainGame :public Game
 {
@@ -16,6 +23,16 @@ public:
 	LPDIRECT3DSURFACE9 Background;
 
 	Sprite* bg;
+
+	//TileMap use for each stage
+	TileMap* map_1;
+	vector<vector<int>> map_1_Matrix;
+	TileMap* map_2;
+	vector<vector<int>> map_2_Matrix;
+
+	//TileMap* map_1;
+	//vector<vector<int>> map_1_Matrix;
+
 	World *world;
 
 

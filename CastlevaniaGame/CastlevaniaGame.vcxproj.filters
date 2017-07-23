@@ -72,6 +72,15 @@
     <ClCompile Include="abstract\Projectile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="abstract\Zone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="zone\GateWay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTree_and_File\TileMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ThamSo.h">
@@ -131,5 +140,29 @@
     <ClInclude Include="abstract\Projectile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="zone\GateWay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="abstract\Zone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadTree_and_File\TileMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resources\map1.txt" />
+    <Text Include="Resources\map2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\map1_tiled.PNG">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\map2_tiled.PNG">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Sprites\FF00FF.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

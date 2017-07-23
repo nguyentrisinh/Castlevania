@@ -41,7 +41,6 @@ void World::Init()
 void World::Update(float _DeltaTime)
 {
 	Simon->Update(_DeltaTime);
-<<<<<<< HEAD
 
 	//Update condition Simon collide with gateway and change the stage
 	if (Simon->isCollide(castleDoor))
@@ -53,9 +52,7 @@ void World::Update(float _DeltaTime)
 	}
 	//---------------------------------------
 
-	
-=======
->>>>>>> origin/master
+
 	UpdateCreep(_DeltaTime);
 }
 

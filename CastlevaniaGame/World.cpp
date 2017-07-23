@@ -99,9 +99,9 @@ void World::UpdateCreep(float _DeltaTime)
 	else
 	{
 		if (Simon->isRight)
-			redBat->Init(Sprite::cameraXRight, Simon->position.y, Simon->isRight);
+			redBat->Init(Sprite::cameraXRight, Simon->position.y + 60, Simon->isRight);
 		else
-			redBat->Init(Sprite::cameraXLeft, Simon->position.y, Simon->isRight);
+			redBat->Init(Sprite::cameraXLeft, Simon->position.y + 60, Simon->isRight);
 	}
 	
 	if (blueBat->isActive)
@@ -123,9 +123,9 @@ void World::UpdateCreep(float _DeltaTime)
 	else
 	{
 		if (Simon->isRight)
-			blueBat->Init(Simon->position.x + 200, Simon->position.y + 60, 1);
+			blueBat->Init(Sprite::cameraXRight, Simon->position.y + 60, 1);
 		else
-			blueBat->Init(Simon->position.x + 200, Simon->position.y + 60, 1);
+			blueBat->Init(Sprite::cameraXLeft, Simon->position.y + 60, 1);
 	}
 	
 	if (panther->isActive)

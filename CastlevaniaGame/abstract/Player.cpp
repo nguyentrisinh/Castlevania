@@ -1,4 +1,5 @@
 ﻿#include "Player.h"
+#include "..\World.h"
 
 // === CONSTRUCTOR === DESTRUCTOR ===
 Player::Player(LPD3DXSPRITE _SpriteHandler, World *_manager)
@@ -91,6 +92,18 @@ void Player::Init(int _X, int _Y)
 // ---=== THE MAIN PROCESSING ===---
 void Player::Update(const float &_DeltaTime)
 {
+	//Update condition Simon collide with gateway and change the stage
+	float entryTime = this->sweptAABB(manager->castleDoor, _DeltaTime);
+
+	if (entryTime > 0 && entryTime < _DeltaTime)
+	{
+		// giả sử ta không biết "castleDoor" này là thằng nào
+		if ((manager->castleDoor->objectType) == ZONE_TYPE)
+		{
+			manager->castleDoor->Collision(this, _DeltaTime);
+		}
+	}
+
 	
 	if (isImmortal)
 	{
@@ -144,6 +157,10 @@ void Player::Update(const float &_DeltaTime)
 				isAttack = false;
 				sprite->_Index = 0;
 			}
+		}
+		if (isJump)
+		{
+			position.x += (velocity.x * _DeltaTime);
 		}
 	}
 	else

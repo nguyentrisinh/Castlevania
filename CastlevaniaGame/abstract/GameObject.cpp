@@ -118,16 +118,16 @@ float GameObject::sweptAABB(GameObject *target, float _deltatime)
 		xInvExit = (target->position.x + target->collider->left) - (this->position.x + this->collider->right);
 	}
 
-	//Nếu vật đi xuống dưới
+	//Nếu vật đi lên trên
 	if (this->velocity.y > 0.0f)
 	{
-		yInvEntry = (target->position.y + target->collider->top) - (this->position.y + this->collider->bottom);
-		yInvExit = (target->position.y + target->collider->bottom) - (this->position.y + this->collider->top);
+		yInvEntry = (target->position.y + target->collider->bottom) - (this->position.y + this->collider->top);
+		yInvExit = (target->position.y + target->collider->top) - (this->position.y + this->collider->bottom);
 	}
 	else
 	{
-		yInvEntry = (target->position.y + this->collider->bottom) - (this->position.y + this->collider->top);
-		yInvExit = (target->position.y + target->collider->top) - (this->position.y + this->collider->bottom);
+		yInvEntry = (target->position.y + target->collider->top) - (this->position.y + this->collider->bottom);
+		yInvExit = (target->position.y + target->collider->bottom) - (this->position.y + this->collider->top);
 	}
 
 
@@ -164,17 +164,18 @@ float GameObject::sweptAABB(GameObject *target, float _deltatime)
 
 	//tìm khoảng thời gian bắt đầu và kết thúc va chạm 
 	float entryTime = max(xEntry, yEntry);
-	float exitTime = max(xExit, yExit);
+	float exitTime = min(xExit, yExit);
 
 	//Trường hợp không xảy ra va chạm
 	//DK1: thời gian bắt đầu va chạm trễ hơn thời gian kết thúc va chạm
 	//DK2: thời gian bắt đầu va chạm trên cả 2 chiều đều âm
 	//Dk3: 1 trong 2 thời gian bắt đầu va chạm theo chiều X và Y lớn hơn 1 lần vận tốc (trong frame này không thể va chạm với nhau)
-	if (entryTime > exitTime || (xEntry < 0.0f && yEntry < 0.0f) || (xEntry > 1.0f || yEntry > 1.0f))
-	{
+	if (entryTime > exitTime || (xEntry < 0.0f && yEntry < 0.0f))
+	{															// chỗ này là _DeltaTime mới đúng, 1.0f là timeScale
 		normalX = 0.0f;
 		normalY = 0.0f;
-		return 1.0f;
+		//return 1.0f;
+		return _deltatime;
 	}
 	else
 	{

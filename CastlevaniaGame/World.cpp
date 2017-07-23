@@ -34,7 +34,7 @@ void World::Init()
 
 	//Init object to change screen
 	castleDoor = new GateWay(spriteHandler, this);
-	castleDoor->Init(128, 64, 1024, 1086, 100, 560, 32, 5408, 896);
+	castleDoor->Init(128, 64, 224, 286, 100, 560, 32, 5408, 896);
 }
 
 // gọi ở đầu game_run
@@ -42,14 +42,19 @@ void World::Update(float _DeltaTime)
 {
 	Simon->Update(_DeltaTime);
 
-	//Update condition Simon collide with gateway and change the stage
-	if (Simon->isCollide(castleDoor))
-	{
-		if ((castleDoor->objectType) == ZONE_TYPE)
-		{
-			castleDoor->Collision(Simon, _DeltaTime);
-		}
-	}
+	////Update condition Simon collide with gateway and change the stage
+	//float entryTime = Simon->sweptAABB(castleDoor, _DeltaTime);
+
+	//bool a = false;
+	//a = Simon->isCollide(castleDoor);
+
+	//if (entryTime > 0 && entryTime < _DeltaTime)
+	//{
+	//	if ((castleDoor->objectType) == ZONE_TYPE)
+	//	{
+	//		castleDoor->Collision(Simon, _DeltaTime);
+	//	}
+	//}
 	//---------------------------------------
 
 

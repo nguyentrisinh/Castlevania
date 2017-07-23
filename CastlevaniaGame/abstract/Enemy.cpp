@@ -1,9 +1,12 @@
 #include "Enemy.h"
-
+#define CREEP_COUNT_SPRITES 29
+#define CREEP_SPRITE_PER_ROW 6
+#define SIZE_WIDTH 64
+#define SIZE_HEIGHT 64
 Enemy::Enemy() 
 {
-	sizeWidth = 64;
-	sizeHeight = 64;
+	sizeWidth = SIZE_WIDTH;
+	sizeHeight = SIZE_HEIGHT;
 }
 
 Enemy::Enemy(LPD3DXSPRITE _SpriteHandler, World *_manager)
@@ -14,8 +17,8 @@ Enemy::Enemy(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	sizeHeight = 64;
 	isActive = false;
 	spriteHandler = _SpriteHandler;
-	spriteLeft = new Sprite(_SpriteHandler, "Resources\\Sprites\\creep_left.bmp", sizeWidth, sizeHeight, 29, 6);
-	spriteRight = new Sprite(_SpriteHandler, "Resources\\Sprites\\creep_right.bmp", sizeWidth, sizeHeight, 29, 6);
+	spriteLeft = new Sprite(_SpriteHandler, "Resources\\Sprites\\creep_left.bmp", sizeWidth, sizeHeight, CREEP_COUNT_SPRITES, CREEP_SPRITE_PER_ROW);
+	spriteRight = new Sprite(_SpriteHandler, "Resources\\Sprites\\creep_right.bmp", sizeWidth, sizeHeight, CREEP_COUNT_SPRITES, CREEP_SPRITE_PER_ROW);
 	sprite = spriteLeft;
 }
 

@@ -10,10 +10,9 @@ class Fish :
 public:
 	int health;
 
-
 	bool jumping; // trang thai nhay tu duoi len
 	
-	float isFiring; // bien xac dinh con ca co dang ban hay ko
+	//float isFiring; // bien xac dinh con ca co dang ban hay ko
 	float timer;
 	
 	Fish();

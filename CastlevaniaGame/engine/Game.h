@@ -23,39 +23,49 @@
 using namespace std;
 #define _CRT_SECURE_NO_WARNINGS
 #include "sound/dsutil.h"
-
 #define KEY_DOWN(code) ( IsKeyDown(code) )
+
 class Game
 {
 public:
+
+	//Khởi tạo game
 	Game() {}
 	Game(HINSTANCE hInstance, LPCSTR Name, int IsFullscreen, int FrameRate);
+
+	//Giải phóng game
 	~Game();
 
+	//Cửa sổ
 	static LRESULT CALLBACK _WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
-	//Doi tuong direct3d de load hinh anh
+	//Các đối tượng directX
 	LPDIRECT3D9 d3d;
 	LPDIRECT3DDEVICE9 d3ddevice;
 	LPDIRECT3DSURFACE9 backbuffer;
 	D3DFORMAT _BackBufferFormat;
 
-	//Doi tuong direct input de nhap input
+	//Đối tượng bàn phím
 	LPDIRECTINPUT8 directinput;
 	LPDIRECTINPUTDEVICE8 keyboard;
 
-	BYTE keystate[256];							// Trang thai phim
-	DIDEVICEOBJECTDATA _KeyEvents[1024];		//Du lieu su kien phim
+	//Trạng thái phím
+	BYTE keystate[256];					
 
-	//Doi tuong Direct Sound
+	//Dữ liệu sự kiện phím
+	DIDEVICEOBJECTDATA _KeyEvents[1024];		
+
+	//Đối tượng sound
 	LPDIRECTSOUND8        g_pDS;
 	LPDIRECTSOUNDBUFFER DSBuffer;
 
-	//Bien dung cho Game time
-	DWORD _DeltaTime;							//Thoi gian tu frame truoc den frame nay
-	int _FrameRate;								//30 hinh/giay
+	//Thời gian giữa frame
+	DWORD _DeltaTime;
 
-	//Cac thuoc tinh man hinh
+	//30 frames/second
+	int _FrameRate;								
+
+	//Screen resolution
 	int _IsFullScreen;		
 	int _ScreenWidth;
 	int _ScreenHeight;
@@ -67,44 +77,59 @@ public:
 
 	//Tạo font, dùng hiện chữ
 	ID3DXFont *font;
+
+	//Rect of toolbar
 	RECT recZone1;
+
+	//Rect of main scenes
 	RECT recZone2;
+
+	//Status
 	std::string statusZone1;
 	std::string statusZone2;
 
+	//Khởi tạo toàn bộ
+	void Init();
 
-	//---------Hàm cài đặt------------
-	void Init();					//Cai dat toan bo game (gom window, directx,...)
+	//Khởi tạo cửa sổ, directX, keyboard, sound, fonts
 	void _InitWindow();
 	void _InitDirectX();
 	void _InitKeyboard();
 	void _LoadSound();
 	void _InitFont();
 
-	//------Cai Sound
+	//Khởi tạo sound
 	bool initDirectSound(HWND hwnd);
+
+	//Giải phóng sound
 	void shutdownDirectSound(void);
 	LPDIRECTSOUNDBUFFER LoadWaveToSoundBuffer(std::string wavFilename);
+
+	//Play sound and loop
 	void playSound(LPDIRECTSOUNDBUFFER whichBuffer);
 	void playSoundLoop(LPDIRECTSOUNDBUFFER whichBuffer);
+
+	//Dừng sound
 	void stopSound(LPDIRECTSOUNDBUFFER whichBuffer);
 
+	//Hàm chạy game
+	void Run();
 	
+	//Nhận bàn phím
+	void _ProcessKeyBoard();		
+	int IsKeyDown(int KeyCode);		
 
-	//-----Chay game
-	void Run();						//Chạy game
-	void _ProcessKeyBoard();		//Xử lý bàn phím
-	int IsKeyDown(int KeyCode);		//Phím có đang nhấn không 
+	//Hàm ảo, các đối tượng kế thừa
 
-	//--------Hàm ảo, cài đặt cụ thể trong lớp của từng đối tượng
+	//Load resource
 	virtual void LoadResources(LPDIRECT3DDEVICE9 d3ddv);
+
+	//Update và vẽ frame
 	virtual void UpdateFrame(float _DeltaTime);
-	virtual void RenderFrame(LPDIRECT3DDEVICE9 d3ddv);//, int Delta);
+	virtual void RenderFrame(LPDIRECT3DDEVICE9 d3ddv);
 	virtual void ProcessInput(LPDIRECT3DDEVICE9 d3ddv, float _DeltaTime);
 
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode);
-
-
 };
 #endif

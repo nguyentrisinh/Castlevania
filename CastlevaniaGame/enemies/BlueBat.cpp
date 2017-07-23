@@ -31,6 +31,7 @@ void BlueBat::Init(int _X, int _Y, bool isRight)
 	else
 		velocity.x = 160;
 }
+
 void BlueBat::Init(int _X, int _Y)
 {
 }
@@ -42,20 +43,18 @@ void BlueBat::Update(const float &_DeltaTime)
 		sprite = spriteRight;
 	else
 		sprite = spriteLeft;
-	// move
 
+	// move
 	position.x += velocity.x * _DeltaTime;
-	
 	position.y += velocity.y * _DeltaTime;
 
 	timerSprite += _DeltaTime;
-		if (timerSprite >= 0.2f)
+	if (timerSprite >= 0.2f)
 	{
 		velocity.y = velocity.y / 2;
-		sprite->Next(19, 22);
+		sprite->Next(18, 22);
 		timerSprite -= 0.2f;
 	}
-
 }
 
 

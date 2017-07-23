@@ -52,16 +52,11 @@ void Sprite::Render(LPDIRECT3DSURFACE9 Target, int X, int Y)
 
 	RECT srect;
 
-	//srect.left = (_Index % _SpritePerRow)*(_Width)+1;
-	//srect.top = (_Index / _SpritePerRow)*(_Height)+1;
-	//srect.right = srect.left + _Width;
-	//srect.bottom = srect.top + _Height + 1;
 	srect.left = (_Index % _SpritePerRow)*(_Width);
 	srect.top = (_Index / _SpritePerRow)*(_Height);
 	srect.right = srect.left + _Width;
 	srect.bottom = srect.top + _Height ;
 
-	
 	D3DXVECTOR3 position((float)X, (float)Y, 0);
 
 	//
@@ -77,13 +72,13 @@ void Sprite::Render(LPDIRECT3DSURFACE9 Target, int X, int Y)
 	D3DXVECTOR4 vp_pos;
 	D3DXVec3Transform(&vp_pos, &position, &mt);
 
-	D3DXVECTOR3 p(vp_pos.x, vp_pos.y, 0);
+	D3DXVECTOR3 pos(vp_pos.x, vp_pos.y, 0);
 	D3DXVECTOR3 center((float)_Width / 2, (float)_Height / 2, 0);
 	_SpriteHandler->Draw(
 		_Image,
 		&srect,
 		&center,
-		&p,
+		&pos,
 		D3DCOLOR_XRGB(255, 255, 255)
 		);
 }
@@ -91,7 +86,8 @@ void Sprite::Render(LPDIRECT3DSURFACE9 Target, int X, int Y)
 void Sprite::Next(int start,int end)
 {
 	if (_Index < end && _Index >= start)
-		_Index = (_Index + _Count) % _Count + 1; //Lùi từ frame n về frame 1
+		//_Index = (_Index + _Count) % _Count + 1; //Lùi từ frame n về frame 1
+		_Index++;
 	else
 		_Index = start;
 }

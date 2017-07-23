@@ -2,8 +2,10 @@
 #include <d3dx9.h>
 #include <windows.h>
 #include "Game.h"
+#define SCREEN_WIDTH 512
+#define SCREEN_HEIGHT 448 
 
-#pragma warning
+#pragma
 
 Game::Game(HINSTANCE hInstance, LPCSTR Name, int IsFullscreen, int FrameRate)
 {
@@ -19,8 +21,8 @@ Game::Game(HINSTANCE hInstance, LPCSTR Name, int IsFullscreen, int FrameRate)
 	_hInstance = hInstance;
 	_Name = Name;
 
-	_ScreenWidth = 512;
-	_ScreenHeight = 448;
+	_ScreenWidth = SCREEN_WIDTH;
+	_ScreenHeight = SCREEN_HEIGHT;
 	_BackBufferFormat = D3DFMT_X8R8G8B8;
 
 	g_pDS = NULL;
@@ -278,7 +280,6 @@ void Game::Init()
 	_InitKeyboard();
 	_InitFont();
 	_LoadSound();
-	
 	LoadResources(d3ddevice);
 }
 
@@ -377,7 +378,6 @@ void Game::UpdateFrame(float _DeltaTime) {}
 void Game::RenderFrame(LPDIRECT3DDEVICE9 d3ddv)// , int Delta)
 {
 	d3ddv->ColorFill(backbuffer, NULL, D3DCOLOR_XRGB(0, 0, 0));
-	
 }
 
 void Game::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, float _DeltaTime) { }

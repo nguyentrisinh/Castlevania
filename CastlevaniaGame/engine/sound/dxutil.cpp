@@ -15,7 +15,6 @@
 #include <stdarg.h>
 #include "DXUtil.h"
 
-
 #ifdef UNICODE
     typedef HINSTANCE (WINAPI* LPShellExecute)(HWND hwnd, LPCWSTR lpOperation, LPCWSTR lpFile, LPCWSTR lpParameters, LPCWSTR lpDirectory, INT nShowCmd);
 #else

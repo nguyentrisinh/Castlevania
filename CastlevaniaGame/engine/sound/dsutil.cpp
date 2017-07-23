@@ -15,9 +15,6 @@
 #include "DSUtil.h"
 #include "DXUtil.h"
 
-
-
-
 //-----------------------------------------------------------------------------
 // Name: CSoundManager::CSoundManager()
 // Desc: Constructs the class

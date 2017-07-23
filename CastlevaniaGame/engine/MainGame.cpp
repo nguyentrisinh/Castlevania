@@ -13,11 +13,8 @@ MainGame::MainGame(HINSTANCE hInstance, LPCSTR Name, int IsFullScreen, int Frame
 	//Just for test
 	score = 5896;
 	timeUI = 523;
-
 	curHealth = 7;
 	curEnemy = 16;
-
-	// create world
 }
 
 void MainGame::LoadResources(LPDIRECT3DDEVICE9 _d3ddevice)
@@ -28,7 +25,7 @@ void MainGame::LoadResources(LPDIRECT3DDEVICE9 _d3ddevice)
 	_d3ddevice->CreateOffscreenPlainSurface(_ScreenWidth, _ScreenHeight, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &Background, NULL);
 	 D3DXLoadSurfaceFromFile(Background, NULL, NULL, BACKGROUND_FILE, NULL, D3DX_DEFAULT, 0, NULL);
 	
-	// dùng tạm
+	//set background
 	bg = new Sprite(_SpriteHandler, BACKGROUND_FILE, 5770, 896, 1, 1);
 	world = new World(_SpriteHandler, this);
 	world->Init();
@@ -42,13 +39,10 @@ void MainGame::LoadResources(LPDIRECT3DDEVICE9 _d3ddevice)
 	map_1->ReadMatrixFromFile("Resources\\map1.txt", &map_1_Matrix, "\t");
 	map_2->ReadMatrixFromFile("Resources\\map2.txt", &map_2_Matrix, "\t");
 
-
-
 	//Hình dùng để render thanh máu, trái tim, khung chứa đồ trên thanh status 
 	statusBar = new Sprite(_SpriteHandler, "Resources\\Sprites\\bar_health.bmp", 8, 16, 4, 4);
 	redEdge = new Sprite(_SpriteHandler, "Resources\\Sprites\\redEdge.bmp", 80, 59, 1, 1);
 	heart = new Sprite(_SpriteHandler, "Resources\\Sprites\\heart.bmp", 16, 13, 1, 1);
-
 }
 
 // --- MAIN UPDATE FUNCTION ---
@@ -74,6 +68,8 @@ string MainGame::convertScoreFormat(int score)
 	else
 		return std::to_string(score);
 }
+
+
 string MainGame::convertTimeFormat(int timeUI)
 {
 	if (timeUI < 10)
@@ -85,6 +81,7 @@ string MainGame::convertTimeFormat(int timeUI)
 	else
 		return std::to_string(score);
 }
+
 string MainGame::convertTwoDigitFormat(int digit)
 {
 	if (digit < 10)
@@ -179,18 +176,23 @@ void MainGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv)// , int t)
 		"\n" +
 		"\nPLAYER" +
 		"\nENEMY";
+
+	//Số mạng của Simon
 	statusZone2 = "P - " + convertTwoDigitFormat(world->Simon->heart);
 }
 
-
 void MainGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, float _DeltaTime)		//Chạy khi nhấn giữ
 {
+	//Ngồi xuống
 	if (IsKeyDown(DIK_DOWN))
 	{
+		//Vừa ngồi vừa sang trái
 		if (IsKeyDown(DIK_LEFT))
 		{
 			world->Simon->isRight = false;
 		}
+
+		//Vừa ngồi vừa sang phải
 		else if (IsKeyDown(DIK_RIGHT))
 		{
 			world->Simon->isRight = true;
@@ -233,6 +235,7 @@ void MainGame::OnKeyDown(int KeyCode)					//Chỉ nhảy khi vừa nhấn, nhấ
 	}
 }
 
+//Nhả phím
 void MainGame::OnKeyUp(int KeyCode) {}
 
 MainGame::~MainGame()

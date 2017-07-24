@@ -24,9 +24,11 @@ void TileMap::ReadMatrixFromFile(char* filename,
 					continue;
 			}
 
+			/*
 			// nếu strnum vẫn rỗng thì tiếp tục thêm vào (trường hợp 2 dấu cách liên tiếp)
 			if (strnum.empty())
 				continue;
+			*/
 
 			// nếu strnum không rỗng thì chuyển kí tự thành số
 			int       number;
@@ -42,10 +44,9 @@ void TileMap::ReadMatrixFromFile(char* filename,
 
 void TileMap::LoadTiledMap(vector<vector<int>> map1Matrix)
 {
-	printf("Hello");
-	for (int h = 0; h <WORLD_SIZEY; h++)
+	for (int h = 0; h < WORLD_SIZEY; h++)
 	{
-		for (int w = 0; w <WORLD_SIZEX; w++)
+		for (int w = 0; w < WORLD_SIZEX; w++)
 		{
 			int id = map1Matrix[h][w];
 			source->Next(id, id);

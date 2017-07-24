@@ -68,7 +68,6 @@ void Sprite::Render(LPDIRECT3DSURFACE9 Target, int X, int Y)
 	mt._22 = -1.0f;
 	mt._41 = -cameraX;
 	mt._42 = cameraY;
-
 	D3DXVECTOR4 vp_pos;
 	D3DXVec3Transform(&vp_pos, &position, &mt);
 

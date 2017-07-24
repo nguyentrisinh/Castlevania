@@ -12,7 +12,7 @@ GateWay::GateWay(LPD3DXSPRITE _SpriteHandler, World *_manager) :Zone::Zone(_Spri
 
 	sizeWidth = 64;
 	sizeHeight = 64;
-	sprite = new Sprite(_SpriteHandler, "Resources\\Sprites\\FF00FF.bmp", sizeWidth, sizeHeight, 1, 1);
+	sprite = new Sprite(_SpriteHandler, "Resources\\Sprites\\gateway.bmp", sizeWidth-10, sizeHeight-10, 1, 1);
 }
 
 

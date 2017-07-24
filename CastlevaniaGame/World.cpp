@@ -34,7 +34,7 @@ void World::Init()
 
 	//Init object to change screen
 	castleDoor = new GateWay(spriteHandler, this);
-	castleDoor->Init(128, 64, 224, 286, 100, 560, 32, 5408, 896);
+	castleDoor->Init(128, 64, 1400, 1600, 100, 560, 32, 5408, 896);
 }
 
 // gọi ở đầu game_run

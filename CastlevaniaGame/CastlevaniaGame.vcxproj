@@ -181,6 +181,7 @@
     <Text Include="Resources\map2.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="C:\Users\nhan\Desktop\gateway.bmp" />
     <Image Include="Resources\map1_tiled.PNG" />
     <Image Include="Resources\map2_tiled.PNG" />
     <Image Include="Resources\Sprites\FF00FF.bmp" />

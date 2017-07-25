@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="abstract\Zone.cpp" />
     <ClCompile Include="enemies\BlueBat.cpp" />
+    <ClCompile Include="enemies\Knight.cpp" />
     <ClCompile Include="engine\sound\dsutil.cpp" />
     <ClCompile Include="engine\sound\dxutil.cpp" />
     <ClCompile Include="abstract\Enemy.cpp" />
@@ -155,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="abstract\Zone.h" />
     <ClInclude Include="enemies\BlueBat.h" />
+    <ClInclude Include="enemies\Knight.h" />
     <ClInclude Include="engine\sound\dsutil.h" />
     <ClInclude Include="engine\sound\dxutil.h" />
     <ClInclude Include="abstract\Enemy.h" />

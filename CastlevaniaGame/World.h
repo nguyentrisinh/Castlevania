@@ -7,6 +7,7 @@
 #include "enemies/BlueBat.h"
 #include "enemies/Panther.h"
 #include "enemies/Fish.h"
+#include "enemies/Knight.h"
 
 //change Stage
 #include "zone\GateWay.h"
@@ -28,6 +29,7 @@ public:
 	BlueBat *blueBat;
 	Panther *panther;
 	Fish *fish;
+	Knight *knight;
 
 	//object to change stage
 	GateWay *castleDoor;

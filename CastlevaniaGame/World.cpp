@@ -29,6 +29,7 @@ void World::Init()
 	blueBat = new BlueBat(spriteHandler, this);
 	panther = new Panther(spriteHandler, this);
 	fish = new Fish(spriteHandler, this);
+	knight = new Knight(spriteHandler, this);
 
 	Simon->Init(70, 120);
 
@@ -166,11 +167,38 @@ void World::UpdateCreep(float _DeltaTime)
 		local = (rand() % Sprite::cameraXRight + Sprite::cameraXLeft) / 2;
 		fish->Init(local, 94, Simon->isRight);
 	}
+
+	//
+
+	if (knight->isActive)
+	{
+		knight->Update(_DeltaTime);
+
+		if (knight->isCollide(Simon) && !Simon->isImmortal)
+			Simon->Injured();
+		if (Simon->isAttack && Simon->killingMoment)
+			if (knight->isCollide(whip))
+				knight->isActive = false;
+	}
+
+
+	else
+	{
+		if (Simon->isRight)
+			knight->Init(Sprite::cameraXRight, 94, Simon->isRight, 100, 200);
+		else
+			knight->Init(Sprite::cameraXLeft, 94, Simon->isRight, 100, 200);
+	}
 }
 
 // gọi ở cuối game_run, bên trong BeginScene() và EndScene();
 void World::Render()
 {
+
+	if (knight->isActive)
+	{
+		knight->Render();
+	}
 
 	if (ghoul->isActive)
 	{

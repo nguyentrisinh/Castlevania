@@ -42,6 +42,9 @@ public:
 
 	int sizeWidth;
 	int sizeHeight;
+
+	float postX;
+	float postY;
 		
 	//LPD3DXSPRITE spriteHandler;
 	Sprite *sprite;

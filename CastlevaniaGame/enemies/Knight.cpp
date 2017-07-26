@@ -40,9 +40,9 @@ void Knight::Init(int X, int Y, bool isRight, int Left, int Right)
 	maxLeft = Left;
 	maxRight = Right;
 	if (isRight)
-		velocity.x = -30;
+		velocity.x = -50;
 	else
-		velocity.y = 30;
+		velocity.y = 50;
 }
 
 void Knight::Update(const float &_DeltaTime)

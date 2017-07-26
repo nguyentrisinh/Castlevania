@@ -170,8 +170,5 @@
     <Image Include="Resources\Sprites\FF00FF.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="C:\Users\nhan\Desktop\gateway.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
 </Project>

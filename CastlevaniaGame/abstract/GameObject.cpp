@@ -83,20 +83,16 @@ float GameObject::sweptAABB(GameObject *target, float _deltatime)
 
 
 	// if there is a intersect
+	// chữa cháy cho trường hợp set position bậy bạ mà ko phải là 'position += velocity*delta_time';
+	// ví dụ: là whip của Simon đột nhiên từ hư không chợt hiện ra hộp collider thế là nó nằm chồng lên các con quái 
+	// Không có intersect thì fail toàn tập 
 	if (Intersect(target))
 	{
 		return 0;
-	}// chữa cháy cho trường hợp set position bậy bạ mà ko phải là 'position += velocity*delta_time';
-
-
-
-
-	
-
-
-
+	}
 
 	////////// board phrasing
+	//Loại trước trường hợp nếu target kg nằm trong khối vuông di chuyển của this thì không cần tính các bước sweptAABB phia sau
 	Collider boundingPhrase;
 	D3DXVECTOR2 distanceInFrame;
 
@@ -143,19 +139,6 @@ float GameObject::sweptAABB(GameObject *target, float _deltatime)
 	{
 		return _deltatime;
 	}
-	
-
-
-
-
-
-
-
-
-
-
-
-
 	
 
 	//xInvEntry, yInvEntry chỉ khoảng cách 2 cạnh GẦN NHẤT của vật xét va chạm xét 2 chiều x và y 

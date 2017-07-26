@@ -92,28 +92,6 @@ string MainGame::convertTwoDigitFormat(int digit)
 
 void MainGame::LoadStatusBar(int curHealth, int curEnemy)
 {
-	//for (int i = 0; i < curHealth; i++)
-	//{
-	//	statusBar->Next(0, 0);
-	//	statusBar->Render(70 + i * 8 + heart->cameraX, 410);
-	//}
-	//for (int i = curHealth; i < 16; i++)
-	//{
-	//	statusBar->Next(1, 1);
-	//	statusBar->Render(70 + i * 8 + heart->cameraX, 410);
-	//}
-	//for (int i = 0; i < curEnemy; i++)
-	//{
-	//	statusBar->Next(2, 2);
-	//	statusBar->Render(70 + i * 8 + heart->cameraX, 396);
-	//}
-	//for (int i = curEnemy; i < 16; i++)
-	//{
-	//	statusBar->Next(3, 3);
-	//	statusBar->Render(70 + i * 8 + heart->cameraX, 396);
-	//}
-	//redEdge->Render(250 + heart->cameraX, 396);
-	//heart->Render(300 + heart->cameraX, 410);
 	for (int i = 0; i < curHealth; i++)
 	{
 		statusBar->Next(0, 0);
@@ -142,27 +120,6 @@ void MainGame::LoadStatusBar(int curHealth, int curEnemy)
 // --- MAIN RENDER FUNCTION / between BeginScene & EndScene ---
 void MainGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv)// , int t)
 {
-	
-	
-	//d3ddv->ColorFill(backbuffer, NULL, D3DCOLOR_XRGB(0, 0, 0));
-	//	
-	//_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	//
-	////bg->Render(2850, 448);
-	//map_1->LoadTiledMap(map_1_Matrix);
-	//world->Render();
-	//
-	//LoadStatusBar(curHealth, curEnemy);
-	//_SpriteHandler->End();
-	////Mấy dòng chữ sẽ hiện lên Status bar
-	//statusZone1 = "SCORE - " + convertScoreFormat(score) + "                  TIME "
-	//	+ convertTimeFormat(timeUI) +
-	//	"                 STAGE "
-	//	"\n" +
-	//	"\nPLAYER" +
-	//	"\nENEMY";
-	//statusZone2 = "P - " + convertTwoDigitFormat(world->Simon->heart);
-	
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	map_1->LoadTiledMap(map_1_Matrix);
 	world->Render();

@@ -178,6 +178,8 @@ void Player::Update(const float &_DeltaTime)
 		else if (downJump)
 		{
 			downJump = false;
+
+			// this line break the SweptAABB rule, but it made the game look like original
 			position.y -= 10;
 			if(!isAttack)
 			{

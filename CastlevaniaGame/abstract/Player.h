@@ -69,6 +69,7 @@ public:
 	void Jump();
 	void Attack();
 	void Injured();
+	void RestoreHealth();
 	
 };
 

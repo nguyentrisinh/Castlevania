@@ -109,7 +109,10 @@ void Player::Update(const float &_DeltaTime)
 	{
 		timerSprite += _DeltaTime;
 		if (timerSprite > IMMORTAL_TIME)
+		{
 			isImmortal = false;
+			timerSprite = 0;
+		}
 	}
 
 	if (isHitted)
@@ -127,7 +130,8 @@ void Player::Update(const float &_DeltaTime)
 		{
 			if (timerSprite >= ANIM_TIME)
 			{
-				timerSprite -= ANIM_TIME;
+				//timerSprite -= ANIM_TIME;
+				timerSprite = 0;
 				sprite->Next(14, 17);
 				if (sprite->_Index == 16)
 					killingMoment = true;
@@ -145,7 +149,8 @@ void Player::Update(const float &_DeltaTime)
 		{
 			if (timerSprite >= ANIM_TIME)
 			{
-				timerSprite -= ANIM_TIME;
+				//timerSprite -= ANIM_TIME;
+				timerSprite = 0;
 				sprite->Next(11, 14);
 				if (sprite->_Index == 13)
 					killingMoment = true;
@@ -355,11 +360,17 @@ void Player::Injured()
 	velocity.y = 300;
 	isHitted = true;
 	sprite->Next(9, 9);
+	this->health--;
 	if (isRight)
 	{
 		velocity.x = -80;
 	}
 	else
 		velocity.x = 80;
+}
+
+void Player::RestoreHealth()
+{
+	this->health = 16;
 }
 	

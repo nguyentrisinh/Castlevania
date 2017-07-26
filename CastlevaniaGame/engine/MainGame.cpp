@@ -124,7 +124,8 @@ void MainGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv)// , int t)
 	map_1->LoadTiledMap(map_1_Matrix);
 	world->Render();
 
-	LoadStatusBar(curHealth, curEnemy);
+	//LoadStatusBar(curHealth, curEnemy);
+	LoadStatusBar(world->Simon->health, curEnemy);
 	_SpriteHandler->End();
 	//Mấy dòng chữ sẽ hiện lên Status bar
 	statusZone1 = "SCORE - " + convertScoreFormat(score) + "                  TIME "
@@ -189,6 +190,8 @@ void MainGame::OnKeyDown(int KeyCode)					//Chỉ nhảy khi vừa nhấn, nhấ
 	case DIK_LCONTROL:
 		world->Simon->Attack();
 		break;
+	case DIK_R:
+		world->Simon->RestoreHealth();
 	}
 }
 

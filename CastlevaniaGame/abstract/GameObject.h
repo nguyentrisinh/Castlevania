@@ -64,7 +64,7 @@ public:
 	// vị trí collistion (= vector0 nếu ko chạm)
 	D3DXVECTOR3 vecCollide(GameObject *target);
 	// xét coi có va chạm ko
-	bool isCollide(GameObject *target);
+	bool Intersect(GameObject *target);
 	//Hàm va chạm sweptAABB
 	float sweptAABB(GameObject *target,const float _deltatime);
 

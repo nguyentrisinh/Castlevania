@@ -47,7 +47,7 @@ void World::Update(float _DeltaTime)
 	//float entryTime = Simon->sweptAABB(castleDoor, _DeltaTime);
 
 	//bool a = false;
-	//a = Simon->isCollide(castleDoor);
+	//a = Simon->Intersect(castleDoor);
 
 	//if (entryTime > 0 && entryTime < _DeltaTime)
 	//{
@@ -71,10 +71,10 @@ void World::UpdateCreep(float _DeltaTime)
 	{
 		ghoul->Update(_DeltaTime);
 
-		if (ghoul->isCollide(Simon) && !Simon->isImmortal)
+		if (ghoul->Intersect(Simon) && !Simon->isImmortal)
 			Simon->Injured();
 		if (Simon->isAttack && Simon->killingMoment)
-			if (ghoul->isCollide(whip))
+			if (ghoul->Intersect(whip))
 				ghoul->isActive = false;
 	}
 
@@ -92,14 +92,14 @@ void World::UpdateCreep(float _DeltaTime)
 	{
 		redBat->Update(_DeltaTime);
 
-		if (redBat->isCollide(Simon) && !Simon->isImmortal)
+		if (redBat->Intersect(Simon) && !Simon->isImmortal)
 		{
 			Simon->Injured();
 			redBat->isActive = false;
 		}
 
 		if (Simon->isAttack && Simon->killingMoment)
-			if (redBat->isCollide(whip))
+			if (redBat->Intersect(whip))
 				redBat->isActive = false;
 	}
 	else
@@ -116,14 +116,14 @@ void World::UpdateCreep(float _DeltaTime)
 		if (blueBat->position.x < 0)
 			blueBat->isActive = false;
 
-		if (blueBat->isCollide(Simon) && !Simon->isImmortal)
+		if (blueBat->Intersect(Simon) && !Simon->isImmortal)
 		{
 			Simon->Injured();
 			blueBat->isActive = false;
 		}
 
 		if (Simon->isAttack && Simon->killingMoment)
-			if (blueBat->isCollide(whip))
+			if (blueBat->Intersect(whip))
 				blueBat->isActive = false;
 	}
 	else
@@ -137,10 +137,10 @@ void World::UpdateCreep(float _DeltaTime)
 	if (panther->isActive)
 	{
 		panther->Update(_DeltaTime);
-		if (panther->isCollide(Simon) && !Simon->isImmortal)
+		if (panther->Intersect(Simon) && !Simon->isImmortal)
 			Simon->Injured();
 		if (Simon->isAttack && Simon->killingMoment)
-			if (panther->isCollide(whip))
+			if (panther->Intersect(whip))
 				panther->isActive = false;
 	}
 	else
@@ -156,10 +156,10 @@ void World::UpdateCreep(float _DeltaTime)
 		fish->Update(_DeltaTime);
 
 
-		if (fish->isCollide(Simon) && !Simon->isImmortal)
+		if (fish->Intersect(Simon) && !Simon->isImmortal)
 			Simon->Injured();
 		if (Simon->isAttack && Simon->killingMoment)
-			if (fish->isCollide(whip))
+			if (fish->Intersect(whip))
 				fish->isActive = false;
 	}
 	else
@@ -174,10 +174,10 @@ void World::UpdateCreep(float _DeltaTime)
 	{
 		knight->Update(_DeltaTime);
 
-		if (knight->isCollide(Simon) && !Simon->isImmortal)
+		if (knight->Intersect(Simon) && !Simon->isImmortal)
 			Simon->Injured();
 		if (Simon->isAttack && Simon->killingMoment)
-			if (knight->isCollide(whip))
+			if (knight->Intersect(whip))
 				knight->isActive = false;
 	}
 

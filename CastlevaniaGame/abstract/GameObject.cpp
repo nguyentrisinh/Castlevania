@@ -32,26 +32,11 @@ GameObject::~GameObject()
 	manager = NULL;
 }
 
-// --- các hàm chính ---
-// trả về vị trí (của this) va chạm, trả về vector 0 nếu không có va chạm
-// cách thức: swept AABB
-D3DXVECTOR3 GameObject::vecCollide(GameObject *target)
+
+// check if there is a intersect
+bool GameObject::Intersect(GameObject *target)
 {
-	D3DXVECTOR3 temp(0, 0, 0);
-
-	if ((target->collider == NULL) || (this->collider == NULL))
-		return temp;
-
-	// swept AABB here
-
-	return temp;
-}
-
-// có va chạm hay không
-// cách thức: có lồng vào nhau hay không
-bool GameObject::isCollide(GameObject *target)
-{
-	// cả 2 phải có collider mới va chạm được
+	// No collider? No intersect
 	if ((target->collider == NULL) || (this->collider == NULL))
 		return false;
 	
@@ -76,14 +61,102 @@ bool GameObject::isCollide(GameObject *target)
 
 }
 
-//hàm thực thi sweptAABB
-// trả về 
+/*hàm thực thi sweptAABB
+* target: mục tiêu để xét va chạm
+* deltatime: thời gian trong frame
+--- hàm kiểm tra coi trong quãng thười gian delta_time, vật chủ đi từ A -> B
+--- có thể va chạm target trong khoảng thời gian này hay không
+> trả về:
+* 0 : va chạm nhau ngay từ đầu (intersect)
+* 0 < 'trả về' < delta_time : có va chạm xảy ra trong frame này, normal là vector pháp tuyến của bề mặt va chạm
+* delta_time : không có va chạm xảy ra trong frame này
+### 0 < 'trả về' < delta_time thất bại khi position của vật chủ BỊ THAY ĐỔI 1 CÁCH THỦ CÔNG
+. vd: simon->position.x -= 10 (theo nguyên tắc thì position BẮT BUỘC phải update theo velocity*delta_time)
+### tuy nhiên, để chữa cháy cho trường hợp này, thêm hàm Intersect() ở đầu code và trả về 0*/ 
 float GameObject::sweptAABB(GameObject *target, float _deltatime)
 {
 	//normalX, normalY là giá trị để xác định kết quả phản ứng sau quá trình va chạm.
 	//normalX chỉ vật A va chạm với vật B theo trục Ox, 
 	//normalY chỉ vật A va chạm với vật B theo trục Oy, 
-	float normalX, normalY;
+	float normalX = 0.0f, normalY = 0.0f;
+
+
+
+	// if there is a intersect
+	if (Intersect(target))
+	{
+		return 0;
+	}// chữa cháy cho trường hợp set position bậy bạ mà ko phải là 'position += velocity*delta_time';
+
+
+
+
+	
+
+
+
+
+	////////// board phrasing
+	Collider boundingPhrase;
+	D3DXVECTOR2 distanceInFrame;
+
+	distanceInFrame = this->velocity * _deltatime;
+	if (distanceInFrame.x < 0)
+	{
+		boundingPhrase.left = this->collider->left + distanceInFrame.x;
+		boundingPhrase.right = this->collider->right;
+	}
+	else
+	{
+		boundingPhrase.left = this->collider->left;
+		boundingPhrase.right = this->collider->right + distanceInFrame.x;
+	}
+
+	if (distanceInFrame.y < 0)
+	{
+		boundingPhrase.bottom = this->collider->bottom + distanceInFrame.y;
+		boundingPhrase.top = this->collider->top;
+	}
+	else
+	{
+		boundingPhrase.bottom = this->collider->bottom;
+		boundingPhrase.top = this->collider->top + distanceInFrame.y;
+	}
+
+
+	// if there is a intersect of board phrasing => may be the "sweptAABB" complete
+	// if no? A and B never collide other in this frame
+
+	if ((position.x + boundingPhrase.left) > (target->position.x + target->collider->right))
+	{// return the value that A and B never collide other in this frame
+		return _deltatime;
+	}
+	if ((position.x + boundingPhrase.right) < (target->position.x + target->collider->left))
+	{
+		return _deltatime;
+	}
+	if ((position.y + boundingPhrase.top) < (target->position.y + target->collider->bottom))
+	{
+		return _deltatime;
+	}
+	if ((position.y + boundingPhrase.bottom) > (target->position.y + target->collider->top))
+	{
+		return _deltatime;
+	}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	
 
 	//xInvEntry, yInvEntry chỉ khoảng cách 2 cạnh GẦN NHẤT của vật xét va chạm xét 2 chiều x và y 
 	//xInvEntry khoảng cách 2 cạnh gần nhất của 2 vật trên trục x

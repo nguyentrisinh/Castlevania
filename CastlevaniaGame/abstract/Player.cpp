@@ -95,7 +95,7 @@ void Player::Update(const float &_DeltaTime)
 	//Update condition Simon collide with gateway and change the stage
 	float entryTime = this->sweptAABB(manager->castleDoor, _DeltaTime);
 
-	if (entryTime > 0 && entryTime < _DeltaTime)
+	if (entryTime >= 0 && entryTime < _DeltaTime)
 	{
 		// giả sử ta không biết "castleDoor" này là thằng nào
 		if ((manager->castleDoor->objectType) == ZONE_TYPE)

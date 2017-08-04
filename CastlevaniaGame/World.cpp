@@ -1,6 +1,11 @@
-﻿#include "World.h"
-#include "engine/MainGame.h"
+﻿// K_1.1 & K_1.2 sửa kha khá để testing
+
+#include "World.h"
+#include "MainGame.h"
 #include <time.h>
+#include "GroupObject.h"
+#include "ColliderBlock.h"
+
 
 World::World(LPD3DXSPRITE _SpriteHandler, MainGame *_MainGame)
 {
@@ -10,237 +15,158 @@ World::World(LPD3DXSPRITE _SpriteHandler, MainGame *_MainGame)
 
 	// ---  init static object  ---
 	Simon = new Player(spriteHandler, this);
-	whip = new Whip(spriteHandler, this);
+	
+	//-----------
+	
+	groupSpecialCollision = new GroupObject(this);
+	groupQuadtreeCollision = new GroupObject(this);
+	groupItem = new GroupObject(this);
+	groupEffect = new GroupObject(this);
+	groupProjectile = new GroupObject(this);
+
+	groupEnemy = new GroupObject(this);
+	rootGONode = NULL;
+	// -----------------
 }
 
 
 World::~World()
 {
-	
+	delete Simon;
+	delete whip;
+
+	delete groupSpecialCollision;
+	delete groupQuadtreeCollision;
+
 }
 
 // 
 void World::Init()
 {
-	// ---  init chanable object
+	// ---  init changable object
+	isFlash = false;
+
 	
+
 	ghoul = new Ghoul(spriteHandler, this);
 	redBat = new RedBat(spriteHandler, this);
 	blueBat = new BlueBat(spriteHandler, this);
-	panther = new Panther(spriteHandler, this);
+	
 	fish = new Fish(spriteHandler, this);
-	knight = new Knight(spriteHandler, this);
+	vamBat = new VamBat(spriteHandler, this);
 
-	Simon->Init(70, 120);
+	boss = NULL;
 
-	//Init object to change screen
-	castleDoor = new GateWay(spriteHandler, this);
-	castleDoor->Init(128, 64, 1400, 1600, 100, 560, 32, 5408, 896);
+	whip = new Whip(spriteHandler, this);
+	groupProjectile->AddObject(whip);
+
+	knife[0] = new Knife(spriteHandler, this);
+	knife[1] = new Knife(spriteHandler, this);
+	knife[2] = new Knife(spriteHandler, this);
+	groupProjectile->AddObject(knife[0]);
+	groupProjectile->AddObject(knife[1]);
+	groupProjectile->AddObject(knife[2]);
+
+	boo[0] = new Boomerang(spriteHandler, this);
+	boo[1] = new Boomerang(spriteHandler, this);
+	boo[2] = new Boomerang(spriteHandler, this);
+	groupProjectile->AddObject(boo[0]);
+	groupProjectile->AddObject(boo[1]);
+	groupProjectile->AddObject(boo[2]);
+
+	axe[0] = new Axe(spriteHandler, this);
+	axe[1] = new Axe(spriteHandler, this);
+	axe[2] = new Axe(spriteHandler, this);
+	groupProjectile->AddObject(axe[0]);
+	groupProjectile->AddObject(axe[1]);
+	groupProjectile->AddObject(axe[2]);
+
+	holyFire[0] = new HolyFire(spriteHandler, this);
+	holyFire[1] = new HolyFire(spriteHandler, this);
+	holyFire[2] = new HolyFire(spriteHandler, this);
+	groupProjectile->AddObject(holyFire[0]);
+	groupProjectile->AddObject(holyFire[1]);
+	groupProjectile->AddObject(holyFire[2]);
+
+	holyWater[0] = new HolyWater(spriteHandler, this);
+	holyWater[1] = new HolyWater(spriteHandler, this);
+	holyWater[2] = new HolyWater(spriteHandler, this);
+	groupProjectile->AddObject(holyWater[0]);
+	groupProjectile->AddObject(holyWater[1]);
+	groupProjectile->AddObject(holyWater[2]);
+
 }
 
 // gọi ở đầu game_run
 void World::Update(float _DeltaTime)
 {
+
+	// -- cập nhật danh sách object có thể va chạm
+	groupSpecialCollision->GetCollisionSpecial();
+	groupQuadtreeCollision->GetCollisionQuadtree();
+	// =========-------------------------
 	Simon->Update(_DeltaTime);
-
-	////Update condition Simon collide with gateway and change the stage
-	//float entryTime = Simon->sweptAABB(castleDoor, _DeltaTime);
-
-	//bool a = false;
-	//a = Simon->Intersect(castleDoor);
-
-	//if (entryTime > 0 && entryTime < _DeltaTime)
-	//{
-	//	if ((castleDoor->objectType) == ZONE_TYPE)
-	//	{
-	//		castleDoor->Collision(Simon, _DeltaTime);
-	//	}
-	//}
-	//---------------------------------------
-
-
-	UpdateCreep(_DeltaTime);
+	//whip->Update(_DeltaTime);
+	//-----------
+	//medusa->Update(_DeltaTime);
+	//snake->Update(_DeltaTime);
+	/*
+	timer += _DeltaTime;
+	if (timer >= 0.2f)
+	{
+		flash->Next(0, 1);
+		timer = 0;
+	}*/
+	fish->Update(_DeltaTime);
+	groupQuadtreeCollision->Update(_DeltaTime);
+	groupSpecialCollision->Update(_DeltaTime);
+	// ---------------
 }
 
-void World::UpdateCreep(float _DeltaTime)
-{
-
-	// update quái nếu nó sống  ||| và tạo lại nếu nó chết rồi
-	
-	if (ghoul->isActive)
-	{
-		ghoul->Update(_DeltaTime);
-
-		if (ghoul->sweptAABB(Simon, _DeltaTime) != _DeltaTime && !Simon->isImmortal)
-			Simon->Injured();
-		if (Simon->isAttack && Simon->killingMoment)
-			if (ghoul->sweptAABB(whip, _DeltaTime) != _DeltaTime)
-				ghoul->isActive = false;
-	}
-	else
-	{
-		if (Simon->isRight)
-			ghoul->Init(Sprite::cameraXRight, 94, Simon->isRight);
-		else
-			ghoul->Init(Sprite::cameraXLeft, 94, Simon->isRight);
-	}
-
-
-	if (redBat->isActive)
-	{
-		redBat->Update(_DeltaTime);
-
-		if (redBat->sweptAABB(Simon, _DeltaTime) != _DeltaTime && !Simon->isImmortal)
-		{
-			Simon->Injured();
-			redBat->isActive = false;
-		}
-
-		if (Simon->isAttack && Simon->killingMoment)
-			if (redBat->sweptAABB(whip, _DeltaTime) !=  _DeltaTime)
-				redBat->isActive = false;
-	}
-	else
-	{
-		if (Simon->isRight)
-			redBat->Init(Sprite::cameraXRight, Simon->position.y + 60, Simon->isRight);
-		else
-			redBat->Init(Sprite::cameraXLeft, Simon->position.y + 60, Simon->isRight);
-	}
-	
-	if (blueBat->isActive)
-	{
-		blueBat->Update(_DeltaTime);
-		if (blueBat->position.x < 0)
-			blueBat->isActive = false;
-
-		if (blueBat->sweptAABB(Simon, _DeltaTime) != _DeltaTime && !Simon->isImmortal)
-		{
-			Simon->Injured();
-			blueBat->isActive = false;
-		}
-
-		if (Simon->isAttack && Simon->killingMoment)
-			if (blueBat->sweptAABB(whip, _DeltaTime) != _DeltaTime)
-				blueBat->isActive = false;
-	}
-	else
-	{
-		if (Simon->isRight)
-			blueBat->Init(Sprite::cameraXRight, Simon->position.y + 60, 1);
-		else
-			blueBat->Init(Sprite::cameraXLeft, Simon->position.y + 60, 1);
-	}
-	
-	if (panther->isActive)
-	{
-		panther->Update(_DeltaTime);
-		if (panther->sweptAABB(Simon, _DeltaTime) != _DeltaTime && !Simon->isImmortal)
-			Simon->Injured();
-		if (Simon->isAttack && Simon->killingMoment)
-			if (panther->sweptAABB(whip, _DeltaTime) != _DeltaTime)
-				panther->isActive = false;
-	}
-	else
-	{
-		if (Simon->isRight)
-			panther->Init(Sprite::cameraXRight, 94, Simon->isRight);
-		else
-			panther->Init(Sprite::cameraXLeft, 94, Simon->isRight);
-	}
-
-	if (fish->isActive)
-	{
-		fish->Update(_DeltaTime);
-
-
-		if (fish->sweptAABB(Simon, _DeltaTime) != _DeltaTime && !Simon->isImmortal)
-			Simon->Injured();
-		if (Simon->isAttack && Simon->killingMoment)
-			if (fish->sweptAABB(whip, _DeltaTime) != _DeltaTime)
-				fish->isActive = false;
-	}
-	else
-	{
-		local = (rand() % Sprite::cameraXRight + Sprite::cameraXLeft) / 2;
-		fish->Init(local, 94, Simon->isRight);
-	}
-
-	//
-
-	if (knight->isActive)
-	{
-		knight->Update(_DeltaTime);
-
-		if (knight->sweptAABB(Simon, _DeltaTime) != _DeltaTime && !Simon->isImmortal)
-			Simon->Injured();
-		if (Simon->isAttack && Simon->killingMoment)
-			if (knight->sweptAABB(whip, _DeltaTime) != _DeltaTime)
-				knight->isActive = false;
-	}
-	else
-	{
-		if (Simon->isRight)
-			knight->Init(Sprite::cameraXRight, 94, Simon->isRight, 100, 200);
-		else
-			knight->Init(Sprite::cameraXLeft, 94, Simon->isRight, 100, 200);
-	}
-}
-
-// gọi ở cuối game_run, bên trong BeginScene() và EndScene();
+// gọi bên trong BeginScene() và EndScene();
 void World::Render()
 {
-
-	if (knight->isActive)
-	{
-		knight->Render();
-	}
-
-	if (ghoul->isActive)
-	{
-		ghoul->Render();
-	}
-
-
-	if (redBat->isActive)
-	{
-		redBat->Render();
-	}
-
-	if (blueBat->isActive)
-	{
-		blueBat->Render();
-	}
-
-	if (panther->isActive)
-	{
-		panther->Render();
-	}
-
-	if (fish->isActive)
-	{
-		fish->Render();
-	}
+	
+	//whip->Render();
+	
+	fish->Render();
+	
+	//flash->Render(Sprite::cameraX + 512 / 2, Sprite::cameraY - 448 / 2);
+	//heart->Render();
+	groupQuadtreeCollision->Render();
+	groupSpecialCollision->Render();
 
 	Simon->Render();
+}
 
-
-	//The whip
-	if (Simon->isAttack && Simon->sprite->_Index >= 11)
+void World::CheckActive(float _DeltaTime)
+{
+	/////////////////
+	/*if (!medusa->isActive)
 	{
-		if (Simon->isCrouch)
-			whip->Render(Simon->position.x, Simon->position.y - 14, (Simon->sprite->_Index - 3), Simon->isRight);
-		else
-			whip->Render(Simon->position.x, Simon->position.y, Simon->sprite->_Index, Simon->isRight);
+
+		medusa->Init(800, 600);
+
+		medusa->CheckActive();
 	}
 
+	if (medusa->isAttack)
+	{
+		if (!snake->isActive)
+			snake->Init(medusa->postX, medusa->postY);
 
-	//Render GateWay to change stage
-	castleDoor->Render();
-	//------------------------
+	}
+	else
+		snake->Destroy();
 
-
-
+	if (!vamBat->isActive)
+	{
+		vamBat->Init(1000, 600);
+		vamBat->CheckActive();
+	}*/
+	///////////////
+	
+	
 }
 
 void World::Destroy()

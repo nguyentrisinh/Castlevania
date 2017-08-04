@@ -1,16 +1,18 @@
 #include "Whip.h"
+#include "World.h"
+#include "GroupObject.h"
 
-Whip::Whip(LPD3DXSPRITE _SpriteHandler, World *_manager)
+Whip::Whip(LPD3DXSPRITE _SpriteHandler, World *_manager) :Projectile(_SpriteHandler, _manager)
 {
-	collider = new Collider();
-	position.x = 0;
-	position.y = 0;
+	projectileType = WHIP;
 	sizeWidth = 256;
 	sizeHeight = 64;
 	spriteLeft = new Sprite(_SpriteHandler, "Resources\\Sprites\\whip_left.bmp", sizeWidth, sizeHeight, 18, 3);
 	spriteRight = new Sprite(_SpriteHandler, "Resources\\Sprites\\whip_right.bmp", sizeWidth, sizeHeight, 18, 3);
 	sprite = spriteRight;
-	sprite->_Index = 3;
+	whipLevel = 0;
+	Damage = 3;
+	isActive = false;
 
 }
 Whip::~Whip()
@@ -26,47 +28,103 @@ Whip::~Whip()
 }
 void Whip::Init(int _X, int _Y)
 {
-	sprite->_Index = 2;
-	position.x = _X;
-	position.y = _Y;
-}
-void Whip::Update(const float &_DeltaTime)
-{
-	sprite->Next(0, 3);
-}
-void Whip::Render()
-{
-	sprite->Render(position.x, position.y);
-}
+	isActive = true;
 
-void Whip::Render(float X, float Y, int simonIndex, bool isRight)
-{
-	if (isRight)
+	postX = _X;
+
+	if (manager->Simon->isCrouch)
+		postY = _Y - 14;
+	else
+		postY = _Y;
+
+	if (manager->Simon->isRight)
 	{
 		sprite = spriteRight;
-		collider->setCollider(18, 4, 26, 72);	
+		// --------- update by k
+		if (whipLevel < 2)
+			collider->setCollider(18, 4, 26, 72);
+		else
+			collider->setCollider(18, 4, 26, 100);
 	}
 	else
 	{
 		sprite = spriteLeft;
-		collider->setCollider(18, 4, -72, -26);
+		// --------- update by k
+		if (whipLevel < 2)
+			collider->setCollider(18, 4, -72, -26);
+		else
+			collider->setCollider(18, 4, -100, -26);
 	}
-		
-	position.x = X, position.y = Y;
-	sprite->_Index = simonIndex - 11;
-	Render();
+
+	sprite->_Index = 3 * whipLevel;
+	// ---------- update by k
+	if (whipLevel < 1)
+		Damage = 3;
+	else
+	{
+		Damage = 4;
+		if (whipLevel > 1)
+		{
+			sprite->_Index = 6;
+			lvl3indexsprite = 6;
+		}
+	}
 }
 
-void Whip::Update(float X, float Y)
+void Whip::Update(const float &_DeltaTime)
 {
-	position.x = X;
-	position.y = Y;
+	if (!manager->Simon->isAttack)
+		isActive = false;
+	if (!isActive)
+		return;
+	postX = manager->Simon->postX;
+
+	if (manager->Simon->isCrouch)
+		postY = manager->Simon->postY - 14;
+	else
+		postY = manager->Simon->postY;
+
+	// update by khang -------------
+	if (manager->Simon->isChangeFrame)
+	{
+		switch (whipLevel)
+		{
+		case 0:
+			sprite->Next(0, 2);
+			break;
+		case 1:
+			sprite->Next(3, 5);
+			break;
+			//
+		case 2:
+			lvl3indexsprite += 4;
+			break;
+		}
+	}
+
+	if (whipLevel == 2)
+	{
+		sprite->Next(lvl3indexsprite, lvl3indexsprite + 3);
+	}
+
+	//-----------------------
+
+	if (manager->Simon->isAttack && manager->Simon->killingMoment)
+		CollisionObject(_DeltaTime);
 }
+void Whip::Render()
+{
+
+	if (isActive)
+	{
+		sprite->Render(postX, postY);
+	}
+
+}
+
 void Whip::Destroy()
 {
-
+	isActive = false;
 }
 void Whip::Collision()
-{
-
-}
+{}

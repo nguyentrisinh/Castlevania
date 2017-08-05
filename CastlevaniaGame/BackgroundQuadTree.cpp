@@ -23,6 +23,7 @@ BackgroundQuadTree::~BackgroundQuadTree()
 	delete(rect);
 }
 
+// the root node has ID: 1 (view file)
 void BackgroundQuadTree::setRootNode(map<int, BackgroundQuadTree*> &Nodes)
 {
 	//gan gia tri cua Nodes[1] vao node hien tai
@@ -39,13 +40,14 @@ void BackgroundQuadTree::setRootNode(map<int, BackgroundQuadTree*> &Nodes)
 	Nodes[1] = this;
 }
 
+// paste the file into excel, you will see that \t separate column
 BackgroundQuadTree* BackgroundQuadTree::createNodeFromString(string line)
 {
 	//tao mot node moi
 	BackgroundQuadTree *node = new BackgroundQuadTree;
 
 	if (line == "")
-		return node;
+		return node;// empty node
 
 	int x, y, width, height;
 
@@ -58,7 +60,7 @@ BackgroundQuadTree* BackgroundQuadTree::createNodeFromString(string line)
 	int i = 0;
 	while (i < line.length())
 	{
-		if (line[i] != '	')
+		if (line[i] != '	')// separated by \t
 		{
 			word += line[i];
 		}
@@ -72,11 +74,17 @@ BackgroundQuadTree* BackgroundQuadTree::createNodeFromString(string line)
 	//dua tu cuoi vao words
 	words.push_back(word);
 
+	// *************
+	// ** words[] array of "std::string"
+	// ** words[ <index> ].c_str() => return "char*" point to the content of the "std::string"
+
 	// xet gia tri node bang cac gia tri tuong ung trong words
-	node->nodeID = atoi(words[0].c_str());			//hàm atoi dùng chuyển giá trị chuỗi sang số
-	x = atoi(words[1].c_str());
+
+	// ** atoi = Ascii TO Integer, convert the ascii characters to number
+	node->nodeID = atoi(words[0].c_str());// first column is ID
+	x = atoi(words[1].c_str());// 2nd, 3rd columns is position of the node // what corner? I'm forgot :v
 	y = atoi(words[2].c_str());
-	width = atoi(words[3].c_str());
+	width = atoi(words[3].c_str());// 4th, 5th columns is the size
 	height = atoi(words[4].c_str());
 
 	node->rect->left = x;
@@ -86,7 +94,7 @@ BackgroundQuadTree* BackgroundQuadTree::createNodeFromString(string line)
 
 
 	//su dung bien dem i de duyet words
-	i = 5;
+	i = 5;// 6th column and the after columns is ID of tile
 
 	//neu so luong phan tu cua word > 5 thi node co chua doi tuong ta tien hanh lap danh sach cac doi tuong do
 	
@@ -104,7 +112,8 @@ BackgroundQuadTree* BackgroundQuadTree::createNodeFromString(string line)
 	return node;
 }
 
-
+// linking nodes with others, building a quad-tree
+//  (a node will have 4 subnodes)  (the end-node will have no childs)  (data will be contained at the end-nodes)
 void BackgroundQuadTree::ConnectToTheChildNodes(map<int, BackgroundQuadTree*> &Nodes)
 {
 	if (Nodes[nodeID * 10 + 1] == NULL)
@@ -134,11 +143,11 @@ void BackgroundQuadTree::loadTreeFromFile(char* filename)
 	BackgroundQuadTree *node = new BackgroundQuadTree();
 
 	//doc file
-	ifstream fi;
+	ifstream fi;// <input-file-stream>
 	fi.open(filename);
 
 	//xet dieu kien trong khi chua het file
-	while (!fi.eof())
+	while (!fi.eof())// eof = end-of-file
 	{
 		getline(fi, line);
 		node = createNodeFromString(line);
@@ -148,7 +157,7 @@ void BackgroundQuadTree::loadTreeFromFile(char* filename)
 	ConnectToTheChildNodes(Nodes);
 }
 
-
+// is intersect viewport?
 bool BackgroundQuadTree::IsIntersectVP()
 {
 	RECT cameraRect; // bien xac dinh 4 canh cua camera

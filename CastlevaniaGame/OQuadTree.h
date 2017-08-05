@@ -1,4 +1,4 @@
-﻿// ------ update K_1.5
+﻿// Object - Quadtree
 
 #ifndef _OQUADTREE_H_
 #define _OQUADTREE_H_

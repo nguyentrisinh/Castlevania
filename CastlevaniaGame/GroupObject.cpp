@@ -1,4 +1,4 @@
-﻿// ------- update K_1.5
+﻿//
 
 #include "GroupObject.h"
 #include "OQuadTree.h"

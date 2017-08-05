@@ -1,4 +1,6 @@
-﻿#include "OLoader.h"
+﻿// Object - loader
+
+#include "OLoader.h"
 
 #include "GameObject.h"
 
@@ -349,6 +351,11 @@ GameObject* OLoader::CreateGameObject(int* parameters)
 // tạo enemy dựa vào mảng số
 Enemy* OLoader::CreateEnemy(int* parameters)
 {
+	// #######################
+	// shold make static method Enemy::CreateEnemy()  (view the method Item::CreateItem() )
+	//#########################
+
+
 	Enemy* newEnemy = NULL;
 
 	switch (parameters[1] % 100)

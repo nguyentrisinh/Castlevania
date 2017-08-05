@@ -1,4 +1,4 @@
-﻿// K_1.1 & K_1.2 sửa kha khá để testing
+﻿// THIS WORLD IS SUCKED! DOOM THIS WORLD!
 
 #include "World.h"
 #include "MainGame.h"
@@ -17,16 +17,29 @@ World::World(LPD3DXSPRITE _SpriteHandler, MainGame *_MainGame)
 	Simon = new Player(spriteHandler, this);
 	
 	//-----------
-	
-	groupSpecialCollision = new GroupObject(this);
+	// idea: collect the active objects from QUADTREE "active-Object with Collision"
 	groupQuadtreeCollision = new GroupObject(this);
-	groupItem = new GroupObject(this);
-	groupEffect = new GroupObject(this);
-	groupProjectile = new GroupObject(this);
+	// of course, these objects are live in the nodes that intersect with current viewport
 
+	// idea: collect the active objects from SPECIAL (other object not lived in quadtree) "active-Object with Collision"
+	groupSpecialCollision = new GroupObject(this);
+
+
+
+
+	// just a holder for management
+	groupItem = new GroupObject(this);
+	// just a holder for management
+	groupEffect = new GroupObject(this);
+
+	groupProjectile = new GroupObject(this);
+	
+	// just a holder for management
 	groupEnemy = new GroupObject(this);
-	rootGONode = NULL;
-	// -----------------
+
+	// root GameObject Node: for handle level
+	rootGONode = NULL;// (I'm only use file for make level, not make "scene") (we can change this concept)
+	// -----------
 }
 
 
@@ -47,16 +60,19 @@ void World::Init()
 	isFlash = false;
 
 	
-
+	// need to be clean, put into "GroupObject" ----
 	ghoul = new Ghoul(spriteHandler, this);
 	redBat = new RedBat(spriteHandler, this);
 	blueBat = new BlueBat(spriteHandler, this);
 	
 	fish = new Fish(spriteHandler, this);
 	vamBat = new VamBat(spriteHandler, this);
+	// ---------------
 
+	// should keep in here (or create a new better place to put in)
 	boss = NULL;
 
+	// damn rubishes of the Simon ##############
 	whip = new Whip(spriteHandler, this);
 	groupProjectile->AddObject(whip);
 
@@ -94,16 +110,17 @@ void World::Init()
 	groupProjectile->AddObject(holyWater[0]);
 	groupProjectile->AddObject(holyWater[1]);
 	groupProjectile->AddObject(holyWater[2]);
-
+	// ##
 }
 
 // gọi ở đầu game_run
 void World::Update(float _DeltaTime)
 {
 
-	// -- cập nhật danh sách object có thể va chạm
+	// -- collecting all objects that can collide with the main player
 	groupSpecialCollision->GetCollisionSpecial();
 	groupQuadtreeCollision->GetCollisionQuadtree();
+	// fortunately, these objects are appear in the screen (not all of them), so we can use this group for update() and render()
 	// =========-------------------------
 	Simon->Update(_DeltaTime);
 	//whip->Update(_DeltaTime);
@@ -117,7 +134,12 @@ void World::Update(float _DeltaTime)
 		flash->Next(0, 1);
 		timer = 0;
 	}*/
+	// lol, what are you doing here, fish?
 	fish->Update(_DeltaTime);
+
+
+
+
 	groupQuadtreeCollision->Update(_DeltaTime);
 	groupSpecialCollision->Update(_DeltaTime);
 	// ---------------
@@ -128,7 +150,7 @@ void World::Render()
 {
 	
 	//whip->Render();
-	
+	// hello fish, you should not appear at here
 	fish->Render();
 	
 	//flash->Render(Sprite::cameraX + 512 / 2, Sprite::cameraY - 448 / 2);

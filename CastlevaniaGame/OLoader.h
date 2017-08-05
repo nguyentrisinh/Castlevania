@@ -1,4 +1,6 @@
-﻿#ifndef _OLOADER_H_
+﻿// Object - loader
+
+#ifndef _OLOADER_H_
 #define _OLOADER_H_
 
 #include "ThamSo.h"

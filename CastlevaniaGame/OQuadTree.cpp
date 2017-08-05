@@ -1,4 +1,6 @@
-﻿#include "OQuadTree.h"
+﻿// object - quadtree
+
+#include "OQuadTree.h"
 #include "Sprite.h"
 #include "GroupObject.h"
 

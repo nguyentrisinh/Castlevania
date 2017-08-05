@@ -1,4 +1,4 @@
-﻿// ----- update K_1.5
+﻿// the concept for managing objects
 
 #ifndef _GROUPOBJECT_H_
 #define _GROUPOBJECT_H_

@@ -323,6 +323,15 @@ void MainGame::OnKeyDown(int KeyCode)					//Chỉ nhảy khi vừa nhấn, nhấ
 	case DIK_M:
 		NextLevel();
 		break;
+	case DIK_H:
+		world->Simon->RestoreHP();
+		break;
+	case DIK_J:
+		world->Simon->IncreaseHeart();
+		break;
+	case DIK_K:
+		world->Simon->ChangeSubWeapon();
+		break;
 	}
 }
 

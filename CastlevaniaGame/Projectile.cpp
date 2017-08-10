@@ -1,4 +1,4 @@
-#include "Projectile.h"
+﻿#include "Projectile.h"
 #include "World.h"
 #include "GroupObject.h"
 
@@ -50,9 +50,10 @@ void Projectile::CollisionObject(float _DeltaTime)
 {
 	float collisionScale = 0;
 
+	//đây là 1 biến ảo dùng để tùy biến nó thành bất kỳ loại object khác khi xét va chạm
 	GameObject* tempObject;
 
-
+	// Check với những object đặc biệt phải xét va chạm
 	for (int i = 0; i < (manager->groupSpecialCollision->number); i++)
 	{
 
@@ -60,6 +61,7 @@ void Projectile::CollisionObject(float _DeltaTime)
 
 		switch (tempObject->objectType)
 		{
+		// nếu trường hợp là enemy thì sẽ thực hiện cho enemy mất máu
 		case ENEMY_TYPE:
 			if ((this->projectileType != HOLYFIRE) && (this->projectileType != KNIFE) && (this->projectileType != WHIP))
 			{
@@ -85,7 +87,7 @@ void Projectile::CollisionObject(float _DeltaTime)
 		}
 	}
 
-	// // // ----------- UPDATE _ K2.2 ---------
+	// check với các object cần được xét va chạm lấy ra từ quadtree
 	for (int i = 0; i < (manager->groupQuadtreeCollision->number); i++)
 	{
 

@@ -100,7 +100,7 @@ void Player::Init(int _X, int _Y)
 	invicinbleTimer = 0;
 
 	heart = 5;
-	health = 10;
+	health = 16;
 	P = 3;
 	score = 0;
 }
@@ -657,7 +657,7 @@ void Player::Attack(int keyAttack)
 
 void Player::ActivateWeapon()
 {
-	if (isActive || isShowTime || isHitted)
+	if (isActive || isShowTime || isHitted || this->heart <= 0)
 		return;
 	Attack(1);
 	if (!isAttack)
@@ -682,6 +682,7 @@ void Player::ActivateWeapon()
 			{
 				if (!manager->boo[i]->isActive)
 				{
+					this->heart--;
 					manager->boo[i]->Init(postX, postY);
 					isActivateWeapon = true;
 					return;
@@ -704,6 +705,7 @@ void Player::ActivateWeapon()
 			{
 				if (!manager->axe[i]->isActive)
 				{
+					this->heart--;
 					manager->axe[i]->Init(postX, postY);
 					isActivateWeapon = true;
 					return;
@@ -726,6 +728,7 @@ void Player::ActivateWeapon()
 			{
 				if (!manager->knife[i]->isActive)
 				{
+					this->heart--;
 					manager->knife[i]->Init(postX, postY);
 					isActivateWeapon = true;
 					return;
@@ -757,6 +760,7 @@ void Player::ActivateWeapon()
 			{
 				if (!manager->holyWater[i]->isActive)
 				{
+					this->heart--;
 					manager->holyWater[i]->Init(postX, postY);
 					isActivateWeapon = true;
 					return;
@@ -764,6 +768,7 @@ void Player::ActivateWeapon()
 			}
 		break;
 	}
+
 
 	// truong hop khong co weapon nao duoc danh ra
 	
@@ -782,6 +787,8 @@ void Player::Injured(int keyInjured)
 	if (isHitted)
 		return;
 	velocityY = 300;
+
+	this->health--;
 
 	//bien xac dinh trang thai bi thuong
 	isHitted = true;
@@ -865,20 +872,7 @@ void Player::CollisionObject(float _DeltaTime)
 	// -------------------------------------------------------------------------------------
 	float collisionScale = 0;
 
-	// không dùng nữa ==========================================
-	//collisionScale = Simon->SweptAABB(castleDoor, _DeltaTime);
 
-	//if ((collisionScale < 1.0f) && (collisionScale > 0.0f))	// == 0 khi intersect
-	//{
-	//	if (castleDoor->objectType == ZONE_TYPE)
-	//	{
-	//		if (((Zone*)castleDoor)->typeZone == ZONE_GATEWAY)
-	//		{
-
-	//			((GateWay*)castleDoor)->Collision(Simon, _DeltaTime);
-	//		}
-	//	}
-	//}==================================================
 
 	GameObject* tempObject;
 	// Xét va chạm với nhóm đối tượng đặc biệt. Ví dụ như ghoul (Respawn), Item,...
@@ -1023,4 +1017,24 @@ void Player::CollisionObject(float _DeltaTime)
 	// -------------------------------------------------------------------------------------
 	// --------------
 	// -------------------------------------------------------------------------------------
+}
+
+
+//~~~~~~~~~~~~~~~~~~Cheat function
+void Player::RestoreHP()
+{
+	this->health = 16;
+}
+
+void Player::IncreaseHeart()
+{
+	this->heart += 10;
+}
+
+void Player::ChangeSubWeapon()
+{
+	this->subWeapon++;
+
+	if (this->subWeapon >= 7)
+		this->subWeapon = this->subWeapon / 7 + 1;
 }

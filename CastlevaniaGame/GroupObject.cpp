@@ -92,35 +92,5 @@ void GroupObject::GetCollisionQuadtree()
 	this->objects.clear();
 	number = 0;
 	manager->rootGONode->SendObjectTo(this);
-	/*this->objects.push_back(manager->medusa);
-	number++;
-	this->objects.push_back(manager->redBat);
-	number++;
-	this->objects.push_back(manager->blueBat);
-	number++;
-	this->objects.push_back(manager->fish);
-	number++;
-	this->objects.push_back(manager->panther);
-	number++;
-	this->objects.push_back(manager->vamBat);
-	number++;
-	this->objects.push_back(manager->knife);
-	number++;
-	this->objects.push_back(manager->boo);
-	number++;
-	this->objects.push_back(manager->axe);
-	number++;
-	this->objects.push_back(manager->holyFire);
-	number++;
-	this->objects.push_back(manager->holyWater);
-	number++;
-	this->objects.push_back(manager->holyFire);
-	number++;
-
-	for (int i = 0; i <= 5; i++)
-	{
-		this->objects.push_back(manager->stair[i]);
-		number++;
-	}*/
 	
 }

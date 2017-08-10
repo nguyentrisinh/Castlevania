@@ -24,7 +24,7 @@ GateWay::~GateWay()
 
 void GateWay::Render()
 {
-	sprite->Render(postX, postY);
+	//sprite->Render(postX, postY);
 }
 
 

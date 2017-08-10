@@ -98,6 +98,11 @@ public:
 	void UpdateWhenOnStair(float _DeltaTime);
 	void UpdateWhenMoveToPossionX(float _DeltaTime);
 
+	// cheat function
+	void RestoreHP();
+	void IncreaseHeart();
+	void ChangeSubWeapon();
+
 };
 
 #endif

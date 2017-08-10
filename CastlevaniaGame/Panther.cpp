@@ -31,10 +31,10 @@ void Panther::Init(int _X, int _Y)
 	position.y = _Y;
 	position.x = _X;
 	if (manager->Simon->isRight)
-		velocityX = -30;
+		velocity.x = -30;
 	else
-		velocityX = 30;
-	velocityY = -150;
+		velocity.x = 30;
+	velocity.y = -150;
 }
 
 void Panther::Update(const float &_DeltaTime)
@@ -46,14 +46,14 @@ void Panther::Update(const float &_DeltaTime)
 	{
 		if (!hasJumped)
 		{
-			position.x += velocityX * _DeltaTime * 8;
-			position.y -= velocityY * _DeltaTime;
+			position.x += velocity.x * _DeltaTime * 8;
+			position.y -= velocity.y * _DeltaTime;
 
 			timerSprite += _DeltaTime;
 
 			if (timerSprite >= ANIM_TIME)
 			{
-				velocityY += velocityX*velocityX / 5;
+				velocity.y += velocity.x*velocity.x / 5;
 				sprite->Next(4, 4);
 				timerSprite = 0;
 			}
@@ -65,7 +65,7 @@ void Panther::Update(const float &_DeltaTime)
 		}
 		else
 		{
-			position.x += velocityX * _DeltaTime * 8;
+			position.x += velocity.x * _DeltaTime * 8;
 			timerSprite += _DeltaTime;
 
 			if (timerSprite >= ANIM_TIME)

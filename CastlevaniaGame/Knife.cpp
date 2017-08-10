@@ -38,14 +38,14 @@ void Knife::Init(int _X, int _Y)
 	if (manager->Simon->isRight)
 	{
 		position.x = _X + 10;
-		velocityX = 250;
+		velocity.x = 250;
 		sprite = spriteRight;
 		collider->setCollider(10, -10, -18, 18);
 	}
 	else
 	{
 		position.x = _X -10;
-		velocityX = -250;
+		velocity.x = -250;
 		sprite = spriteLeft;
 		collider->setCollider(10, -10, -18, 18);
 	}
@@ -54,7 +54,7 @@ void Knife::Init(int _X, int _Y)
 
 void Knife::Update(const float &_DeltaTime)
 {
-	position.x += velocityX*_DeltaTime;
+	position.x += velocity.x*_DeltaTime;
 	if (!IsInCamera())
 		isActive = false;
 	if (manager->Simon->isAttack && manager->Simon->killingMoment)

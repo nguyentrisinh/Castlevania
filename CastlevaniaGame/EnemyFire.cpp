@@ -27,12 +27,12 @@ void EnemyFire::Init(int _X, int _Y)
 	position.x = _X;
 	if (!manager->Simon->isRight)
 	{
-		velocityX = -150;
+		velocity.x = -150;
 		sprite = spriteLeft;
 	}
 	else
 	{
-		velocityX = 150;
+		velocity.x = 150;
 		sprite = spriteRight;
 	}
 
@@ -43,7 +43,7 @@ void EnemyFire::Update(const float &_DeltaTime)
 {
 	if (!isActive)
 		return;
-	position.x += velocityX * _DeltaTime;
+	position.x += velocity.x * _DeltaTime;
 
 }
 

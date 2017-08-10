@@ -28,9 +28,9 @@ void RedBat::Init(int _X, int _Y)
 	position.x = _X;
 	a = 0;
 	if (manager->Simon->isRight)
-		velocityX = -150;
+		velocity.x = -150;
 	else
-		velocityX = 150;
+		velocity.x = 150;
 
 	lineY = manager->Simon->position.y;
 }
@@ -50,12 +50,12 @@ void RedBat::Init(int _X, int _Y, bool isRight)
 
 	if (manager->Simon->isRight)
 	{
-		velocityX = -150;
+		velocity.x = -150;
 		sprite = spriteLeft;
 	}
 	else
 	{
-		velocityX = 150;
+		velocity.x = 150;
 		sprite = spriteRight;
 	}
 	sprite->_Index = 7;
@@ -63,7 +63,7 @@ void RedBat::Init(int _X, int _Y, bool isRight)
 
 void RedBat::Update(const float &_DeltaTime)
 {
-	position.x += velocityX * _DeltaTime;
+	position.x += velocity.x * _DeltaTime;
 	a += 0.05;
 	timerSprite += _DeltaTime;
 	if (timerSprite >= 0.2f)

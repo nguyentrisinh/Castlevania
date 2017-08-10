@@ -27,31 +27,31 @@ void BlueBat::Init(int _X, int _Y)
 	isActive = true;
 	position.x = _X;
 	position.y = _Y;
-	velocityY = -250;
+	velocity.y = -250;
 
 	if (manager->Simon->isRight)
-		velocityX = -160;
+		velocity.x = -160;
 	else
-		velocityX = 160;
+		velocity.x = 160;
 }
 
 void BlueBat::Update(const float &_DeltaTime)
 {
 	// set sprites with direction
-	if (velocityX > 0)
+	if (velocity.x > 0)
 		sprite = spriteRight;
 	else
 		sprite = spriteLeft;
 	// move
 
-	position.x += velocityX * _DeltaTime;
+	position.x += velocity.x * _DeltaTime;
 
-	position.y += velocityY * _DeltaTime;
+	position.y += velocity.y * _DeltaTime;
 
 	timerSprite += _DeltaTime;
 	if (timerSprite >= 0.2f)
 	{
-		velocityY = velocityY / 2;
+		velocity.y = velocity.y / 2;
 		sprite->Next(19, 22);
 		timerSprite -= 0.2f;
 	}

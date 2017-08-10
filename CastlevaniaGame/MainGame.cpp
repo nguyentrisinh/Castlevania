@@ -302,7 +302,7 @@ void MainGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, float _DeltaTime)		//Chạy
 	// --------------- cheat
 	if (IsKeyDown(DIK_Q))
 	{
-		world->Simon->velocityY = 400;
+		world->Simon->velocity.y = 400;
 	}
 }
 

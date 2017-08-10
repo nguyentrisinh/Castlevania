@@ -27,8 +27,8 @@ GameObject::GameObject()
 
 	position.x = 0;
 	position.y = 0;
-	velocityX = 0;
-	velocityY = 0;
+	velocity.x = 0;
+	velocity.y = 0;
 }
 
 
@@ -133,8 +133,8 @@ float GameObject::SweptAABB(GameObject *target, const float &_DeltaTime)
 	// ------------- loại nhanh trường hợp không va chạm ---------------
 
 	// delta velocity
-	float deltaVX = ((this->velocityX) - (target->velocityX)) * _DeltaTime;
-	float deltaVY = ((this->velocityY) - (target->velocityY)) * _DeltaTime;
+	float deltaVX = ((this->velocity.x) - (target->velocity.x)) * _DeltaTime;
+	float deltaVY = ((this->velocity.y) - (target->velocity.y)) * _DeltaTime;
 	// thực ra không phải là hiệu vận tốc,
 	// mà là hiệu đoạn đường đi được trong thời gian _DeltaTime
 	// dùng để tính tỉ lệ với "đoạn đường va chạm"
@@ -324,8 +324,8 @@ float GameObject::SweptAABB(GameObject *target, const float &_DeltaTime)
 // thay vì di chuyển lồng vào trong tường => di chuyển đến sát tường
 void GameObject::ResponseFrom(GameObject *target, const float &_DeltaTime, const float &_CollisionTimeScale)
 {
-	position.x += velocityX * (_CollisionTimeScale * _DeltaTime);
-	position.y += velocityY * (_CollisionTimeScale * _DeltaTime);
+	position.x += velocity.x * (_CollisionTimeScale * _DeltaTime);
+	position.y += velocity.y * (_CollisionTimeScale * _DeltaTime);
 }// nếu chạy hàm này thì không chơi post += velocity * _DeltaTime trong update nữa
 
  // văng vào tường thì bật ra
@@ -337,28 +337,28 @@ void GameObject::DeflectFrom(GameObject *target, const float &_DeltaTime, const 
 	// rồi mới bật ra
 	if (normalx > 0.1f)	// tông bên phải
 	{
-		if (velocityX < -0.0f)// đang chạy qua trái => văng ngược lại
-			velocityX *= -1;
+		if (velocity.x < -0.0f)// đang chạy qua trái => văng ngược lại
+			velocity.x *= -1;
 	}
 	else if (normalx < -0.1f) // tông bên trái
 	{
-		if (velocityX > 0.0f)//	đang chạy qua phải => văng ngược lại
-			velocityX *= -1;
+		if (velocity.x > 0.0f)//	đang chạy qua phải => văng ngược lại
+			velocity.x *= -1;
 	}
 
 	if (normaly > 0.1f) // tông phía trên
 	{
-		if (velocityY < -0.0f)// đang rơi xuống => văng lên trên
-			velocityY *= -1;
+		if (velocity.y < -0.0f)// đang rơi xuống => văng lên trên
+			velocity.y *= -1;
 	}
 	else if (normaly < -0.1f) // tông phía dưới
 	{
-		if (velocityY > 0.0f)// đang bay lên => văng xuống
-			velocityY *= -1;
+		if (velocity.y > 0.0f)// đang bay lên => văng xuống
+			velocity.y *= -1;
 	}
 
-	position.x += velocityX * (1.0f - _CollisionTimeScale) *_DeltaTime;
-	position.y += velocityY * (1.0f - _CollisionTimeScale) *_DeltaTime;
+	position.x += velocity.x * (1.0f - _CollisionTimeScale) *_DeltaTime;
+	position.y += velocity.y * (1.0f - _CollisionTimeScale) *_DeltaTime;
 }
 
 // ---------- update K_1.5
@@ -373,22 +373,22 @@ void GameObject::SlideFromGround(GameObject *target, const float &_DeltaTime, co
 	if (normalx > 0.1f)	// tông bên phải
 	{
 		this->position.x = (target->position.x + target->collider->right - this->collider->left) + 0.1f;
-		position.x -= velocityX*_DeltaTime;
-		//velocityX = 0.0f;
+		position.x -= velocity.x*_DeltaTime;
+		//velocity.x = 0.0f;
 	}
 
 	else if (normalx < -0.1f)// tông bên trái
 	{
 		this->position.x = (target->position.x + target->collider->left - this->collider->right) - 0.1f;
-		position.x -= velocityX*_DeltaTime;
-		//velocityX = 0.0f;
+		position.x -= velocity.x*_DeltaTime;
+		//velocity.x = 0.0f;
 	}
 
 
 	else if (normaly > 0.1f)	// tông ở trên
 	{
 		this->position.y = (target->position.y + target->collider->top - this->collider->bottom) + 0.1f;
-		velocityY = 0.0f;
+		velocity.y = 0.0f;
 	}
 	else
 		return;

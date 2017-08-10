@@ -27,13 +27,13 @@ void Medusa::Init(int _X, int _Y)
 	isAttack = false;
 	position.x = _X;
 	position.y = _Y;
-	velocityY = -250;
-	velocityX = -160;
+	velocity.y = -250;
+	velocity.x = -160;
 	a = 0;
 	//if (manager->Simon->isRight)
-	//	velocityX = -160;
+	//	velocity.x = -160;
 	//else
-	//	velocityX = 160;
+	//	velocity.x = 160;
 	
 	
 }
@@ -52,31 +52,31 @@ void Medusa::Update(const float &_DeltaTime)
 	}
 	if (position.x < 400||position.x>1000)
 	{
-		velocityX = 0;
-		velocityY = 0;
+		velocity.x = 0;
+		velocity.y = 0;
 		thoigiandung += _DeltaTime;
 		if (thoigiandung > 2)
 		{
-			velocityX = -150;
-			velocityY = -250;
+			velocity.x = -150;
+			velocity.y = -250;
 			if (position.x < 400)			
-				velocityX *= -1;
+				velocity.x *= -1;
 			if (position.y < 550)
 			{
-				velocityY *= -1;
-				velocityY++;
+				velocity.y *= -1;
+				velocity.y++;
 			}
 			thoigiandung = 0;
 		}
 	}
-	position.x += velocityX * _DeltaTime;
-	position.y += velocityY * _DeltaTime;
+	position.x += velocity.x * _DeltaTime;
+	position.y += velocity.y * _DeltaTime;
 	
 	timerSprite += _DeltaTime;
 
 	if (timerSprite >= 0.2f)
 	{
-		velocityY = sin(a) * 50;
+		velocity.y = sin(a) * 50;
 		sprite->Next(0, 4);
 		timerSprite = 0;
 	}

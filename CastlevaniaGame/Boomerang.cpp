@@ -44,12 +44,12 @@ void Boomerang::Init(int _X, int _Y)
 
 	if (isRight)
 	{
-		velocityX = 200;
+		velocity.x = 200;
 		sprite = spriteRight;
 	}
 	else
 	{
-		velocityX = -200;
+		velocity.x = -200;
 		sprite = spriteLeft;
 	}
 
@@ -60,10 +60,10 @@ void Boomerang::Update(const float &_DeltaTime)
 
 	timerSprite += _DeltaTime;
 
-	position.x += velocityX*_DeltaTime;
+	position.x += velocity.x*_DeltaTime;
 	if (position.x >= Sprite::cameraX + 512 || position.x <= Sprite::cameraX)
 	{
-		position.x -= velocityX*_DeltaTime;
+		position.x -= velocity.x*_DeltaTime;
 		if (isRight)
 		{
 			if (isReverted)
@@ -71,7 +71,7 @@ void Boomerang::Update(const float &_DeltaTime)
 				isActive = false;
 				return;
 			}
-			velocityX = -200;
+			velocity.x = -200;
 			sprite = spriteLeft;
 			isRight = false;
 			isReverted = true;
@@ -84,12 +84,12 @@ void Boomerang::Update(const float &_DeltaTime)
 				isActive = false;
 				return;
 			}
-			velocityX = 200;
+			velocity.x = 200;
 			sprite = spriteRight;
 			isRight = true;
 			isReverted = true;
 		}
-		position.x += velocityX*_DeltaTime;
+		position.x += velocity.x*_DeltaTime;
 
 	}
 	if (timerSprite >= BOOM_ANIM_TIME)

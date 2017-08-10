@@ -151,8 +151,8 @@ void Player::Update(const float &_DeltaTime)
 	}
 	else
 	{
-		velocityX = 0;
-		velocityY = 0;
+		velocity.x = 0;
+		velocity.y = 0;
 
 		//dang tan cong
 		if (isAttack || isUsingWeapon)
@@ -176,7 +176,7 @@ void Player::Update(const float &_DeltaTime)
 
 	//
 	if (onStair <= 0)
-		velocityY += -(1000 * _DeltaTime);
+		velocity.y += -(1000 * _DeltaTime);
 	else
 		UpdateWhenOnStair(_DeltaTime);
 
@@ -187,9 +187,9 @@ void Player::Update(const float &_DeltaTime)
 	{
 	}
 	else
-		position.x += (velocityX * _DeltaTime);
+		position.x += (velocity.x * _DeltaTime);
 
-	position.y += (velocityY * _DeltaTime);
+	position.y += (velocity.y * _DeltaTime);
 
 	//dieu khien truong hop nhay
 	if (isJump)
@@ -207,7 +207,7 @@ void Player::Update(const float &_DeltaTime)
 				sprite->_Index = 0;
 		}
 
-		velocityY = 0;
+		velocity.y = 0;
 	}
 
 	//UpdateCamera();
@@ -234,7 +234,7 @@ void Player::UpdateCamera()
 
 void Player::UpdateWhenJumping(float _DeltaTime)
 {
-	if (velocityY > 0)
+	if (velocity.y > 0)
 	{
 		//sprite->Next(4, 4);
 	}
@@ -353,8 +353,8 @@ void Player::UpdateWhenAttackOnStair(float _DeltaTime)
 
 void Player::UpdateWhenOnStair(float _DeltaTime)
 {
-	velocityX = 0;
-	velocityY = 0;
+	velocity.x = 0;
+	velocity.y = 0;
 	if (stairMoveKey == 0)
 	{
 		animStart = false;
@@ -477,7 +477,7 @@ void Player::UpdateWhenMoveToPossionX(float _DeltaTime)
 		Move(-1, _DeltaTime);
 
 
-	position.x += velocityX*_DeltaTime / 2;
+	position.x += velocity.x*_DeltaTime / 2;
 
 }
 
@@ -499,22 +499,22 @@ void Player::Move(int moveKey, const float &_DeltaTime)
 	switch (moveKey)
 	{
 	case -1:
-		velocityX = -200;
+		velocity.x = -200;
 		isRight = false;
 		sprite = spriteLeft;
 		break;
 	case 1:
-		velocityX = 200;
+		velocity.x = 200;
 		isRight = true;
 		sprite = spriteRight;
 		break;
 	default:
-		velocityX = 0;
+		velocity.x = 0;
 		sprite->Next(0, 0);
 		break;
 	}
 
-	if (velocityX != 0)
+	if (velocity.x != 0)
 	{
 		timerSprite += _DeltaTime;
 		if (timerSprite > ANIM_TIME)
@@ -603,7 +603,7 @@ void Player::Jump()
 		isJump = true;
 		downJump = true;
 		position.y += 10;
-		velocityY = 410;
+		velocity.y = 410;
 		sprite->Next(4, 4);
 		collider->top = 14;
 	}
@@ -786,7 +786,7 @@ void Player::Injured(int keyInjured)
 		return;
 	if (isHitted)
 		return;
-	velocityY = 300;
+	velocity.y = 300;
 
 	this->health--;
 
@@ -801,14 +801,14 @@ void Player::Injured(int keyInjured)
 	// update by K
 	if (keyInjured == 1) // va cham tu ben phai
 	{
-		velocityX = 80;
+		velocity.x = 80;
 		sprite = spriteLeft;
 		isRight = false;
 	}
 		
 	else //khong phai va cham tu ben phai
 	{
-		velocityX = -80;
+		velocity.x = -80;
 		sprite = spriteRight;
 		isRight = true;
 	}
@@ -952,7 +952,7 @@ void Player::CollisionObject(float _DeltaTime)
 					isJump = false;
 					isHitted = false;
 					//
-					this->velocityX += tempObject->velocityX;
+					this->velocity.x += tempObject->velocity.x;
 				}
 				SlideFromGround(tempObject, _DeltaTime, collisionScale);
 			}

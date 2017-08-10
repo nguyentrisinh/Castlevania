@@ -30,16 +30,16 @@ void Knight::Init(int _X, int _Y)
 	position.y = _Y;
 	position.x = _X;
 	if (manager->Simon->isRight)
-		velocityX = -30;
+		velocity.x = -30;
 	else
-		velocityX = 30;
+		velocity.x = 30;
 	
 }
 
 void Knight::Update(const float &_DeltaTime)
 {
 
-	position.x += velocityX * _DeltaTime;
+	position.x += velocity.x * _DeltaTime;
 
 	sprite = spriteLeft;
 	timerSprite += _DeltaTime;

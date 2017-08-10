@@ -25,8 +25,8 @@ void Bubble::Init(int _X, int _Y)
 	sprite->Next(6, 6);
 	timeSurvive = 0;
 	timerSprite = 0;
-	velocityX = 25;
-	velocityY = -200;
+	velocity.x = 25;
+	velocity.y = -200;
 	heso = 1;
 }
 void Bubble::Init(int _X, int _Y, int _heso)
@@ -37,8 +37,8 @@ void Bubble::Init(int _X, int _Y, int _heso)
 	sprite->Next(6, 6);
 	timeSurvive = 0;
 	timerSprite = 0;
-	velocityX = 25;
-	velocityY = -200;
+	velocity.x = 25;
+	velocity.y = -200;
 	heso = _heso;
 }
 
@@ -47,14 +47,14 @@ void Bubble::Update(const float &_deltaTime)
 	timeSurvive += _deltaTime;
 	if (timeSurvive >= 3.0f)
 		Destroy();
-	position.x += velocityX * _deltaTime*heso;
-	position.y -= velocityY * _deltaTime;
+	position.x += velocity.x * _deltaTime*heso;
+	position.y -= velocity.y * _deltaTime;
 
 	timerSprite += _deltaTime;
 
 	if (timerSprite >= 0.2f)
 	{
-		velocityY += velocityX*velocityX/5 ;
+		velocity.y += velocity.x*velocity.x/5 ;
 		sprite->Next(6, 6);
 		timerSprite = 0;
 	}

@@ -27,7 +27,7 @@ Bar::Bar(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	collisionScale = 0.0f;
 	wait = 0.0f;
 	// set cái này có vẻ thừa
-	velocityY = 0.0f;
+	velocity.y = 0.0f;
 }
 
 Bar::~Bar() {}
@@ -55,16 +55,16 @@ void Bar::Update(const float &_DeltaTime)
 
 	if (isRight)
 	{
-		velocityX = 50;
+		velocity.x = 50;
 	}
 	else
 	{
-		velocityX = -50;
+		velocity.x = -50;
 	}
 
 	HandlingCollision(_DeltaTime);
 
-	position.x += (velocityX*_DeltaTime);
+	position.x += (velocity.x*_DeltaTime);
 }
 
 // Check collision
@@ -104,12 +104,12 @@ void Bar::HandlingCollision(const float &_DeltaTime)
 		if (isRight)
 		{
 			isRight = false;
-			velocityX = 0;
+			velocity.x = 0;
 		}
 		else
 		{
 			isRight = true;
-			velocityX = 0;
+			velocity.x = 0;
 		}
 	}
 }

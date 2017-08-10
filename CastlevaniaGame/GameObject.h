@@ -53,8 +53,9 @@ public:
 	//float position.x;
 	//float position.y;
 	D3DXVECTOR2 position;
-	float velocityX;
-	float velocityY;
+	//float velocity.x;
+	//float velocity.y;
+	D3DXVECTOR2 velocity;
 
 	// ------ bo sung K_1.3 --- xét va chạm
 	float normalx;	// "vector pháp tuyến" said thầy Dũng

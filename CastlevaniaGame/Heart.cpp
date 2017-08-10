@@ -14,8 +14,8 @@ Heart::Heart(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	a = 10;
 	collider = new Collider();
 	collider->setCollider(9, -9, -9, 9);
-	velocityX = -20;
-	velocityY = -50;
+	velocity.x = -20;
+	velocity.y = -50;
 	isActive = false;
 	sprite = new Sprite(_SpriteHandler, "Resources\\Sprites\\bonus.bmp", sizeWidth, sizeHeight, 22, 6);
 }
@@ -41,25 +41,25 @@ void Heart::Update(const float &_DeltaTime)
 	timeSurvive += _DeltaTime;
 	if (timeSurvive >= 3.0f)
 		Destroy();
-	if (velocityX == 0 && velocityY == 0)
+	if (velocity.x == 0 && velocity.y == 0)
 		return;
 	a++;
-	position.x += velocityX * _DeltaTime;
-	position.y += velocityY * _DeltaTime;
+	position.x += velocity.x * _DeltaTime;
+	position.y += velocity.y * _DeltaTime;
 
 	timerSprite += _DeltaTime;
 
 	if (timerSprite >= 0.2f)
 	{
-		velocityX = sin(a) * 40;
+		velocity.x = sin(a) * 40;
 		sprite->Next(8, 8);
 		timerSprite = 0;
 	}
 	//====Xét collision với ground
 	if (Item::CheckGroundCollision(manager, _DeltaTime))
 	{
-		velocityY = 0;
-		velocityX = 0;
+		velocity.y = 0;
+		velocity.x = 0;
 	}
 	
 }

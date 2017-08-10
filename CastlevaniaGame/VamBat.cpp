@@ -22,18 +22,18 @@ void VamBat::Init(int _X, int _Y)
 	isActive = true;
 	position.x = _X;
 	position.y = _Y;
-	velocityY = -250;
-	velocityX = -160;
+	velocity.y = -250;
+	velocity.x = -160;
 	//if (manager->Simon->isRight)
-	//	velocityX = -160;
+	//	velocity.x = -160;
 	//else
-	//	velocityX = 160;
+	//	velocity.x = 160;
 }
 
 void VamBat::Update(const float &_DeltaTime)
 {
 	// set sprites with direction
-	/*if (velocityX > 0)
+	/*if (velocity.x > 0)
 		sprite = spriteRight;
 	else
 		sprite = spriteLeft;*/
@@ -41,20 +41,20 @@ void VamBat::Update(const float &_DeltaTime)
 	sprite = spriteVamBat;
 	if (position.x >= 1000 - 400)
 	{
-		position.x += velocityX * _DeltaTime;
-		position.y += velocityY * _DeltaTime;
+		position.x += velocity.x * _DeltaTime;
+		position.y += velocity.y * _DeltaTime;
 	}
 	
 	timerSprite += _DeltaTime;
 	if (timerSprite >= 0.2f)
 	{
-		velocityY = velocityY / 2;
+		velocity.y = velocity.y / 2;
 		sprite->Next(0, 2);
 		timerSprite -= 0.2f;
 	}
 	else
 	{
-		velocityY = -250;
+		velocity.y = -250;
 	}
 
 }

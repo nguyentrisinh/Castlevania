@@ -28,7 +28,7 @@ void Snake::Init(int _X, int _Y)
 	isActive = true;
 	position.x = _X;
 	position.y = _Y;
-	velocityX = -160;
+	velocity.x = -160;
 	
 }
 
@@ -37,9 +37,9 @@ void Snake::Update(const float &_DeltaTime)
 	if (!manager->medusa->isAttack)
 		isActive = false;
 	
-	position.x += velocityX*_DeltaTime;
+	position.x += velocity.x*_DeltaTime;
 
-	//position.y = velocityY*_DeltaTime;
+	//position.y = velocity.y*_DeltaTime;
 	timerSprite += _DeltaTime;
 
 	if (timerSprite >= 0.2f)

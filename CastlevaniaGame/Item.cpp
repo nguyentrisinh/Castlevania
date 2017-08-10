@@ -10,7 +10,7 @@ Item::Item(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	sizeHeight = 64;
 
 	//position.x = 400;
-	velocityX = 0.2f;
+	velocity.x = 0.2f;
 
 	sprite = new Sprite(_SpriteHandler, "Resources\\Sprites\\bonus.bmp", sizeWidth, sizeHeight, 22, 6);
 }

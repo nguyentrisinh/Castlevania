@@ -36,16 +36,16 @@ void HolyWater::Init(int _X, int _Y)
 	position.y = _Y;
 	isRight = manager->Simon->isRight;
 
-	velocityY = 400;
+	velocity.y = 400;
 
 	if (isRight)
 	{
-		velocityX = 150;
+		velocity.x = 150;
 		sprite = spriteRight;
 	}
 	else
 	{
-		velocityX = -150;
+		velocity.x = -150;
 		sprite = spriteLeft;
 	}
 	
@@ -58,10 +58,10 @@ void HolyWater::Update(const float &_DeltaTime)
 		return;
 	timerSprite += _DeltaTime;
 
-	position.x += velocityX*_DeltaTime;
+	position.x += velocity.x*_DeltaTime;
 	//xac dinh tọa do Y
-	velocityY += -(1000 * _DeltaTime);
-	position.y += (velocityY * _DeltaTime);
+	velocity.y += -(1000 * _DeltaTime);
+	position.y += (velocity.y * _DeltaTime);
 
 	if (!IsInCamera())
 	{

@@ -22,23 +22,23 @@ void Ghoul::Init(int _X, int _Y, bool isRight)
 	position.y = _Y;
 	position.x = _X;
 	if (isRight)
-		velocityX = -70;
+		velocity.x = -70;
 	else
-		velocityX = 70;
+		velocity.x = 70;
 }
 void Ghoul::Init(int _X, int _Y)
 {
 	isActive = true;
 	position.y = _Y;
 	position.x = _X;
-	velocityX = -70;
+	velocity.x = -70;
 }
 
 void Ghoul::Update(const float &_DeltaTime)
 {
 
-	position.x += velocityX * _DeltaTime;
-	if (velocityX > 0)
+	position.x += velocity.x * _DeltaTime;
+	if (velocity.x > 0)
 		sprite = spriteRight;
 	else
 		sprite = spriteLeft;

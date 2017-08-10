@@ -30,16 +30,16 @@ void Fish::Init(int _X, int _Y)
 	TimeToAttack = 0;
 	isActive = true;
 	position.y = 0;
-	velocityY = 450;
+	velocity.y = 450;
 	position.x = _X;
 	if (position.x > manager->Simon->position.x)
 	{
-		velocityX = -70;
+		velocity.x = -70;
 		sprite = spriteLeft;
 	}
 	else
 	{
-		velocityX = 70;
+		velocity.x = 70;
 		sprite = spriteRight;
 	}
 
@@ -55,19 +55,19 @@ void Fish::Init(int _X, int _Y, bool isRight)
 	TimeToAttack = 0;
 	isActive = true;
 	position.y = 0;
-	velocityY = 650;
+	velocity.y = 650;
 
 
 	position.x = Sprite::cameraX + 31 + (rand() % 450);
 
 	if (position.x > manager->Simon->position.x)
 	{
-		velocityX = -70;
+		velocity.x = -70;
 		sprite = spriteLeft;
 	}
 	else
 	{
-		velocityX = 70;
+		velocity.x = 70;
 		sprite = spriteRight;
 	}
 
@@ -88,16 +88,16 @@ void Fish::Update(const float &_DeltaTime)
 	// xac dinh sprite can ve
 
 	//xac dinh toòa do Y
-	velocityY += -(600 * _DeltaTime);
-	position.y += (velocityY * _DeltaTime);
+	velocity.y += -(600 * _DeltaTime);
+	position.y += (velocity.y * _DeltaTime);
 
 	//kiem tra neu Y huong xuong va vi?tri doi tuong thap hon mãòt ðâìt
-	if (velocityY < 0 && position.y < 224)
+	if (velocity.y < 0 && position.y < 224)
 	{
 
 		jumping = false;
 		position.y = 224;
-		position.x += velocityX * _DeltaTime;
+		position.x += velocity.x * _DeltaTime;
 
 		//tinh thoi gian tan cong
 		TimeToAttack += _DeltaTime;
@@ -112,11 +112,11 @@ void Fish::Update(const float &_DeltaTime)
 			if (isFiring)
 			{
 				if (position.x < manager->Simon->position.x)
-					velocityX = 70;
+					velocity.x = 70;
 				else
-					velocityX = -70;
+					velocity.x = -70;
 				isFiring = false;
-				if (velocityX > 0)
+				if (velocity.x > 0)
 					sprite = spriteRight;
 				else
 					sprite = spriteLeft;

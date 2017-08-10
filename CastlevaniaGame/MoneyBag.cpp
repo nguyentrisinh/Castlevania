@@ -11,7 +11,7 @@ MoneyBag::MoneyBag(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	sizeHeight = 64;
 
 	collider = new Collider();
-	velocityY = -100;
+	velocity.y = -100;
 	isActive = false;
 	sprite = new Sprite(_SpriteHandler, "Resources\\Sprites\\bonus.bmp", sizeWidth, sizeHeight, 22, 6);
 }
@@ -55,11 +55,11 @@ void MoneyBag::Update(const float &_DeltaTime)
 	timeSurvive += _DeltaTime;
 	if (timeSurvive >= 3.0f)
 		isActive = false;
-	if (velocityY == 0)
+	if (velocity.y == 0)
 		return;
 	if (isActive)
 	{
-		position.y += velocityY * _DeltaTime;
+		position.y += velocity.y * _DeltaTime;
 
 		timerSprite += _DeltaTime;
 		if (timerSprite >= 0.2f)
@@ -80,7 +80,7 @@ void MoneyBag::Update(const float &_DeltaTime)
 		}
 		//Khi chạm nền thì dừng lại
 		if (Item::CheckGroundCollision(manager, _DeltaTime))
-			velocityY = 0;
+			velocity.y = 0;
 	}
 
 

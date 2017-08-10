@@ -37,17 +37,17 @@ void Axe::Init(int _X, int _Y)
 	position.y = _Y;
 	isRight = manager->Simon->isRight;
 
-	velocityY = 600;
+	velocity.y = 600;
 
 	// update by k
 	if (isRight)
 	{
-		velocityX = 200;
+		velocity.x = 200;
 		sprite = spriteRight;
 	}
 	else
 	{
-		velocityX = -200;
+		velocity.x = -200;
 		sprite = spriteLeft;
 	}
 }
@@ -59,10 +59,10 @@ void Axe::Update(const float &_DeltaTime)
 		return;
 	timerSprite += _DeltaTime;
 
-	position.x += velocityX*_DeltaTime;
+	position.x += velocity.x*_DeltaTime;
 	//xac dinh toòa do Y
-	velocityY += -(1000 * _DeltaTime);
-	position.y += (velocityY * _DeltaTime);
+	velocity.y += -(1000 * _DeltaTime);
+	position.y += (velocity.y * _DeltaTime);
 	if (timerSprite >= ANIM_TIME/1.5f)
 	{
 		sprite->Next(1,4);

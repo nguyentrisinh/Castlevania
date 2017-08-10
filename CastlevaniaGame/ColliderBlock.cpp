@@ -18,8 +18,8 @@ void ColliderBlock::Init(int _X, int _Y, int _Width, int _Heigh)
 {
 	////
 	isActive = true;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	
 	collider->top = (_Heigh / 2);
 	collider->bottom = -(collider->top);

@@ -25,8 +25,8 @@ void BlueBat::Init(int _X, int _Y)
 	health = 1;
 
 	isActive = true;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	velocityY = -250;
 
 	if (manager->Simon->isRight)
@@ -44,9 +44,9 @@ void BlueBat::Update(const float &_DeltaTime)
 		sprite = spriteLeft;
 	// move
 
-	postX += velocityX * _DeltaTime;
+	position.x += velocityX * _DeltaTime;
 
-	postY += velocityY * _DeltaTime;
+	position.y += velocityY * _DeltaTime;
 
 	timerSprite += _DeltaTime;
 	if (timerSprite >= 0.2f)
@@ -62,12 +62,12 @@ void BlueBat::Update(const float &_DeltaTime)
 
 void BlueBat::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void BlueBat::Destroy()
 {
-	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, postX, postY, -1, spriteHandler, manager);
+	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 	manager->Simon->score += 200;
 	isActive = false;
@@ -80,6 +80,6 @@ void BlueBat::Collision()
 
 void BlueBat::CheckActive()
 {
-	if (postX < Sprite::cameraXLeft || postX > Sprite::cameraXRight)
+	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
 		isActive = false;
 }

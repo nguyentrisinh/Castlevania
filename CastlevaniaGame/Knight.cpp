@@ -27,8 +27,8 @@ void Knight::Init(int _X, int _Y)
 
 	isActive = true;
 	isSleeping = true;
-	postY = _Y;
-	postX = _X;
+	position.y = _Y;
+	position.x = _X;
 	if (manager->Simon->isRight)
 		velocityX = -30;
 	else
@@ -39,7 +39,7 @@ void Knight::Init(int _X, int _Y)
 void Knight::Update(const float &_DeltaTime)
 {
 
-	postX += velocityX * _DeltaTime;
+	position.x += velocityX * _DeltaTime;
 
 	sprite = spriteLeft;
 	timerSprite += _DeltaTime;
@@ -83,12 +83,12 @@ bool Knight::CheckGroundCollision(World * manager, const float _DeltaTime)
 void Knight::Render()
 {
 	if (isActive)
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 }
 
 void Knight::Destroy()
 {
-	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, postX, postY, -1, spriteHandler, manager);
+	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 	manager->Simon->score += 400;
 	isActive = false;
@@ -101,7 +101,7 @@ void Knight::Collision()
 
 void Knight::CheckActive()
 {
-	if (postX < Sprite::cameraXLeft || postX > Sprite::cameraXRight)
+	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
 		isActive = false;
 
 }

@@ -74,8 +74,8 @@ OLoader::~OLoader()
 void OLoader::Reload()
 {
 	// gán các thông số đầu game
-	manager->Simon->postX = initParam[0];
-	manager->Simon->postY = initParam[1];
+	manager->Simon->position.x = initParam[0];
+	manager->Simon->position.y = initParam[1];
 
 	Sprite::cameraXLeft = initParam[2];
 	Sprite::cameraX = Sprite::cameraXLeft;

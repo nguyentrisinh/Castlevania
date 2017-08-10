@@ -24,15 +24,15 @@ void RedBat::Init(int _X, int _Y)
 	health = 1;
 
 	isActive = true;
-	postY = _Y;
-	postX = _X;
+	position.y = _Y;
+	position.x = _X;
 	a = 0;
 	if (manager->Simon->isRight)
 		velocityX = -150;
 	else
 		velocityX = 150;
 
-	lineY = manager->Simon->postY;
+	lineY = manager->Simon->position.y;
 }
 
 void RedBat::Init(int _X, int _Y, bool isRight)
@@ -41,11 +41,11 @@ void RedBat::Init(int _X, int _Y, bool isRight)
 
 	isActive = true;
 
-	//postY = _Y;
-	//postY = manager->Simon->postY;
-	lineY = manager->Simon->postY;
+	//position.y = _Y;
+	//position.y = manager->Simon->position.y;
+	lineY = manager->Simon->position.y;
 
-	postX = _X;
+	position.x = _X;
 	a = 0;
 
 	if (manager->Simon->isRight)
@@ -63,17 +63,17 @@ void RedBat::Init(int _X, int _Y, bool isRight)
 
 void RedBat::Update(const float &_DeltaTime)
 {
-	postX += velocityX * _DeltaTime;
+	position.x += velocityX * _DeltaTime;
 	a += 0.05;
 	timerSprite += _DeltaTime;
 	if (timerSprite >= 0.2f)
 	{
-		postY = 20 * sin(a) + lineY;
+		position.y = 20 * sin(a) + lineY;
 		sprite->Next(7, 10);
 		timerSprite = 0;
 	}
 
-	if ((postX < Sprite::cameraX) || (postX > Sprite::cameraX + 512))
+	if ((position.x < Sprite::cameraX) || (position.x > Sprite::cameraX + 512))
 		isActive = false;
 
 }
@@ -82,12 +82,12 @@ void RedBat::Update(const float &_DeltaTime)
 
 void RedBat::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void RedBat::Destroy()
 {
-	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, postX, postY, -1, spriteHandler, manager);
+	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 	manager->Simon->score += 200;
 	isActive = false;
@@ -100,6 +100,6 @@ void RedBat::Collision()
 
 void RedBat::CheckActive()
 {
-	if (postX < Sprite::cameraXLeft || postX > Sprite::cameraXRight)
+	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
 		isActive = false;
 }

@@ -17,8 +17,8 @@ Effect :: ~Effect()
 
 void Effect::Init(int _X, int _Y)
 {
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 }
 
 void Effect::Init(int _X, int _Y, int heso)
@@ -33,7 +33,7 @@ void Effect::Update(const float &_deltaTime)
 void Effect::Render()
 {
 	if (isActive)
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 }
 
 void Effect::Destroy()

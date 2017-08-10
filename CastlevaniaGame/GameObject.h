@@ -50,8 +50,9 @@ public:
 
 	Collider *collider;
 
-	float postX;
-	float postY;
+	//float position.x;
+	//float position.y;
+	D3DXVECTOR2 position;
 	float velocityX;
 	float velocityY;
 

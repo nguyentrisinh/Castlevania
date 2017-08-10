@@ -20,8 +20,8 @@ BossSpirit :: ~BossSpirit()
 void BossSpirit::Init(int _X, int _Y)
 {
 	isActive = true;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	sprite->Next(3, 4);
 	timeSurvive = 0;
 	timerSprite = 0;
@@ -46,7 +46,7 @@ void BossSpirit::Update(const float &_deltaTime)
 void BossSpirit::Render()
 {
 	if (isActive)
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 }
 
 void BossSpirit::Destroy()

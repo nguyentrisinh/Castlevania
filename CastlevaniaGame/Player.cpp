@@ -89,8 +89,8 @@ void Player::Init(int _X, int _Y)
 	isClimbing = true;
 
 
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 
 	weaponLevel = 1;
 	weaponNumber = 2;
@@ -109,7 +109,7 @@ void Player::Render()
 {
 	if ((int)(timeImmortal*(2.0f / ANIM_TIME)) % 2 == 0)
 	{
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 	}
 }
 
@@ -187,18 +187,18 @@ void Player::Update(const float &_DeltaTime)
 	{
 	}
 	else
-		postX += (velocityX * _DeltaTime);
+		position.x += (velocityX * _DeltaTime);
 
-	postY += (velocityY * _DeltaTime);
+	position.y += (velocityY * _DeltaTime);
 
 	//dieu khien truong hop nhay
 	if (isJump)
 		UpdateWhenJumping(_DeltaTime);
 
 	// truong hop toa do Y < mat dat
-	if (postY < tempGround)
+	if (position.y < tempGround)
 	{
-		postY = tempGround;
+		position.y = tempGround;
 		isJump = false;
 		if (isHitted)
 		{
@@ -212,16 +212,16 @@ void Player::Update(const float &_DeltaTime)
 
 	//UpdateCamera();
 	Sprite::CameraFollow(this, _DeltaTime);
-	if (postX < (Sprite::cameraXLeft + 8))
-		postX = Sprite::cameraXLeft + 8;
-	if (postX > (Sprite::cameraXRight + 504))
-		postX = Sprite::cameraXRight + 504;
+	if (position.x < (Sprite::cameraXLeft + 8))
+		position.x = Sprite::cameraXLeft + 8;
+	if (position.x > (Sprite::cameraXRight + 504))
+		position.x = Sprite::cameraXRight + 504;
 }
 
 void Player::UpdateCamera()
 {
 	
-	Sprite::cameraX = postX - 256;
+	Sprite::cameraX = position.x - 256;
 	if (Sprite::cameraX < Sprite::cameraXLeft)
 	{
 		Sprite::cameraX = Sprite::cameraXLeft;
@@ -241,7 +241,7 @@ void Player::UpdateWhenJumping(float _DeltaTime)
 	else if (downJump)
 	{
 		downJump = false;
-		postY -= 10;
+		position.y -= 10;
 		if (!isAttack)
 		{
 			sprite->Next(0, 0);
@@ -253,8 +253,8 @@ void Player::UpdateWhenJumping(float _DeltaTime)
 
 void Player::UpdateWhenAttack(float _DeltaTime)
 {
-	if (postY < tempGround)
-		postY = tempGround;
+	if (position.y < tempGround)
+		position.y = tempGround;
 	timerSprite += _DeltaTime;
 	//truong hop ngoi danh
 	if (isCrouch)
@@ -379,14 +379,14 @@ void Player::UpdateWhenOnStair(float _DeltaTime)
 					if (animStart)
 					{
 						sprite->_Index = 6;
-						postX += 8;
+						position.x += 8;
 						animStart = false;
 					}
 					else
 					{
 						sprite->_Index = 7;
-						postX += 8;
-						postY += 16;
+						position.x += 8;
+						position.y += 16;
 						isShowTime = false;
 					}
 				}
@@ -398,14 +398,14 @@ void Player::UpdateWhenOnStair(float _DeltaTime)
 					if (animStart)
 					{
 						sprite->_Index = 6;
-						postX -= 8;
+						position.x -= 8;
 						animStart = false;
 					}
 					else
 					{
 						sprite->_Index = 7;
-						postX -= 8;
-						postY += 16;
+						position.x -= 8;
+						position.y += 16;
 						isShowTime = false;
 					}
 				}
@@ -422,14 +422,14 @@ void Player::UpdateWhenOnStair(float _DeltaTime)
 					if (animStart)
 					{
 						sprite->_Index = 6;
-						postX -= 8;
+						position.x -= 8;
 						animStart = false;
 					}
 					else
 					{
 						sprite->_Index = 5;
-						postX -= 8;
-						postY -= 16;
+						position.x -= 8;
+						position.y -= 16;
 						isShowTime = false;
 					}
 				}
@@ -441,14 +441,14 @@ void Player::UpdateWhenOnStair(float _DeltaTime)
 					if (animStart)
 					{
 						sprite->_Index = 6;
-						postX += 8;
+						position.x += 8;
 						animStart = false;
 					}
 					else
 					{
 						sprite->_Index = 5;
-						postX += 8;
-						postY -= 16;
+						position.x += 8;
+						position.y -= 16;
 						isShowTime = false;
 					}
 				}
@@ -463,21 +463,21 @@ void Player::UpdateWhenOnStair(float _DeltaTime)
 void Player::UpdateWhenMoveToPossionX(float _DeltaTime)
 {
 	//nếu player đang ở tại vi tri cần đến (sai số không quá 1.0f) thì di chuyển hoàn tất
-	if (postX > DestinationX - 1 && postX <= DestinationX + 1)
+	if (position.x > DestinationX - 1 && position.x <= DestinationX + 1)
 	{
 		isMoveToX = false;
-		postX = DestinationX;
+		position.x = DestinationX;
 		Move(0, _DeltaTime);
 		return;
 	}
 
-	if (postX < DestinationX)
+	if (position.x < DestinationX)
 		Move(1, _DeltaTime);
 	else
 		Move(-1, _DeltaTime);
 
 
-	postX += velocityX*_DeltaTime / 2;
+	position.x += velocityX*_DeltaTime / 2;
 
 }
 
@@ -602,7 +602,7 @@ void Player::Jump()
 	{
 		isJump = true;
 		downJump = true;
-		postY += 10;
+		position.y += 10;
 		velocityY = 410;
 		sprite->Next(4, 4);
 		collider->top = 14;
@@ -652,7 +652,7 @@ void Player::Attack(int keyAttack)
 	}
 
 	if (keyAttack == 0 && manager->whip->isActive == false)
-		manager->whip->Init(postX, postY);
+		manager->whip->Init(position.x, position.y);
 }
 
 void Player::ActivateWeapon()
@@ -683,7 +683,7 @@ void Player::ActivateWeapon()
 				if (!manager->boo[i]->isActive)
 				{
 					this->heart--;
-					manager->boo[i]->Init(postX, postY);
+					manager->boo[i]->Init(position.x, position.y);
 					isActivateWeapon = true;
 					return;
 				}
@@ -706,7 +706,7 @@ void Player::ActivateWeapon()
 				if (!manager->axe[i]->isActive)
 				{
 					this->heart--;
-					manager->axe[i]->Init(postX, postY);
+					manager->axe[i]->Init(position.x, position.y);
 					isActivateWeapon = true;
 					return;
 				}
@@ -729,7 +729,7 @@ void Player::ActivateWeapon()
 				if (!manager->knife[i]->isActive)
 				{
 					this->heart--;
-					manager->knife[i]->Init(postX, postY);
+					manager->knife[i]->Init(position.x, position.y);
 					isActivateWeapon = true;
 					return;
 				}
@@ -761,7 +761,7 @@ void Player::ActivateWeapon()
 				if (!manager->holyWater[i]->isActive)
 				{
 					this->heart--;
-					manager->holyWater[i]->Init(postX, postY);
+					manager->holyWater[i]->Init(position.x, position.y);
 					isActivateWeapon = true;
 					return;
 				}
@@ -774,7 +774,7 @@ void Player::ActivateWeapon()
 	
 	//kiem tra xem whip co duoc danh chua
 	if (!manager->whip->isActive)
-		manager->whip->Init(postX, postY);
+		manager->whip->Init(position.x, position.y);
 	else
 		isActive = false;
 
@@ -977,34 +977,34 @@ void Player::CollisionObject(float _DeltaTime)
 				{
 				case STAIR_DOWNLEFT:
 					stairType = STAIR_DOWNLEFT;
-					if (!isShowTime && postY + 2 >= tempObject->postY)
+					if (!isShowTime && position.y + 2 >= tempObject->position.y)
 					{
-						DestinationX = tempObject->postX;
+						DestinationX = tempObject->position.x;
 						onStair = 0;
 					}
 
 					break;
 				case STAIR_DOWNRIGHT:
 					stairType = STAIR_DOWNRIGHT;
-					if (!isShowTime && postY + 2 >= tempObject->postY)
+					if (!isShowTime && position.y + 2 >= tempObject->position.y)
 					{
-						DestinationX = tempObject->postX;
+						DestinationX = tempObject->position.x;
 						onStair = 0;
 					}
 					break;
 				case STAIR_UPLEFT:
 					stairType = STAIR_UPLEFT;
-					if (!isShowTime && postY - 2 <= tempObject->postY)
+					if (!isShowTime && position.y - 2 <= tempObject->position.y)
 					{
-						DestinationX = tempObject->postX;
+						DestinationX = tempObject->position.x;
 						onStair = 0;
 					}
 					break;
 				case STAIR_UPRIGHT:
 					stairType = STAIR_UPRIGHT;
-					if (!isShowTime && postY - 2 <= tempObject->postY)
+					if (!isShowTime && position.y - 2 <= tempObject->position.y)
 					{
-						DestinationX = tempObject->postX;
+						DestinationX = tempObject->position.x;
 						onStair = 0;
 					}
 					break;

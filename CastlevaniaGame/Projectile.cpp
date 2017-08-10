@@ -11,8 +11,8 @@ Projectile::Projectile(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	objectType = PROJECTILE_TYPE;
 	manager = _manager;
 	collider = new Collider();
-	postX = 0;
-	postY = 0;
+	position.x = 0;
+	position.y = 0;
 }
 
 
@@ -32,8 +32,8 @@ Projectile::~Projectile()
 void Projectile::Init(int _X, int _Y)
 {
 	isActive = false;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 }
 
 // ---=== THE MAIN PROCESSING ===---

@@ -29,10 +29,10 @@ void Fish::Init(int _X, int _Y)
 	isFiring = false;
 	TimeToAttack = 0;
 	isActive = true;
-	postY = 0;
+	position.y = 0;
 	velocityY = 450;
-	postX = _X;
-	if (postX > manager->Simon->postX)
+	position.x = _X;
+	if (position.x > manager->Simon->position.x)
 	{
 		velocityX = -70;
 		sprite = spriteLeft;
@@ -54,13 +54,13 @@ void Fish::Init(int _X, int _Y, bool isRight)
 	isFiring = false;
 	TimeToAttack = 0;
 	isActive = true;
-	postY = 0;
+	position.y = 0;
 	velocityY = 650;
 
 
-	postX = Sprite::cameraX + 31 + (rand() % 450);
+	position.x = Sprite::cameraX + 31 + (rand() % 450);
 
-	if (postX > manager->Simon->postX)
+	if (position.x > manager->Simon->position.x)
 	{
 		velocityX = -70;
 		sprite = spriteLeft;
@@ -89,15 +89,15 @@ void Fish::Update(const float &_DeltaTime)
 
 	//xac dinh toòa do Y
 	velocityY += -(600 * _DeltaTime);
-	postY += (velocityY * _DeltaTime);
+	position.y += (velocityY * _DeltaTime);
 
 	//kiem tra neu Y huong xuong va vi?tri doi tuong thap hon mãòt ðâìt
-	if (velocityY < 0 && postY < 224)
+	if (velocityY < 0 && position.y < 224)
 	{
 
 		jumping = false;
-		postY = 224;
-		postX += velocityX * _DeltaTime;
+		position.y = 224;
+		position.x += velocityX * _DeltaTime;
 
 		//tinh thoi gian tan cong
 		TimeToAttack += _DeltaTime;
@@ -111,7 +111,7 @@ void Fish::Update(const float &_DeltaTime)
 			// kiem tra con ca co dang tan cong hay không?
 			if (isFiring)
 			{
-				if (postX < manager->Simon->postX)
+				if (position.x < manager->Simon->position.x)
 					velocityX = 70;
 				else
 					velocityX = -70;
@@ -143,12 +143,12 @@ void Fish::Render()
 {
 	if (!isActive)
 		return;
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void Fish::Destroy()
 {
-	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, postX, postY, -1, spriteHandler, manager);
+	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 	manager->Simon->score += 300;
 	isActive = false;
@@ -161,6 +161,6 @@ void Fish::Collision()
 
 void Fish::CheckActive()
 {
-	if (postX < Sprite::cameraXLeft || postX > Sprite::cameraXRight)
+	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
 		isActive = false;
 }

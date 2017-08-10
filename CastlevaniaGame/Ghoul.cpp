@@ -19,8 +19,8 @@ void Ghoul::Init(int _X, int _Y, bool isRight)
 	health = 1;
 
 	isActive = true;
-	postY = _Y;
-	postX = _X;
+	position.y = _Y;
+	position.x = _X;
 	if (isRight)
 		velocityX = -70;
 	else
@@ -29,15 +29,15 @@ void Ghoul::Init(int _X, int _Y, bool isRight)
 void Ghoul::Init(int _X, int _Y)
 {
 	isActive = true;
-	postY = _Y;
-	postX = _X;
+	position.y = _Y;
+	position.x = _X;
 	velocityX = -70;
 }
 
 void Ghoul::Update(const float &_DeltaTime)
 {
 
-	postX += velocityX * _DeltaTime;
+	position.x += velocityX * _DeltaTime;
 	if (velocityX > 0)
 		sprite = spriteRight;
 	else
@@ -56,12 +56,12 @@ void Ghoul::Update(const float &_DeltaTime)
 
 void Ghoul::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void Ghoul::Destroy()
 {
-	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, postX, postY, -1, spriteHandler, manager);
+	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 	manager->Simon->score += 100;
 	isActive = false;
@@ -74,6 +74,6 @@ void Ghoul::Collision()
 
 void Ghoul::CheckActive()
 {
-	if (postX < Sprite::cameraX || postX > Sprite::cameraX + 512)
+	if (position.x < Sprite::cameraX || position.x > Sprite::cameraX + 512)
 		isActive = false;
 }

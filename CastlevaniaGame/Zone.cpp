@@ -16,8 +16,8 @@ Zone :: ~Zone()
 // ----- update K_1.9
 void Zone::Init(int _X, int _Y, int _Width, int _Height)
 {
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 
 	collider->top = _Height / 2;
 	collider->bottom = -collider->top;

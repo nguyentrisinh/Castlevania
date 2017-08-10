@@ -20,8 +20,8 @@ Bubble :: ~Bubble()
 void Bubble::Init(int _X, int _Y)
 {
 	isActive = true;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	sprite->Next(6, 6);
 	timeSurvive = 0;
 	timerSprite = 0;
@@ -32,8 +32,8 @@ void Bubble::Init(int _X, int _Y)
 void Bubble::Init(int _X, int _Y, int _heso)
 {
 	isActive = true;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	sprite->Next(6, 6);
 	timeSurvive = 0;
 	timerSprite = 0;
@@ -47,8 +47,8 @@ void Bubble::Update(const float &_deltaTime)
 	timeSurvive += _deltaTime;
 	if (timeSurvive >= 3.0f)
 		Destroy();
-	postX += velocityX * _deltaTime*heso;
-	postY -= velocityY * _deltaTime;
+	position.x += velocityX * _deltaTime*heso;
+	position.y -= velocityY * _deltaTime;
 
 	timerSprite += _deltaTime;
 
@@ -63,7 +63,7 @@ void Bubble::Update(const float &_deltaTime)
 void Bubble::Render()
 {
 	if (isActive)
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 }
 
 void Bubble::Destroy()

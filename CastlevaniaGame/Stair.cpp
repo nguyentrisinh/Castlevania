@@ -27,8 +27,8 @@ Stair :: ~Stair()
 
 void Stair::Init(int _X, int _Y)
 {
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	isActive = true;
 }
 

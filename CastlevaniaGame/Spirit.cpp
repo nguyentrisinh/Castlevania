@@ -20,8 +20,8 @@ Spirit :: ~Spirit()
 void Spirit::Init(int _X, int _Y)
 {
 	isActive = true;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	sprite->Next(1, 2);
 	timeSurvive = 0;
 	timerSprite = 0;
@@ -46,7 +46,7 @@ void Spirit::Update(const float &_deltaTime)
 void Spirit::Render()
 {
 	if (isActive)
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 }
 
 void Spirit::Destroy()

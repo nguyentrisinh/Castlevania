@@ -32,8 +32,8 @@ HolyWater::~HolyWater()
 void HolyWater::Init(int _X, int _Y)
 {
 	isActive = true;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	isRight = manager->Simon->isRight;
 
 	velocityY = 400;
@@ -58,10 +58,10 @@ void HolyWater::Update(const float &_DeltaTime)
 		return;
 	timerSprite += _DeltaTime;
 
-	postX += velocityX*_DeltaTime;
+	position.x += velocityX*_DeltaTime;
 	//xac dinh tọa do Y
 	velocityY += -(1000 * _DeltaTime);
-	postY += (velocityY * _DeltaTime);
+	position.y += (velocityY * _DeltaTime);
 
 	if (!IsInCamera())
 	{
@@ -77,7 +77,7 @@ void HolyWater::Render()
 
 	if (isActive)
 	{
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 	}
 
 }
@@ -97,7 +97,7 @@ void HolyWater::Collision()
 	}
 
 	if (count <= manager->Simon->weaponNumber)
-		manager->holyFire[count]->Init(postX, postY);
+		manager->holyFire[count]->Init(position.x, position.y);
 	isActive = false;
 }
 

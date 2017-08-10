@@ -30,12 +30,12 @@ void Whip::Init(int _X, int _Y)
 {
 	isActive = true;
 
-	postX = _X;
+	position.x = _X;
 
 	if (manager->Simon->isCrouch)
-		postY = _Y - 14;
+		position.y = _Y - 14;
 	else
-		postY = _Y;
+		position.y = _Y;
 
 	if (manager->Simon->isRight)
 	{
@@ -77,12 +77,12 @@ void Whip::Update(const float &_DeltaTime)
 		isActive = false;
 	if (!isActive)
 		return;
-	postX = manager->Simon->postX;
+	position.x = manager->Simon->position.x;
 
 	if (manager->Simon->isCrouch)
-		postY = manager->Simon->postY - 14;
+		position.y = manager->Simon->position.y - 14;
 	else
-		postY = manager->Simon->postY;
+		position.y = manager->Simon->position.y;
 
 	// update by khang -------------
 	if (manager->Simon->isChangeFrame)
@@ -117,7 +117,7 @@ void Whip::Render()
 
 	if (isActive)
 	{
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 	}
 
 }

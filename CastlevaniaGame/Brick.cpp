@@ -56,15 +56,15 @@ void Brick::Init(int _X, int _Y, int _ItemType, int rubbish)
 
 	isActive = true;
 	isBreakable = true;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 
 	dropTable->AddItem(_ItemType, 100);
 }
 
 void Brick::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 // gọi đến hàm này khi whip đánh trúng
@@ -79,16 +79,16 @@ void Brick::Destroy()
 	this->isActive = false;
 
 	// làm hiệu ứng bể
-	Effect* newEffect = Effect::CreateEffect(2, this->postX, this->postY, -1, spriteHandler, manager);
+	Effect* newEffect = Effect::CreateEffect(2, this->position.x, this->position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(newEffect);
-	newEffect = Effect::CreateEffect(2, this->postX, this->postY, -2, spriteHandler, manager);
+	newEffect = Effect::CreateEffect(2, this->position.x, this->position.y, -2, spriteHandler, manager);
 	manager->groupEffect->AddObject(newEffect);
-	newEffect = Effect::CreateEffect(2, this->postX, this->postY, 1, spriteHandler, manager);
+	newEffect = Effect::CreateEffect(2, this->position.x, this->position.y, 1, spriteHandler, manager);
 	manager->groupEffect->AddObject(newEffect);
 
 	// làm rớt item
 	int a = dropTable->DropItem();
-	Item* theItem = Item::CreateItem(a, this->postX, this->postY + 2, spriteHandler, manager);
+	Item* theItem = Item::CreateItem(a, this->position.x, this->position.y + 2, spriteHandler, manager);
 	// thêm item vào world
 	manager->groupItem->AddObject(theItem);
 }

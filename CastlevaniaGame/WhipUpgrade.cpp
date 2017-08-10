@@ -26,8 +26,8 @@ void WhipUpgrade::Init(int _X, int _Y)
 {
 	isActive = true;
 	timeSurvive = 0;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	collider->setCollider(14, -14, -14, 14);
 	sprite->Next(7, 7);
 }
@@ -42,7 +42,7 @@ void WhipUpgrade::Update(const float &_DeltaTime)
 		return;
 	if (isActive)
 	{
-		postY += velocityY * _DeltaTime;
+		position.y += velocityY * _DeltaTime;
 
 		timerSprite += _DeltaTime;
 		if (timerSprite >= 0.2f)
@@ -61,7 +61,7 @@ void WhipUpgrade::Update(const float &_DeltaTime)
 void WhipUpgrade::Render()
 {
 	if (isActive)
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 }
 
 void WhipUpgrade::Destroy()

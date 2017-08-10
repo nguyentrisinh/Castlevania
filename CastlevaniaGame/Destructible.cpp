@@ -60,8 +60,8 @@ void Destructible::Init(int _X, int _Y)
 
 void Destructible::Init(int _X, int _Y, int _ItemType)
 {
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	isActive = true;
 
 	dropTable->AddItem(_ItemType, 100);
@@ -79,7 +79,7 @@ void Destructible::Update(const float &_DeltaTime)
 
 void Destructible::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void Destructible::Destroy()
@@ -87,7 +87,7 @@ void Destructible::Destroy()
 	this->isActive = false;
 
 	// làm hiệu ứng cháy
-	Effect* newEffect = Effect::CreateEffect(3, this->postX, this->postY, 1, spriteHandler, manager);
+	Effect* newEffect = Effect::CreateEffect(3, this->position.x, this->position.y, 1, spriteHandler, manager);
 	manager->groupEffect->AddObject(newEffect);
 
 	int itemType = dropTable->DropItem();
@@ -101,7 +101,7 @@ void Destructible::Destroy()
 	}
 
 	// tạo item mới theo con số & add vào world
-	Item* newItem = Item::CreateItem(itemType, this->postX, this->postY, spriteHandler, manager);
+	Item* newItem = Item::CreateItem(itemType, this->position.x, this->position.y, spriteHandler, manager);
 	manager->groupItem->AddObject(newItem);
 }
 

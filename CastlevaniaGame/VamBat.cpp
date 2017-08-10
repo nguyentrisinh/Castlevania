@@ -20,8 +20,8 @@ VamBat :: ~VamBat()
 void VamBat::Init(int _X, int _Y)
 {
 	isActive = true;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	velocityY = -250;
 	velocityX = -160;
 	//if (manager->Simon->isRight)
@@ -39,10 +39,10 @@ void VamBat::Update(const float &_DeltaTime)
 		sprite = spriteLeft;*/
 	// move
 	sprite = spriteVamBat;
-	if (postX >= 1000 - 400)
+	if (position.x >= 1000 - 400)
 	{
-		postX += velocityX * _DeltaTime;
-		postY += velocityY * _DeltaTime;
+		position.x += velocityX * _DeltaTime;
+		position.y += velocityY * _DeltaTime;
 	}
 	
 	timerSprite += _DeltaTime;
@@ -63,40 +63,40 @@ void VamBat::Update(const float &_DeltaTime)
 
 void VamBat::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void VamBat::Destroy()
 {
 	// hang 1
-	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, postX - 32, postY + 32, -1, spriteHandler, manager);
+	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y + 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, postX, postY + 32, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y + 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, postX + 32, postY + 32, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y + 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 
 	// hang 2
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, postX - 32, postY, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, postX, postY, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, postX + 32, postY, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 
 	// hang 3
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, postX - 32, postY - 32, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y - 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, postX, postY - 32, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y - 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, postX + 32, postY - 32, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y - 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 
 	manager->Simon->score += 3000;
 	isActive = false;
 
 	// tạo item add vào world
-	Item* newItem = Item::CreateItem(CRYSTAL, this->postX, this->postY, spriteHandler, manager);
+	Item* newItem = Item::CreateItem(CRYSTAL, this->position.x, this->position.y, spriteHandler, manager);
 	manager->groupItem->AddObject(newItem);
 }
 
@@ -107,7 +107,7 @@ void VamBat::Collision()
 
 void VamBat::CheckActive()
 {
-	if (manager->Simon->postX<1000-200 || manager->Simon->postX>1500) //zone của vamBat từ 1000 - 15000, bắt đầu hành động khi simon còn cách 200
+	if (manager->Simon->position.x<1000-200 || manager->Simon->position.x>1500) //zone của vamBat từ 1000 - 15000, bắt đầu hành động khi simon còn cách 200
 		isActive = false;  
 	else
 		isActive = true;

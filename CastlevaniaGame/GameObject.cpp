@@ -25,8 +25,8 @@ GameObject::GameObject()
 	// ---- bo sung K_1.2
 	BroadPhaseBox = NULL;
 
-	postX = 0;
-	postY = 0;
+	position.x = 0;
+	position.y = 0;
 	velocityX = 0;
 	velocityY = 0;
 }
@@ -66,19 +66,19 @@ bool GameObject::IsCollide(GameObject* target)
 		return false;
 
 	// cạnh trái của this > cạnh phải của target
-	if ((postX + collider->left) > (target->postX + target->collider->right))
+	if ((position.x + collider->left) > (target->position.x + target->collider->right))
 		return false;
 
 	// cạnh phải của this < cạnh trái của target
-	if ((postX + collider->right) < (target->postX + target->collider->left))
+	if ((position.x + collider->right) < (target->position.x + target->collider->left))
 		return false;
 
 	// cạnh trên của this < cạnh dưới của target
-	if ((postY + collider->top) < (target->postY + target->collider->bottom))
+	if ((position.y + collider->top) < (target->position.y + target->collider->bottom))
 		return false;
 
 	// cạnh dưới của this > cạnh trên của target
-	if ((postY + collider->bottom) > (target->postY + target->collider->top))
+	if ((position.y + collider->bottom) > (target->position.y + target->collider->top))
 		return false;
 
 	// ko thoả điều kiện nào hết => đang nằm lồng vào nhau
@@ -92,10 +92,10 @@ bool GameObject::IsInside(GameObject* target)
 	if ((target->collider == NULL) || (this->collider == NULL))
 		return false;
 
-	if (((postX + collider->left) > (target->postX + target->collider->left)) && // vị trí cạnh trái ta > địch
-		((postX + collider->right) < (target->postX + target->collider->right)) &&// vị trí cạnh phải ta < địch
-		((postX + collider->top) < (target->postX + target->collider->top)) &&// vị trí cạnh trên ta < địch
-		((postX + collider->bottom) > (target->postX + target->collider->bottom)))	// vị trí cạnh dưới ta > địch
+	if (((position.x + collider->left) > (target->position.x + target->collider->left)) && // vị trí cạnh trái ta > địch
+		((position.x + collider->right) < (target->position.x + target->collider->right)) &&// vị trí cạnh phải ta < địch
+		((position.x + collider->top) < (target->position.x + target->collider->top)) &&// vị trí cạnh trên ta < địch
+		((position.x + collider->bottom) > (target->position.x + target->collider->bottom)))	// vị trí cạnh dưới ta > địch
 		return true;
 
 	// else
@@ -106,13 +106,13 @@ bool GameObject::IsInCamera()
 {
 	if (collider == NULL)
 		return false;
-	if (postX + collider->right <= Sprite::cameraX)
+	if (position.x + collider->right <= Sprite::cameraX)
 		return false;
-	if (postX + collider->left >= Sprite::cameraX + 512)
+	if (position.x + collider->left >= Sprite::cameraX + 512)
 		return false;
-	if (postY + collider->top <= Sprite::cameraY - 480)
+	if (position.y + collider->top <= Sprite::cameraY - 480)
 		return false;
-	if (postY + collider->bottom >= Sprite::cameraY)
+	if (position.y + collider->bottom >= Sprite::cameraY)
 		return false;
 	return true;
 }
@@ -169,7 +169,7 @@ float GameObject::SweptAABB(GameObject *target, const float &_DeltaTime)
 	// --- xét coi Box có lồng vào target hay không ------------------
 
 	// cạnh trái của hộp > cạnh phải của target
-	if ((postX + BroadPhaseBox->left) > (target->postX + target->collider->right))
+	if ((position.x + BroadPhaseBox->left) > (target->position.x + target->collider->right))
 	{
 		normalx = 0.0f;
 		normaly = 0.0f;
@@ -177,7 +177,7 @@ float GameObject::SweptAABB(GameObject *target, const float &_DeltaTime)
 	}
 
 	// cạnh phải của hộp < cạnh trái của target
-	if ((postX + BroadPhaseBox->right) < (target->postX + target->collider->left))
+	if ((position.x + BroadPhaseBox->right) < (target->position.x + target->collider->left))
 	{
 		normalx = 0.0f;
 		normaly = 0.0f;
@@ -185,7 +185,7 @@ float GameObject::SweptAABB(GameObject *target, const float &_DeltaTime)
 	}
 
 	// cạnh trên của hộp < cạnh dưới của target
-	if ((postY + BroadPhaseBox->top) < (target->postY + target->collider->bottom))
+	if ((position.y + BroadPhaseBox->top) < (target->position.y + target->collider->bottom))
 	{
 		normalx = 0.0f;
 		normaly = 0.0f;
@@ -193,7 +193,7 @@ float GameObject::SweptAABB(GameObject *target, const float &_DeltaTime)
 	}
 
 	// cạnh dưới của hộp > cạnh trên của target
-	if ((postY + BroadPhaseBox->bottom) > (target->postY + target->collider->top))
+	if ((position.y + BroadPhaseBox->bottom) > (target->position.y + target->collider->top))
 	{
 		normalx = 0.0f;
 		normaly = 0.0f;
@@ -221,27 +221,27 @@ float GameObject::SweptAABB(GameObject *target, const float &_DeltaTime)
 
 	if (deltaVX > 0.0f)
 	{
-		dxEntry = (target->postX + target->collider->left) - (this->postX + this->collider->right);
-		dxExit = (target->postX + target->collider->right) - (this->postX + this->collider->left);
+		dxEntry = (target->position.x + target->collider->left) - (this->position.x + this->collider->right);
+		dxExit = (target->position.x + target->collider->right) - (this->position.x + this->collider->left);
 		// 2 đối tượng rời xa nhau thì x gần nhất > x xa nhất (nghe có vẻ sai sai :v )
 		// dùng từ "gần nhất" và "xa nhất" chỉ đúng khi 2 đối tượng đang hướng vào nhau
 	}
 	else
 	{
-		dxEntry = (target->postX + target->collider->right) - (this->postX + this->collider->left);
-		dxExit = (target->postX + target->collider->left) - (this->postX + this->collider->right);
+		dxEntry = (target->position.x + target->collider->right) - (this->position.x + this->collider->left);
+		dxExit = (target->position.x + target->collider->left) - (this->position.x + this->collider->right);
 	}
 
 	// --- chiều y gần nhất & xa nhất giữa 2 đối tượng ---
 	if (deltaVY > 0.0f)
 	{
-		dyEntry = (target->postY + target->collider->bottom) - (this->postY + this->collider->top);
-		dyExit = (target->postY + target->collider->top) - (this->postY + this->collider->bottom);
+		dyEntry = (target->position.y + target->collider->bottom) - (this->position.y + this->collider->top);
+		dyExit = (target->position.y + target->collider->top) - (this->position.y + this->collider->bottom);
 	}
 	else
 	{
-		dyEntry = (target->postY + target->collider->top) - (this->postY + this->collider->bottom);
-		dyExit = (target->postY + target->collider->bottom) - (this->postY + this->collider->top);
+		dyEntry = (target->position.y + target->collider->top) - (this->position.y + this->collider->bottom);
+		dyExit = (target->position.y + target->collider->bottom) - (this->position.y + this->collider->top);
 	}
 
 	// --- "thời gian hun nhau" và "thời gian ngừng hun" trên mỗi chiều ---
@@ -324,8 +324,8 @@ float GameObject::SweptAABB(GameObject *target, const float &_DeltaTime)
 // thay vì di chuyển lồng vào trong tường => di chuyển đến sát tường
 void GameObject::ResponseFrom(GameObject *target, const float &_DeltaTime, const float &_CollisionTimeScale)
 {
-	postX += velocityX * (_CollisionTimeScale * _DeltaTime);
-	postY += velocityY * (_CollisionTimeScale * _DeltaTime);
+	position.x += velocityX * (_CollisionTimeScale * _DeltaTime);
+	position.y += velocityY * (_CollisionTimeScale * _DeltaTime);
 }// nếu chạy hàm này thì không chơi post += velocity * _DeltaTime trong update nữa
 
  // văng vào tường thì bật ra
@@ -357,8 +357,8 @@ void GameObject::DeflectFrom(GameObject *target, const float &_DeltaTime, const 
 			velocityY *= -1;
 	}
 
-	postX += velocityX * (1.0f - _CollisionTimeScale) *_DeltaTime;
-	postY += velocityY * (1.0f - _CollisionTimeScale) *_DeltaTime;
+	position.x += velocityX * (1.0f - _CollisionTimeScale) *_DeltaTime;
+	position.y += velocityY * (1.0f - _CollisionTimeScale) *_DeltaTime;
 }
 
 // ---------- update K_1.5
@@ -372,22 +372,22 @@ void GameObject::SlideFromGround(GameObject *target, const float &_DeltaTime, co
 
 	if (normalx > 0.1f)	// tông bên phải
 	{
-		this->postX = (target->postX + target->collider->right - this->collider->left) + 0.1f;
-		postX -= velocityX*_DeltaTime;
+		this->position.x = (target->position.x + target->collider->right - this->collider->left) + 0.1f;
+		position.x -= velocityX*_DeltaTime;
 		//velocityX = 0.0f;
 	}
 
 	else if (normalx < -0.1f)// tông bên trái
 	{
-		this->postX = (target->postX + target->collider->left - this->collider->right) - 0.1f;
-		postX -= velocityX*_DeltaTime;
+		this->position.x = (target->position.x + target->collider->left - this->collider->right) - 0.1f;
+		position.x -= velocityX*_DeltaTime;
 		//velocityX = 0.0f;
 	}
 
 
 	else if (normaly > 0.1f)	// tông ở trên
 	{
-		this->postY = (target->postY + target->collider->top - this->collider->bottom) + 0.1f;
+		this->position.y = (target->position.y + target->collider->top - this->collider->bottom) + 0.1f;
 		velocityY = 0.0f;
 	}
 	else

@@ -25,8 +25,8 @@ void Medusa::Init(int _X, int _Y)
 
 	isActive = true;
 	isAttack = false;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	velocityY = -250;
 	velocityX = -160;
 	a = 0;
@@ -42,7 +42,7 @@ void Medusa::Update(const float &_DeltaTime)
 {
 	sprite = spriteMedusa;
 	a--;
-	if (postY >= 550)
+	if (position.y >= 550)
 	{
 		int r = rand() % 10;
 		if (r >= 5)
@@ -50,7 +50,7 @@ void Medusa::Update(const float &_DeltaTime)
 		else
 			isAttack = false;
 	}
-	if (postX < 400||postX>1000)
+	if (position.x < 400||position.x>1000)
 	{
 		velocityX = 0;
 		velocityY = 0;
@@ -59,9 +59,9 @@ void Medusa::Update(const float &_DeltaTime)
 		{
 			velocityX = -150;
 			velocityY = -250;
-			if (postX < 400)			
+			if (position.x < 400)			
 				velocityX *= -1;
-			if (postY < 550)
+			if (position.y < 550)
 			{
 				velocityY *= -1;
 				velocityY++;
@@ -69,8 +69,8 @@ void Medusa::Update(const float &_DeltaTime)
 			thoigiandung = 0;
 		}
 	}
-	postX += velocityX * _DeltaTime;
-	postY += velocityY * _DeltaTime;
+	position.x += velocityX * _DeltaTime;
+	position.y += velocityY * _DeltaTime;
 	
 	timerSprite += _DeltaTime;
 
@@ -87,40 +87,40 @@ void Medusa::Update(const float &_DeltaTime)
 
 void Medusa::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void Medusa::Destroy()
 {
 	// hang 1
-	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, postX - 32, postY + 32, -1, spriteHandler, manager);
+	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y + 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, postX, postY + 32, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y + 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, postX + 32, postY + 32, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y + 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 
 	// hang 2
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, postX - 32, postY, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, postX, postY, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, postX + 32, postY, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 	
 	// hang 3
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, postX - 32, postY - 32, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y - 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, postX, postY - 32, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y - 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, postX + 32, postY - 32, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y - 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 
 	manager->Simon->score += 3000;
 	isActive = false;
 
 	// tạo item add vào world
-	Item* newItem = Item::CreateItem(CRYSTAL, this->postX, this->postY, spriteHandler, manager);
+	Item* newItem = Item::CreateItem(CRYSTAL, this->position.x, this->position.y, spriteHandler, manager);
 	manager->groupItem->AddObject(newItem);
 }
 
@@ -131,7 +131,7 @@ void Medusa::Collision()
 
 void Medusa::CheckActive()
 {
-	if (manager->Simon->postX <800 - 200 || manager->Simon->postX>800+200) //zone từ 600 - 1000, bắt đầu hành động khi simon còn cách 200
+	if (manager->Simon->position.x <800 - 200 || manager->Simon->position.x>800+200) //zone từ 600 - 1000, bắt đầu hành động khi simon còn cách 200
 		isActive = false;
 	else
 		isActive = true;

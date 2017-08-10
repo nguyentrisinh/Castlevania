@@ -35,12 +35,12 @@ void Boomerang::Init(int _X, int _Y)
 {
 	isReverted = false;
 	isActive = true;
-	postX = _X;
+	position.x = _X;
 	isRight = manager->Simon->isRight;
 	if (manager->Simon->isCrouch)
-		postY = _Y - 14;
+		position.y = _Y - 14;
 	else
-		postY = _Y;
+		position.y = _Y;
 
 	if (isRight)
 	{
@@ -60,10 +60,10 @@ void Boomerang::Update(const float &_DeltaTime)
 
 	timerSprite += _DeltaTime;
 
-	postX += velocityX*_DeltaTime;
-	if (postX >= Sprite::cameraX + 512 || postX <= Sprite::cameraX)
+	position.x += velocityX*_DeltaTime;
+	if (position.x >= Sprite::cameraX + 512 || position.x <= Sprite::cameraX)
 	{
-		postX -= velocityX*_DeltaTime;
+		position.x -= velocityX*_DeltaTime;
 		if (isRight)
 		{
 			if (isReverted)
@@ -89,7 +89,7 @@ void Boomerang::Update(const float &_DeltaTime)
 			isRight = true;
 			isReverted = true;
 		}
-		postX += velocityX*_DeltaTime;
+		position.x += velocityX*_DeltaTime;
 
 	}
 	if (timerSprite >= BOOM_ANIM_TIME)
@@ -110,7 +110,7 @@ void Boomerang::Render()
 
 	if (isActive)
 	{
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 	}
 
 }

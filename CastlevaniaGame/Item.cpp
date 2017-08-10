@@ -9,7 +9,7 @@ Item::Item(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	sizeWidth = 64;
 	sizeHeight = 64;
 
-	//postX = 400;
+	//position.x = 400;
 	velocityX = 0.2f;
 
 	sprite = new Sprite(_SpriteHandler, "Resources\\Sprites\\bonus.bmp", sizeWidth, sizeHeight, 22, 6);
@@ -24,14 +24,14 @@ void Item::Init(int _X, int _Y)
 {
 	isActive = true;
 	timeSurvive = 0;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 }
 
 void Item::Init(int _X, int _Y, int _level)
 {
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 }
 
 
@@ -46,7 +46,7 @@ void Item::Render()
 {
 	if (!isActive)
 		return;
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void Item::Destroy()

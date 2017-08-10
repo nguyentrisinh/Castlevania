@@ -21,15 +21,15 @@ Treasure :: ~Treasure()
 }
 void Treasure::Init(int _X, int _Y)
 {
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 }
 void Treasure::Init(int _X, int _Y, int _type)
 {
 	isActive = true;
 	timeSurvive = 0;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	collider->setCollider(12, -12, -16, 16);
 	switch (_type)
 	{
@@ -78,7 +78,7 @@ void Treasure::Update(const float &_DeltaTime)
 void Treasure::Render()
 {
 	if (isActive)
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 }
 
 void Treasure::Destroy()

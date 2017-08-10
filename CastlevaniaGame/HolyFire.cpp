@@ -28,8 +28,8 @@ void HolyFire::Init(int _X, int _Y)
 {
 	timeActive = 0;
 	isActive = true;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 
 }
 
@@ -57,7 +57,7 @@ void HolyFire::Render()
 
 	if (isActive)
 	{
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 	}
 
 }

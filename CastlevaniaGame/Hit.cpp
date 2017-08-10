@@ -20,8 +20,8 @@ Hit :: ~Hit()
 void Hit::Init(int _X, int _Y)
 {
 	isActive = true;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	sprite->Next(0, 0);
 	timeSurvive = 0;
 	timerSprite = 0;
@@ -46,7 +46,7 @@ void Hit::Update(const float &_deltaTime)
 void Hit::Render()
 {
 	if (isActive)
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 }
 
 void Hit::Destroy()

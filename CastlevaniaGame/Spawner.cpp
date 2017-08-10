@@ -112,7 +112,7 @@ void Spawner::Collision(Player *actor, const float &_DeltaTime)
 				
 				// init enemy theo hướng xoay của người chơi
 				int calX, calY;
-				calY = this->postY + this->collider->bottom + 33;
+				calY = this->position.y + this->collider->bottom + 33;
 
 				if (actor->isRight)
 				{

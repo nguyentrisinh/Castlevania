@@ -175,7 +175,7 @@ void World::CheckActive(float _DeltaTime)
 	if (medusa->isAttack)
 	{
 		if (!snake->isActive)
-			snake->Init(medusa->postX, medusa->postY);
+			snake->Init(medusa->position.x, medusa->position.y);
 
 	}
 	else

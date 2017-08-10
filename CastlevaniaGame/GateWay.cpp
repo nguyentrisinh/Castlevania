@@ -24,7 +24,7 @@ GateWay::~GateWay()
 
 void GateWay::Render()
 {
-	//sprite->Render(postX, postY);
+	//sprite->Render(position.x, position.y);
 }
 
 
@@ -50,8 +50,8 @@ void GateWay::Init(int _X, int _Y, int _Width, int _Height,// rect
 // player đụng vào => phép màu xảy ra
 void GateWay::Collision(Player *actor, const float &_DeltaTime)
 {
-	actor->postX = triggerX;
-	actor->postY = triggerY;
+	actor->position.x = triggerX;
+	actor->position.y = triggerY;
 
 	Sprite::cameraXLeft = camXLeft;
 	Sprite::cameraXRight = camXRight;

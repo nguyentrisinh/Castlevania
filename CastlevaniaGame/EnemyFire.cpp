@@ -23,8 +23,8 @@ void EnemyFire::Init(int _X, int _Y)
 	health = 1;
 
 	isActive = true;
-	postY = _Y;
-	postX = _X;
+	position.y = _Y;
+	position.x = _X;
 	if (!manager->Simon->isRight)
 	{
 		velocityX = -150;
@@ -43,7 +43,7 @@ void EnemyFire::Update(const float &_DeltaTime)
 {
 	if (!isActive)
 		return;
-	postX += velocityX * _DeltaTime;
+	position.x += velocityX * _DeltaTime;
 
 }
 
@@ -53,7 +53,7 @@ void EnemyFire::Render()
 {
 	if (!isActive)
 		return;
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 
 void EnemyFire::Destroy()
@@ -69,6 +69,6 @@ void EnemyFire::Collision()
 
 void EnemyFire::CheckActive()
 {
-	if (postX < Sprite::cameraXLeft || postX > Sprite::cameraXRight)
+	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
 		isActive = false;
 }

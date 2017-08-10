@@ -39,8 +39,8 @@ void Bar::Init(int _X, int _Y, int rubbish1, int rubbish2)
 		//chẳng qua init của mấy cái ground cần 4 parameter thôi
 
 	isActive = true;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 }
 
 // update per frame
@@ -64,7 +64,7 @@ void Bar::Update(const float &_DeltaTime)
 
 	HandlingCollision(_DeltaTime);
 
-	postX += (velocityX*_DeltaTime);
+	position.x += (velocityX*_DeltaTime);
 }
 
 // Check collision
@@ -117,6 +117,6 @@ void Bar::HandlingCollision(const float &_DeltaTime)
 // render per frame
 void Bar::Render()
 {
-	sprite->Render(postX, postY);
+	sprite->Render(position.x, position.y);
 }
 

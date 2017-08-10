@@ -57,7 +57,7 @@ void Enemy::TakeDamage(int Damage)
 
 void Enemy::Collision()
 {
-	Effect* effect = Effect::CreateEffect(EFFECT_HIT, postX, postY, -1, spriteHandler, manager);
+	Effect* effect = Effect::CreateEffect(EFFECT_HIT, position.x, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 	TakeDamage(NULL, 1);
 }

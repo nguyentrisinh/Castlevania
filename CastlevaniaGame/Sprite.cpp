@@ -14,7 +14,7 @@ void Sprite::CameraFollow(GameObject* object, float deltaTime)
 {
 	
 
-	float distance = ( (object->postX - 256) - cameraX);
+	float distance = ( (object->position.x - 256) - cameraX);
 	cameraX += (distance / 0.1f)*deltaTime;
 
 	if (cameraX < cameraXLeft)
@@ -30,26 +30,26 @@ void Sprite::CameraFollow(GameObject* object, float deltaTime)
 
 	/*float speed = 100;
 
-	if (cameraX < (object->postX - 256))
+	if (cameraX < (object->position.x - 256))
 	{
-		if ((cameraX + deltaTime*speed) < (object->postX - 256))
+		if ((cameraX + deltaTime*speed) < (object->position.x - 256))
 		{
 			cameraX = cameraX + deltaTime*speed;
 		}
 		else
 		{
-			cameraX = object->postX - 256;
+			cameraX = object->position.x - 256;
 		}
 	}
 	else
 	{
-		if ((cameraX - deltaTime*speed) > (object->postX - 256))
+		if ((cameraX - deltaTime*speed) > (object->position.x - 256))
 		{
 			cameraX = cameraX - deltaTime*speed;
 		}
 		else
 		{
-			cameraX = object->postX - 256;
+			cameraX = object->position.x - 256;
 		}
 	}*/
 }

@@ -29,8 +29,8 @@ void Cross::Init(int _X, int _Y)
 	isActive = true;
 	
 	timeSurvive = 0;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	collider->setCollider(14, -14, -14, 14);
 	sprite->Next(5, 5);
 }
@@ -45,7 +45,7 @@ void Cross::Update(const float &_DeltaTime)
 		return;
 	if (isActive)
 	{
-		postY += velocityY * _DeltaTime;
+		position.y += velocityY * _DeltaTime;
 
 		timerSprite += _DeltaTime;
 		if (timerSprite >= 0.2f)
@@ -63,7 +63,7 @@ void Cross::Update(const float &_DeltaTime)
 void Cross::Render()
 {
 	if (isActive)
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 }
 
 void Cross::Destroy()
@@ -80,8 +80,8 @@ void Cross::Collision(Player *player)
 	for (int i = 0; i < manager->groupEnemy->number; i++)
 	{
 		GameObject* temp = manager->groupEnemy->objects[i];
-		if (temp->postX >= Sprite::cameraX && temp->postX <= Sprite::cameraX + 512 &&
-			temp->postY >= Sprite::cameraY - 448 && temp->postY <= Sprite::cameraY &&
+		if (temp->position.x >= Sprite::cameraX && temp->position.x <= Sprite::cameraX + 512 &&
+			temp->position.y >= Sprite::cameraY - 448 && temp->position.y <= Sprite::cameraY &&
 			temp->objectType != MEDUSA && temp->objectType != VAMBAT)
 			temp->isActive = false;
 	}

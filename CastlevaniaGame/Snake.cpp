@@ -8,8 +8,8 @@ Snake::Snake(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	collider = new Collider();
 	collider->setCollider(18, 4, 26, 72);
 
-	postX = 0;
-	postY = 0;
+	position.x = 0;
+	position.y = 0;
 	sizeWidth = 32;
 	sizeHeight = 20;
 	enemyType = SNAKE;
@@ -26,8 +26,8 @@ void Snake::Init(int _X, int _Y)
 	health = 1;
 
 	isActive = true;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	velocityX = -160;
 	
 }
@@ -37,9 +37,9 @@ void Snake::Update(const float &_DeltaTime)
 	if (!manager->medusa->isAttack)
 		isActive = false;
 	
-	postX += velocityX*_DeltaTime;
+	position.x += velocityX*_DeltaTime;
 
-	//postY = velocityY*_DeltaTime;
+	//position.y = velocityY*_DeltaTime;
 	timerSprite += _DeltaTime;
 
 	if (timerSprite >= 0.2f)
@@ -56,7 +56,7 @@ void Snake::Render()
 
 	if (isActive)
 	{
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 	}
 
 }
@@ -64,7 +64,7 @@ void Snake::Render()
 void Snake::Destroy()
 {
 	isActive = false;
-	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, postX, postY, -1, spriteHandler, manager);
+	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 	manager->Simon->score += 100;
 }

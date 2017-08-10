@@ -28,8 +28,8 @@ void Panther::Init(int _X, int _Y)
 	isActive = true;
 	isSleeping = true;
 	hasJumped = false;
-	postY = _Y;
-	postX = _X;
+	position.y = _Y;
+	position.x = _X;
 	if (manager->Simon->isRight)
 		velocityX = -30;
 	else
@@ -40,14 +40,14 @@ void Panther::Init(int _X, int _Y)
 void Panther::Update(const float &_DeltaTime)
 {
 	sprite = spriteLeft;
-	if (manager->Simon->postX > postX - 200)
+	if (manager->Simon->position.x > position.x - 200)
 		isSleeping = false;
 	if (!isSleeping)
 	{
 		if (!hasJumped)
 		{
-			postX += velocityX * _DeltaTime * 8;
-			postY -= velocityY * _DeltaTime;
+			position.x += velocityX * _DeltaTime * 8;
+			position.y -= velocityY * _DeltaTime;
 
 			timerSprite += _DeltaTime;
 
@@ -65,7 +65,7 @@ void Panther::Update(const float &_DeltaTime)
 		}
 		else
 		{
-			postX += velocityX * _DeltaTime * 8;
+			position.x += velocityX * _DeltaTime * 8;
 			timerSprite += _DeltaTime;
 
 			if (timerSprite >= ANIM_TIME)
@@ -82,12 +82,12 @@ void Panther::Update(const float &_DeltaTime)
 void Panther::Render()
 {
 	if (isActive)
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 }
 
 void Panther::Destroy()
 {
-	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, postX, postY, -1, spriteHandler, manager);
+	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 	manager->Simon->score += 200;
 	isActive = false;
@@ -100,7 +100,7 @@ void Panther::Collision()
 
 void Panther::CheckActive()
 {
-	if (postX < Sprite::cameraXLeft || postX > Sprite::cameraXRight)
+	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
 		isActive = false;
 	
 }

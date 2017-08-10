@@ -29,8 +29,8 @@ void Heart::Init(int _X, int _Y)
 {
 	isActive = true;
 	timeSurvive = 0;
-	postX = _X;
-	postY = _Y;
+	position.x = _X;
+	position.y = _Y;
 	
 	sprite->Next(8, 8);
 }
@@ -44,8 +44,8 @@ void Heart::Update(const float &_DeltaTime)
 	if (velocityX == 0 && velocityY == 0)
 		return;
 	a++;
-	postX += velocityX * _DeltaTime;
-	postY += velocityY * _DeltaTime;
+	position.x += velocityX * _DeltaTime;
+	position.y += velocityY * _DeltaTime;
 
 	timerSprite += _DeltaTime;
 
@@ -67,7 +67,7 @@ void Heart::Update(const float &_DeltaTime)
 void Heart::Render()
 {
 	if (isActive)
-		sprite->Render(postX, postY);
+		sprite->Render(position.x, position.y);
 	
 }
 

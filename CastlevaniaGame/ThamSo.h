@@ -135,6 +135,10 @@ class OLoader;
 #define CRYSTAL 19
 // --------
 
+// ===== --- SIMON --- =====
+#define VELOCITY 150
+#define HEALTH 16
+
 
 
 #endif // !_THAMSO_H_

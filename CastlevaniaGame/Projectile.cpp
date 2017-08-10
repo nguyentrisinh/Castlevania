@@ -74,6 +74,10 @@ void Projectile::CollisionObject(float _DeltaTime)
 			}
 			else
 			{
+
+				// Các trường hợp ngoại lệ VD như HOLYFIRE WHIP KNIFE do
+				// tự dưng xuất hiện ColliderBox do tới killing moment mới xuất hiện nên kg dùng sweptAABB bình thường được 
+				// cái này phải dùng Intersect để xét va chạm
 				if (IsCollide(tempObject))
 				{
 					((Enemy*)tempObject)->TakeDamage(Damage);

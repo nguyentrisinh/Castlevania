@@ -149,12 +149,9 @@ void World::Update(float _DeltaTime)
 void World::Render()
 {
 	
-	//whip->Render();
-	// hello fish, you should not appear at here
+	// hello fish, you should not appear at here, but i cann't solve this problem now (T.T)
 	fish->Render();
 	
-	//flash->Render(Sprite::cameraX + 512 / 2, Sprite::cameraY - 448 / 2);
-	//heart->Render();
 	groupQuadtreeCollision->Render();
 	groupSpecialCollision->Render();
 

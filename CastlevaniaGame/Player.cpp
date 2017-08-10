@@ -44,7 +44,7 @@ Player::Player(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	invicinbleTimer = 0;
 
 	heart = 5;
-	health = 16;
+	health = HEALTH;
 	P = 3;
 	score = 0;
 }
@@ -499,12 +499,12 @@ void Player::Move(int moveKey, const float &_DeltaTime)
 	switch (moveKey)
 	{
 	case -1:
-		velocity.x = -200;
+		velocity.x = -VELOCITY;
 		isRight = false;
 		sprite = spriteLeft;
 		break;
 	case 1:
-		velocity.x = 200;
+		velocity.x = VELOCITY;
 		isRight = true;
 		sprite = spriteRight;
 		break;
@@ -788,7 +788,6 @@ void Player::Injured(int keyInjured)
 		return;
 	velocity.y = 300;
 
-	this->health--;
 
 	//bien xac dinh trang thai bi thuong
 	isHitted = true;
@@ -825,6 +824,9 @@ void Player::Injured(int keyInjured)
 	stairMoveKey = 0;
 	isShowTime = false;
 	animStart = false;
+
+	this->health--;
+
 
 
 }

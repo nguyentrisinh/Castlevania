@@ -66,11 +66,10 @@ bool OTreeNode::IsIntersectVP()
 int OTreeNode::GetParrentId()
 {
 	return (id / 8);
-	// 8 thì hợp với cây bát phân (không gian 3D) hơn
-	// 4 thì mới hợp lý
+	// tại vì tool C# đòi 8 vậy đó =.=
 }
 
-// lấy Offset id. ví dụ như 9 thì offset là 1, 10 thì offset là 2
+// lấy vị trí của node con trong node cha
 int OTreeNode::GetOffsetId()
 {
 	return (id % 8);
@@ -90,10 +89,9 @@ void OTreeNode::SendObjectTo(GroupObject *destinationGroup)
 		subNodes[1]->SendObjectTo(destinationGroup);
 		subNodes[2]->SendObjectTo(destinationGroup);
 		subNodes[3]->SendObjectTo(destinationGroup);
-		// chơi vầy nguy hiểm, lỡ đọc file thiếu 1 node là lỗi liền :/
 	}
-	else	// còn nếu là node lá
-	{	// moi object đem đến destination thôi
+	else
+	{	
 		destinationGroup->GetObjectFrom(this->group);
 	}
 }

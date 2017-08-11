@@ -35,7 +35,7 @@ OLoader::OLoader(int _lvl, LPD3DXSPRITE _SpriteHandler, World *_manager)
 	spriteHandler = _SpriteHandler;
 	manager = _manager;
 
-	// khởi tạo thằng Holder
+	// khởi tạo thím Holder
 	GOHolders = new GameObject*[500];
 	objectHolderPost = 0;
 
@@ -131,11 +131,10 @@ void OLoader::ReadObjectListFromFile(const char* filename)
 			break;
 		}
 
-		// ----- update K_1.7.5
 		// nếu tìm thấy "//" 
 		if (lineStr.find("//") != std::string::npos)
 		{
-			// bỏ đi đoạn "//" về sau
+			// bỏ đi đoạn chú thích
 			lineStr = lineStr.substr(0, lineStr.find("//"));
 		}
 
@@ -188,10 +187,10 @@ void OLoader::ReadOQuadTreeFromFile(const char* filename)
 		}
 
 		// biến đổi chuỗi thành mảng số
-		parameters = ParseFromString(lineStr, 5);
+		parameters = ParseFromString(lineStr, 5); 
 
 		mappedOTreeNodes[parameters[0]] = new OTreeNode(parameters[0], parameters[1], parameters[2], parameters[3], parameters[4]);
-		MappingObject(mappedOTreeNodes[parameters[0]]->group, lineStr);
+		MappingObject(mappedOTreeNodes[parameters[0]]->group, lineStr); // mappedOTreeNodes[parameters[0]] lúc này là 1 node
 	}
 
 	//	đọc dữ liệu sau END		// Enemy

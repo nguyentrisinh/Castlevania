@@ -16,8 +16,6 @@ private:
 	// giữ các object, dùng để dọn bộ nhớ sau khi dùng xong
 	GameObject** GOHolders;
 	int objectHolderPost;
-	// thật ra thoát chương trình thì sẽ tự dọn hết bộ nhớ rồi
-	// mình thích thì mình làm thôi
 
 	// dùng cho việc load lvl
 	int* initParam;
@@ -44,8 +42,6 @@ public:
 	void MappingObject(GroupObject* theGroup, std::string &theLine);
 	// ghép các node lại với nhau
 	void LinkTheOTreeNodes();
-
-
 
 	// chuyển chuỗi thành mảng số
 	int* ParseFromString(std::string &line, int limit);

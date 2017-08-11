@@ -17,7 +17,6 @@ public:
 
 	// ========== MAP ============
 
-	// ------ update K_1.7
 	//LPDIRECT3DSURFACE9 Background;
 	//Sprite* bg;
 	// background -----------

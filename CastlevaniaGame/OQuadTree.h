@@ -26,8 +26,6 @@ public:
 
 	// Group giữ các Object
 	GroupObject* group;
-	// Group này không có MANAGER, chỉ dùng để chứa object ------------ !!!
-	// không được thao tác group với manager dưới mọi hình thức
 
 	OTreeNode();
 	OTreeNode(int _Id, int _XLeft, int _YBottom, int _Width, int _Height);

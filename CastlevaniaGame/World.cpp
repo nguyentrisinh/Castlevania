@@ -38,7 +38,7 @@ World::World(LPD3DXSPRITE _SpriteHandler, MainGame *_MainGame)
 	groupEnemy = new GroupObject(this);
 
 	// root GameObject Node: for handle level
-	rootGONode = NULL;// (I'm only use file for make level, not make "scene") (we can change this concept)
+	rootGONode = NULL;// 
 	// -----------
 }
 
@@ -148,8 +148,6 @@ void World::Update(float _DeltaTime)
 // gọi bên trong BeginScene() và EndScene();
 void World::Render()
 {
-	
-	// hello fish, you should not appear at here, but i cann't solve this problem now (T.T)
 	fish->Render();
 	
 	groupQuadtreeCollision->Render();

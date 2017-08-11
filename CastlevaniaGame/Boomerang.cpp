@@ -1,4 +1,4 @@
-#include "Boomerang.h"
+﻿#include "Boomerang.h"
 #include "World.h"
 #include "GroupObject.h"
 #include <math.h>
@@ -58,6 +58,7 @@ void Boomerang::Init(int _X, int _Y)
 void Boomerang::Update(const float &_DeltaTime)
 {
 
+	// Hàm trên này quá dở nên viết lại hàm khác
 	//timerSprite += _DeltaTime;
 
 	//position.x += velocity.x*_DeltaTime;
@@ -108,17 +109,20 @@ void Boomerang::Update(const float &_DeltaTime)
 	this->timerSprite += _DeltaTime;
 
 
+	//Nếu Boomerang bay khỏi giới hạn phải của camera hoặc giới hạn trái (cameraX + 512 là giới hạn phải, cameraX là giới hạn trái
 	if (this->position.x >= Sprite::cameraX + 512 || this->position.x <= Sprite::cameraX)
 	{
+		//Nếu Boomerang đã quay lại rồi
 		if (this->isReverted)
 		{
-			//this->isReverted = false;
 			this->isActive = false;
 			return;
 		}
 
+		// Neu51 boomerang chưa quay lại thì xét nó đang bay về bên phải hay không
 		if (this->isRight)
 		{
+			// Có thì cho nó reverted lại và thay đổi chiều vận tốc của nó, đổi trạng thái isRight thành false để báo nó đang đi về bên trái
 			this->velocity.x = -200;
 			this->sprite = this->spriteLeft;
 			this->isRight = false;
@@ -126,6 +130,7 @@ void Boomerang::Update(const float &_DeltaTime)
 		}
 		else
 		{
+			// Không thì cho nó reverted lại và thay đổi chiều vận tốc của nó, đổi trạng thái isRight thành true để báo nó đang đi về bên trái
 			this->velocity.x = 200;
 			this->sprite = this->spriteRight;
 			this->isRight = true;
@@ -133,19 +138,23 @@ void Boomerang::Update(const float &_DeltaTime)
 		}
 	}
 
+	//cập nhật vị trí
 	this->position.x += this->velocity.x * _DeltaTime;
 
+	//xét định frame hình để cho boomerang xoay xoay
 	if (timerSprite > BOOM_ANIMATION_TIME)
 	{
 		this->sprite->Next(5, 7);
 		timerSprite -= BOOM_ANIMATION_TIME;
 	}
 
+	// Nếu gặp trúng Simon lúc quay về thì deactive hoặc ra khỏi màn hình thì deactive 
 	if ( (this->SweptAABB(manager->Simon, _DeltaTime) < 1 && this->isReverted) || !this->IsInCamera())
 	{
 		this->isActive = false;
 	}
-
+	
+	//Xét va chạm vật thể nào 
 	this->CollisionObject(_DeltaTime);
 }
 void Boomerang::Render()

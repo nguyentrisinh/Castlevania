@@ -158,6 +158,7 @@ void World::Render()
 	Simon->Render();
 }
 
+// We don't need to use it now
 void World::CheckActive(float _DeltaTime)
 {
 	/////////////////

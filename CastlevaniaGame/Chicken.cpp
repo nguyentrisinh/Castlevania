@@ -71,6 +71,11 @@ void Chicken::Collision(Player *player)
 {
 	isActive = false;
 	player->health += 2;
+
+	if (player->health > 16)
+	{
+		player->health = 16;
+	}
 }
 
 void Chicken::Init(int _X, int _Y, int type)

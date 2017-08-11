@@ -4,7 +4,7 @@
 
 
 #include "Projectile.h"
-#define BOOM_ANIM_TIME 0.13f
+//#define BOOM_ANIM_TIME 0.13f
 class HolyWater :
 	public Projectile
 {

@@ -58,52 +58,95 @@ void Boomerang::Init(int _X, int _Y)
 void Boomerang::Update(const float &_DeltaTime)
 {
 
-	timerSprite += _DeltaTime;
+	//timerSprite += _DeltaTime;
 
-	position.x += velocity.x*_DeltaTime;
-	if (position.x >= Sprite::cameraX + 512 || position.x <= Sprite::cameraX)
+	//position.x += velocity.x*_DeltaTime;
+	//if (position.x >= Sprite::cameraX + 512 || position.x <= Sprite::cameraX)
+	//{
+	//	position.x -= velocity.x*_DeltaTime;
+	//	if (isRight)
+	//	{
+	//		if (isReverted)
+	//		{
+	//			isActive = false;
+	//			return;
+	//		}
+	//		velocity.x = -200;
+	//		sprite = spriteLeft;
+	//		isRight = false;
+	//		isReverted = true;
+	//	}
+	//	else
+	//	{
+
+	//		if (isReverted)
+	//		{
+	//			isActive = false;
+	//			return;
+	//		}
+	//		velocity.x = 200;
+	//		sprite = spriteRight;
+	//		isRight = true;
+	//		isReverted = true;
+	//	}
+	//	position.x += velocity.x*_DeltaTime;
+
+	//}
+	//if (timerSprite >= BOOM_ANIMATION_TIME)
+	//{
+	//	sprite->Next(5, 7);
+	//	timerSprite -= BOOM_ANIMATION_TIME;
+	//}
+	//
+	//if (SweptAABB(manager->Simon, _DeltaTime) < 1 && isReverted)
+	//	isActive = false;
+	//if (!IsInCamera())
+	//	isActive = false;
+
+	//CollisionObject(_DeltaTime);
+
+	this->timerSprite += _DeltaTime;
+
+
+	if (this->position.x >= Sprite::cameraX + 512 || this->position.x <= Sprite::cameraX)
 	{
-		position.x -= velocity.x*_DeltaTime;
-		if (isRight)
+		if (this->isReverted)
 		{
-			if (isReverted)
-			{
-				isActive = false;
-				return;
-			}
-			velocity.x = -200;
-			sprite = spriteLeft;
-			isRight = false;
-			isReverted = true;
+			//this->isReverted = false;
+			this->isActive = false;
+			return;
+		}
+
+		if (this->isRight)
+		{
+			this->velocity.x = -200;
+			this->sprite = this->spriteLeft;
+			this->isRight = false;
+			this->isReverted = true;
 		}
 		else
 		{
-
-			if (isReverted)
-			{
-				isActive = false;
-				return;
-			}
-			velocity.x = 200;
-			sprite = spriteRight;
-			isRight = true;
-			isReverted = true;
+			this->velocity.x = 200;
+			this->sprite = this->spriteRight;
+			this->isRight = true;
+			this->isReverted = true;
 		}
-		position.x += velocity.x*_DeltaTime;
-
 	}
-	if (timerSprite >= BOOM_ANIM_TIME)
+
+	this->position.x += this->velocity.x * _DeltaTime;
+
+	if (timerSprite > BOOM_ANIMATION_TIME)
 	{
-		sprite->Next(5, 7);
-		timerSprite -= BOOM_ANIM_TIME;
+		this->sprite->Next(5, 7);
+		timerSprite -= BOOM_ANIMATION_TIME;
 	}
-	
-	if (SweptAABB(manager->Simon, _DeltaTime) < 1 && isReverted)
-		isActive = false;
-	if (!IsInCamera())
-		isActive = false;
 
-	CollisionObject(_DeltaTime);
+	if ( (this->SweptAABB(manager->Simon, _DeltaTime) < 1 && this->isReverted) || !this->IsInCamera())
+	{
+		this->isActive = false;
+	}
+
+	this->CollisionObject(_DeltaTime);
 }
 void Boomerang::Render()
 {

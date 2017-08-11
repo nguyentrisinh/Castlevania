@@ -60,6 +60,12 @@ void Fish::Init(int _X, int _Y, bool isRight)
 
 	position.x = Sprite::cameraX + 31 + (rand() % 450);
 
+	while (abs(this->position.x - manager->Simon->position.x) > 350)
+	{
+		this->position.x = Sprite::cameraX + 31 + (rand() % 450);
+	}
+
+
 	if (position.x > manager->Simon->position.x)
 	{
 		velocity.x = -70;

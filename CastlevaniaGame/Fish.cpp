@@ -46,7 +46,6 @@ void Fish::Init(int _X, int _Y)
 	jumping = true;
 }
 
-// --- update by K
 void Fish::Init(int _X, int _Y, bool isRight)
 {
 	health = 1;
@@ -58,11 +57,11 @@ void Fish::Init(int _X, int _Y, bool isRight)
 	velocity.y = 650;
 
 
-	position.x = Sprite::cameraX + 31 + (rand() % 450);
+	position.x = Sprite::cameraX + 50 + (rand() % 450);
 
 	while (abs(this->position.x - manager->Simon->position.x) > 350)
 	{
-		this->position.x = Sprite::cameraX + 31 + (rand() % 450);
+		this->position.x = Sprite::cameraX + 50 + (rand() % 450);
 	}
 
 

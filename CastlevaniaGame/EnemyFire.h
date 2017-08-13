@@ -12,6 +12,7 @@ public:
 	EnemyFire(LPD3DXSPRITE _SpriteHandler, World *_manager);
 	~EnemyFire();
 	virtual void Init(int _X, int _Y);
+	virtual void Init(int _X, int _Y, bool isRight);
 	virtual void Update(const float &_DeltaTime);
 	virtual void Render();
 	virtual void Destroy();

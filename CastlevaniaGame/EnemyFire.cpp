@@ -19,13 +19,17 @@ EnemyFire :: ~EnemyFire()
 
 void EnemyFire::Init(int _X, int _Y)
 {
+}
+
+void EnemyFire::Init(int _X, int _Y, bool isRight)
+{
 	// -----------
 	health = 1;
 
 	isActive = true;
 	position.y = _Y;
 	position.x = _X;
-	if (!manager->Simon->isRight)
+	if (!isRight)
 	{
 		velocity.x = -150;
 		sprite = spriteLeft;

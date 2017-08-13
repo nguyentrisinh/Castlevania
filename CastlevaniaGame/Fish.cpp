@@ -122,9 +122,16 @@ void Fish::Update(const float &_DeltaTime)
 					velocity.x = -70;
 				isFiring = false;
 				if (velocity.x > 0)
+				{
 					sprite = spriteRight;
+					isRight = true;
+				}
 				else
+				{
 					sprite = spriteLeft;
+					isRight = false;
+				}
+
 			}
 			else // con ca dang khong tan cong
 			{
@@ -132,6 +139,7 @@ void Fish::Update(const float &_DeltaTime)
 				//kiem tra va cho con ca tan cong
 				if (TimeToAttack >= timer)
 				{
+					//ActivateFishFire();
 					sprite->_Index = 11;
 					TimeToAttack = 0;
 					isFiring = true;
@@ -169,3 +177,10 @@ void Fish::CheckActive()
 	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
 		isActive = false;
 }
+
+//void Fish::ActivateFishFire()
+//{
+//	EnemyFire *enemyFire = new EnemyFire(manager->spriteHandler, manager);
+//	enemyFire->Init(position.x, position.y + 17);
+//	manager->groupEnemy->AddObject(enemyFire);
+//}

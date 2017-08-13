@@ -10,6 +10,8 @@ class Fish :
 {
 public:
 
+	bool isRight;
+
 	// trang thai nhay tu nuoc len
 	bool jumping;
 
@@ -33,6 +35,7 @@ public:
 	virtual void Destroy();
 	virtual void Collision();
 	virtual void CheckActive();
+	void ActivateFishFire();
 
 };
 #endif // !_FISH_H_

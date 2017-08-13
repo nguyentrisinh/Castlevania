@@ -10,6 +10,7 @@ HolyFire::HolyFire(LPD3DXSPRITE _SpriteHandler, World *_manager) :Projectile(_Sp
 	spriteRight = new Sprite(_SpriteHandler, "Resources\\Sprites\\effect.bmp", sizeWidth, sizeHeight, 9, 6);
 	sprite = spriteRight;
 	sprite->_Index = 0;
+	this->collider->setCollider(5, -5, -10, 10);
 
 	Damage = 2;
 }
@@ -49,12 +50,13 @@ void HolyFire::Update(const float &_DeltaTime)
 	}
 	if (!IsInCamera())
 		isActive = false;
-	if (manager->Simon->isAttack && manager->Simon->killingMoment)
-		CollisionObject(_DeltaTime);
+	//if (manager->Simon->isAttack && manager->Simon->killingMoment)
+	//	CollisionObject(_DeltaTime);
+
+	this->CollisionObject(_DeltaTime);
 }
 void HolyFire::Render()
 {
-
 	if (isActive)
 	{
 		sprite->Render(position.x, position.y);
@@ -70,3 +72,4 @@ void HolyFire::Collision()
 {
 	
 }
+

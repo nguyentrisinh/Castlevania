@@ -51,79 +51,134 @@ void HolyWater::Init(int _X, int _Y)
 	
 }
 
-void HolyWater::Update(const float &_DeltaTime)
-{
-	CollisionObject(_DeltaTime);
-	if (!isActive)
-		return;
-	timerSprite += _DeltaTime;
-
-	position.x += velocity.x*_DeltaTime;
-	//xac dinh tọa do Y
-	velocity.y += -(1000 * _DeltaTime);
-	position.y += (velocity.y * _DeltaTime);
-
-	if (!IsInCamera())
-	{
-		isActive = false;
-		return;
-	}
-	
-	if (manager->Simon->isAttack && manager->Simon->killingMoment)
-		CollisionObject(_DeltaTime);
-}
 void HolyWater::Render()
 {
-
-	if (isActive)
-	{
-		sprite->Render(position.x, position.y);
-	}
-
+	if (this->isActive)
+		this->sprite->Render(position.x, position.y);
 }
 
-void HolyWater::Destroy()
+void HolyWater::Update(const float &_DeltaTime)
 {
+	if (!this->isActive)
+		return;
 
-	isActive = false;
-}
-void HolyWater::Collision()
-{
-	int count = 0;
-	for (int i = 0; i < 3; i++)
-	{
-		if (manager->holyFire[i]->isActive)
-			count++;
-	}
+	this->timerSprite += _DeltaTime;
 
-	if (count <= manager->Simon->weaponNumber)
-		manager->holyFire[count]->Init(position.x, position.y);
-	isActive = false;
+
+	this->position.x += this->velocity.x * _DeltaTime;
+	this->position.y += this->velocity.y * _DeltaTime;
+	
+	this->velocity.y -= 1000 * _DeltaTime;
+
+	this->CollisionObject(_DeltaTime);
+
 }
 
 void HolyWater::CollisionObject(float _DeltaTime)
 {
-	float collisionScale = 0;
-	GameObject* tempObject;
-	for (int i = 0; i < (manager->groupQuadtreeCollision->number); i++)
+	GameObject *tempObject;
+
+	for (int i = 0; i < this->manager->groupQuadtreeCollision->number; i++)
 	{
-		tempObject = manager->groupQuadtreeCollision->objects[i];
+		tempObject = this->manager->groupQuadtreeCollision->objects[i];
+
+		// Loại bỏ các trường hợp nếu va chạm phải các object không phải là GROUND
 		switch (tempObject->objectType)
 		{
 		case GROUND_TYPE:
-			collisionScale = SweptAABB(tempObject, _DeltaTime);
-			if (collisionScale < 1.0f)
+			float collisionScale = this->SweptAABB(tempObject, _DeltaTime);
+
+			if (collisionScale != 1.0f)
 			{
-				//switch (((Ground*)tempObject)->typeGround)
-				//{
-				//case GROUND_BLOCK:
-				//	if (normaly > 0.1f)//chạm từ trên xuống
-				//		Collision();
-				//	break;
-				//}
-				Collision();
+				this->Collision();
+				this->Destroy();
 			}
+
 			break;
 		}
 	}
 }
+
+void HolyWater::Destroy()
+{
+	this->isActive = false;
+}
+
+void HolyWater::Collision()
+{
+	int count = 0; // Biến dùng để dêm số HolyFire đang cháy 
+
+	for (int i = 0; i < 3; i++)
+	{
+		if (this->manager->holyWater[i]->isActive)
+			count++;
+	}
+
+	if (count <= this->manager->Simon->weaponNumber)
+	{
+		this->manager->holyFire[count]->Init(this->position.x, this->position.y);
+	}
+}
+
+
+
+//void HolyWater::Update(const float &_DeltaTime)
+//{
+//	CollisionObject(_DeltaTime);
+//	if (!isActive)
+//		return;
+//	timerSprite += _DeltaTime;
+//
+//	position.x += velocity.x*_DeltaTime;
+//	//xac dinh tọa do Y
+//	velocity.y += -(1000 * _DeltaTime);
+//	position.y += (velocity.y * _DeltaTime);
+//
+//	if (!IsInCamera())
+//	{
+//		isActive = false;
+//		return;
+//	}
+//	
+//	if (manager->Simon->isAttack && manager->Simon->killingMoment)
+//		CollisionObject(_DeltaTime);
+//}
+//void HolyWater::Destroy()
+//{
+//
+//	isActive = false;
+//}
+//void HolyWater::Collision()
+//{
+//	int count = 0;
+//	for (int i = 0; i < 3; i++)
+//	{
+//		if (manager->holyFire[i]->isActive)
+//			count++;
+//	}
+//
+//	if (count <= manager->Simon->weaponNumber)
+//		manager->holyFire[count]->Init(position.x, position.y);
+//	isActive = false;
+//}
+//
+//void HolyWater::CollisionObject(float _DeltaTime)
+//{
+//	float collisionScale = 0;
+//	GameObject* tempObject;
+//	for (int i = 0; i < (manager->groupQuadtreeCollision->number); i++)
+//	{
+//		tempObject = manager->groupQuadtreeCollision->objects[i];
+//		switch (tempObject->objectType)
+//		{
+//		case GROUND_TYPE:
+//			collisionScale = SweptAABB(tempObject, _DeltaTime);
+//			if (collisionScale < 1.0f)
+//			{
+//
+//				Collision();
+//			}
+//			break;
+//		}
+//	}
+//}

@@ -8,6 +8,7 @@ class Panther :
 
 {
 public:
+	World *_manager;
 	bool isSleeping;
 	bool hasJumped;
 	Panther();

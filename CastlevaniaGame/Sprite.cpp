@@ -9,6 +9,9 @@ int Sprite::cameraX = 64;
 int Sprite::cameraY = 0;
 // ----------------------------------------
 
+void Sprite::Index(int index) {
+	_Index = index;
+}
 
 void Sprite::CameraFollow(GameObject* object, float deltaTime)
 {

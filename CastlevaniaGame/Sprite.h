@@ -36,6 +36,7 @@ public:
 
 	Sprite::Sprite(LPD3DXSPRITE SpriteHandler, LPCSTR FilePath, int Width, int Height, int Count, int SpritePerRow);
 	void Next(int start,int end);
+	void Index(int index);
 	void Reset();
 
 	// Render current sprite at location (X,Y) at the target surface

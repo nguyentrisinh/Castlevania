@@ -27,6 +27,8 @@ public:
 	bool isShocked;  //trang thai shock
 	bool isImmortal; //trang thai bat tu
 	bool isChangeFrame;
+	bool isDeath; //Xác định Simon có dead chưa
+	bool alreadyDeath; // Biến xác định Simon có thực hiện các sprite khi dead chưa
 
 	bool isMoveToX; //biến xác định trạng thái simon bị chuyển đến vị trí X
 	float DestinationX; // đích đến của Simon khi bị chuyển đến 1 vị trí xác định
@@ -41,6 +43,8 @@ public:
 	bool isClimbing; // xác đinh Player có phải đang đi lên hay không?
 	float timeStairAnim; // biến tính thời gian để chuyển sprite
 	bool isShowTime; // xác định Player đang thực hiện  1 động tác đi cầu thang
+	float timeSimonDeath;
+
 
 
 	float timeImmortal;//thoi gian bat tu
@@ -89,6 +93,7 @@ public:
 	void Injured(int keyInjured);
 	void MovingOnStair(int keyMove);
 	void ActivateWeapon();
+	void SimonDeath();
 
 
 	// các hàm update các trạng thái của simon
@@ -97,6 +102,7 @@ public:
 	void UpdateWhenAttackOnStair(float _DeltaTime);
 	void UpdateWhenOnStair(float _DeltaTime);
 	void UpdateWhenMoveToPossionX(float _DeltaTime);
+	void UpdateSimonDeath(float _DeltaTime);
 
 	// cheat function
 	void RestoreHP();

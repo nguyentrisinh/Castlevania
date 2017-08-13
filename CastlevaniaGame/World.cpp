@@ -61,6 +61,7 @@ void World::Init()
 
 	
 	// need to be clean, put into "GroupObject" ----
+	// dùng để test lúc đầu 
 	ghoul = new Ghoul(spriteHandler, this);
 	redBat = new RedBat(spriteHandler, this);
 	blueBat = new BlueBat(spriteHandler, this);

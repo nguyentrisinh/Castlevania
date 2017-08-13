@@ -32,6 +32,8 @@ void Fish::Init(int _X, int _Y)
 	position.y = 0;
 	velocity.y = 450;
 	position.x = _X;
+
+
 	if (position.x > manager->Simon->position.x)
 	{
 		velocity.x = -70;
@@ -56,13 +58,10 @@ void Fish::Init(int _X, int _Y, bool isRight)
 	position.y = 0;
 	velocity.y = 650;
 
-
-	position.x = Sprite::cameraX + 50 + (rand() % 450);
-
-	while (abs(this->position.x - manager->Simon->position.x) > 350)
+	do
 	{
-		this->position.x = Sprite::cameraX + 50 + (rand() % 450);
-	}
+		position.x = Sprite::cameraX + 31 + (rand() % 450);
+	} while ((position.x > (manager->Simon->position.x - 80)) && (position.x < (manager->Simon->position.x + 80)));
 
 
 	if (position.x > manager->Simon->position.x)
@@ -77,6 +76,7 @@ void Fish::Init(int _X, int _Y, bool isRight)
 	}
 
 	jumping = true;
+
 }
 
 void Fish::Update(const float &_DeltaTime)

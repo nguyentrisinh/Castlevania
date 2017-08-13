@@ -332,6 +332,8 @@ void MainGame::OnKeyDown(int KeyCode)					//Chỉ nhảy khi vừa nhấn, nhấ
 	case DIK_K:
 		world->Simon->ChangeSubWeapon();
 		break;
+	case DIK_O:
+		world->Simon->SimonDeath();
 	}
 }
 

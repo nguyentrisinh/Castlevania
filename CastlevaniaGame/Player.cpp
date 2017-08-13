@@ -30,6 +30,8 @@ Player::Player(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	isShowTime = false;
 	animStart = false;
 	isClimbing = true;
+	isDeath = false;
+	alreadyDeath = false;
 
 
 	//upKey = false;
@@ -87,6 +89,8 @@ void Player::Init(int _X, int _Y)
 	isShowTime = false;
 	animStart = false;
 	isClimbing = true;
+	isDeath = false;
+	alreadyDeath = false;
 
 
 	position.x = _X;
@@ -122,6 +126,13 @@ void Player::Collision()
 // ---=== UPDATE ===---
 void Player::Update(const float &_DeltaTime)
 {
+
+	if (isDeath)
+	{
+		this->UpdateSimonDeath(_DeltaTime);
+		return;
+	}
+
 	//truong hop dang bat tu
 	if (isImmortal)
 	{
@@ -482,6 +493,28 @@ void Player::UpdateWhenMoveToPossionX(float _DeltaTime)
 }
 
 
+// Update trạng thái khi Simon death
+void Player::UpdateSimonDeath(float _DeltaTime)
+{
+	if (!this->alreadyDeath)
+	{
+		this->timeSimonDeath += _DeltaTime;
+
+		if (this->timeSimonDeath > ANIM_TIME)
+		{
+			this->timeSimonDeath -= ANIM_TIME;
+			this->sprite->Next(9, 11);
+			this->heart = this->sprite->_Index;
+			if (this->sprite->_Index == 10)
+			{
+				this->alreadyDeath = true;
+			}
+		}
+	}
+
+}
+
+
 // ---===PROCESSINPUT ===---
 
 void Player::Move(int moveKey, const float &_DeltaTime)
@@ -494,6 +527,8 @@ void Player::Move(int moveKey, const float &_DeltaTime)
 	if (isUsingWeapon)
 		return;
 	if (isHitted)
+		return;
+	if (isDeath)
 		return;
 
 	switch (moveKey)
@@ -532,6 +567,8 @@ void Player::Up(int upKey)
 
 void Player::Down(int downKey)
 {
+	if (isDeath)
+		return;
 
 	if (isJump)
 	{
@@ -587,6 +624,8 @@ void Player::Down(int downKey)
 
 void Player::Jump()
 {
+	if (isDeath)
+		return;
 	if (onStair == 1)
 		return;
 	if (isAttack)
@@ -611,6 +650,8 @@ void Player::Jump()
 
 void Player::Attack(int keyAttack)
 {
+	if (isDeath)
+		return;
 	if (isShowTime)
 		return;
 	//truong hop dang bi thuong
@@ -827,6 +868,9 @@ void Player::Injured(int keyInjured)
 
 	this->health--;
 
+	if (this->health == 0)
+		this->SimonDeath();
+
 
 
 }
@@ -859,6 +903,13 @@ void Player::MovingOnStair(int keyMove)
 
 
 }
+
+void Player::SimonDeath()
+{
+	this->timeSimonDeath = 0;
+	this->isDeath = true;
+}
+
 
 // ---=== COLLISION ===---
 

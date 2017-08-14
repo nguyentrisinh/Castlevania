@@ -6,7 +6,7 @@ Panther::Panther() {}
 
 Panther::Panther(LPD3DXSPRITE _SpriteHandler, World *_manager) :Enemy(_SpriteHandler, _manager)
 {
-	collider->setCollider(24, -24, -14, 14);
+	collider->setCollider(24, -32, -14, 14);
 	enemyType = PANTHER;
 
 	// ---- update K_1.7

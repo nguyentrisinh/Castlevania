@@ -385,9 +385,10 @@ Enemy* OLoader::CreateEnemy(int* parameters)
 	case BLUEBAT:
 		newEnemy = new BlueBat(spriteHandler, manager);
 		break;
-		/*case KNIGHT:
+	case KNIGHT:
 		newEnemy = new Knight(spriteHandler, manager);
 		break;
+		/*
 		case HEAD:
 		newEnemy = new Head(spriteHandler, manager);
 		break;

@@ -31,10 +31,10 @@ void Panther::Init(int _X, int _Y)
 	position.y = _Y;
 	position.x = _X;
 	if (manager->Simon->isRight)
-		velocity.x = -20;
+		velocity.x = -40;
 	else
-		velocity.x = 20;
-	velocity.y = -200;
+		velocity.x = 40;
+	velocity.y = -140;
 }
 
 void Panther::Update(const float &_DeltaTime)
@@ -72,14 +72,14 @@ void Panther::Update(const float &_DeltaTime)
 		}
 		else
 		{	
-			velocity.y = 10;
+			velocity.y = 4;
 			if (CheckGroundCollision(manager, _DeltaTime)) {
 				velocity.y = 0;
 			}
 			else 
 				velocity.y += velocity.x*velocity.x / 5;
 
-			velocity.x = 20;
+			velocity.x = 25;
 			position.y -= velocity.y * _DeltaTime;
 			position.x += velocity.x * _DeltaTime * 8;
 
@@ -139,7 +139,6 @@ bool Panther::CheckGroundCollision(World * manager, const float _DeltaTime) {
 				switch (((Ground*)object)->typeGround)
 				{
 				case GROUND_BLOCK:
-					//position.y = object->position.y + 43;
 					return true;
 					break;
 				default:

@@ -10,8 +10,12 @@ Medusa::Medusa(LPD3DXSPRITE _SpriteHandler, World *_manager) :Enemy(_SpriteHandl
 	collider->setCollider(14, -14, -10, 10);
 	enemyType = MEDUSA;
 	spriteMedusa = new Sprite(_SpriteHandler, "Resources\\Sprites\\medusa.png", 65, 64, 5, 5);
-	thoigiandung = 0;
+	sprite = spriteMedusa;
+	timePause = 0;
 	isAttack = false;
+	velocity.y = 20;
+	velocity.x = 20;
+	
 }
 
 Medusa :: ~Medusa()
@@ -22,69 +26,90 @@ Medusa :: ~Medusa()
 void Medusa::Init(int _X, int _Y)
 {
 	health = 64;
-
 	isActive = true;
 	isAttack = false;
 	position.x = _X;
 	position.y = _Y;
-	velocity.y = -250;
-	velocity.x = -160;
-	a = 0;
-	//if (manager->Simon->isRight)
-	//	velocity.x = -160;
-	//else
-	//	velocity.x = 160;
-	
+	limitTop = _Y;
+	limitBot = _Y - 100;
 	
 }
 
 void Medusa::Update(const float &_DeltaTime)
 {
-	sprite = spriteMedusa;
-	a--;
-	if (position.y >= 550)
-	{
-		int r = rand() % 10;
-		if (r >= 5)
-			isAttack = true;
-		else
-			isAttack = false;
-	}
-	if (position.x < 400||position.x>1000)
-	{
-		velocity.x = 0;
-		velocity.y = 0;
-		thoigiandung += _DeltaTime;
-		if (thoigiandung > 2)
-		{
-			velocity.x = -150;
-			velocity.y = -250;
-			if (position.x < 400)			
-				velocity.x *= -1;
-			if (position.y < 550)
-			{
-				velocity.y *= -1;
-				velocity.y++;
-			}
-			thoigiandung = 0;
-		}
-	}
-	position.x += velocity.x * _DeltaTime;
-	position.y += velocity.y * _DeltaTime;
+	_deltaTime = _DeltaTime;
 	
-	timerSprite += _DeltaTime;
+	switch (way) {
+	case 0:
+		moveRightDown(way);
+		break;
+	case 1:
+		moveRightUp(way);
+		break;
+	case 2:
+		moveLeftDown(way);
+		break;
+	case 3:
+		moveLeftUp(way);
+		break;
+	default:
+		break;
+	}
 
+	timerSprite += _deltaTime;
 	if (timerSprite >= 0.2f)
 	{
-		velocity.y = sin(a) * 50;
 		sprite->Next(0, 4);
 		timerSprite = 0;
 	}
 	
 }
 
+void Medusa::moveRightDown(int &way) {
+	if (position.y >= limitBot) {
+		position.x += (velocity.x * _deltaTime);
+		position.y += (-velocity.y * _deltaTime);
+		count++;
+	}
+	else {
+		count = 0;
+		way++;
+	}
+}
 
-
+void Medusa::moveRightUp(int &way) {
+	if (position.y <= limitTop) {
+		position.x += (velocity.x * _deltaTime);
+		position.y += (velocity.y * _deltaTime);
+		count++;
+	}
+	else {
+		count = 0;
+		way++;
+	}
+}
+void Medusa::moveLeftDown(int &way) {
+	if (position.y >= limitBot) {
+		position.x += (-velocity.x * _deltaTime);
+		position.y += (-velocity.y * _deltaTime);
+		count++;
+	}
+	else {
+		count = 0;
+		way++;
+	}
+}
+void Medusa::moveLeftUp(int &way) {
+	if (position.y <= limitTop) {
+		position.x += (-velocity.x * _deltaTime);
+		position.y += (velocity.y * _deltaTime);
+		count++;
+	}
+	else {
+		count = 0;
+		way = 0;
+	}
+}
 void Medusa::Render()
 {
 	sprite->Render(position.x, position.y);
@@ -107,7 +132,7 @@ void Medusa::Destroy()
 	manager->groupEffect->AddObject(effect);
 	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
-	
+
 	// hang 3
 	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y - 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
@@ -131,8 +156,6 @@ void Medusa::Collision()
 
 void Medusa::CheckActive()
 {
-	if (manager->Simon->position.x <800 - 200 || manager->Simon->position.x>800+200) //zone từ 600 - 1000, bắt đầu hành động khi simon còn cách 200
-		isActive = false;
-	else
+	if (manager->Simon->position.x < 600 && manager->Simon->position.x>1000) //zone từ 600 - 1000, bắt đầu hành động khi simon còn cách 200
 		isActive = true;
 }

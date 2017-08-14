@@ -10,7 +10,15 @@ class Medusa :
 
 {
 public:
-	float thoigiandung;
+	int limitTop;
+	int limitBot;
+	int maxCount = 900;
+	int way = 0;
+	int count = 0;
+
+	float timePause;
+	float _deltaTime;
+	
 	double a;
 	bool isAttack;
 	Medusa();
@@ -22,7 +30,10 @@ public:
 	virtual void Render();
 	virtual void Destroy();
 	virtual void Collision();
-
+	void moveRightDown(int &way);
+	void moveRightUp(int &way);
+	void moveLeftDown(int &way);
+	void moveLeftUp(int &way);
 	virtual void CheckActive();
 };
 #endif // !_MEDUSA_H_

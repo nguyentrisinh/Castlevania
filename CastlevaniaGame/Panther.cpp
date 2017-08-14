@@ -71,7 +71,8 @@ void Panther::Update(const float &_DeltaTime)
 			}
 		}
 		else
-		{
+		{	
+			velocity.y = 10;
 			if (CheckGroundCollision(manager, _DeltaTime)) {
 				velocity.y = 0;
 			}

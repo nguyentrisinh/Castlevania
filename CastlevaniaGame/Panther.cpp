@@ -39,22 +39,18 @@ void Panther::Init(int _X, int _Y)
 
 void Panther::Update(const float &_DeltaTime)
 {
-	sprite = spriteLeft;
 	if (manager->Simon->position.x > position.x - 200)
 		isSleeping = false;
-
-	if (CheckGroundCollision(_manager, _DeltaTime))
+	if (CheckGroundCollision(_manager, _DeltaTime)) 
 	{
 		velocity.y = 0;
 	}
-
 	if (!isSleeping)
 	{
 		if (!hasJumped)
 		{
 			position.x += velocity.x * _DeltaTime * 8;
-			//if (!CheckGroundCollision(_manager, _DeltaTime))
-				position.y -= velocity.y * _DeltaTime;
+			position.y -= velocity.y * _DeltaTime;
 
 			timerSprite += _DeltaTime;
 
@@ -68,14 +64,24 @@ void Panther::Update(const float &_DeltaTime)
 				timerSprite = 0;
 			}
 
-			if (Enemy::CheckGroundCollision(manager, _DeltaTime))
+			if (CheckGroundCollision(manager, _DeltaTime))
 			{
 				hasJumped = true;
+				sprite = spriteRight;
 			}
 		}
 		else
 		{
+			if (CheckGroundCollision(manager, _DeltaTime)) {
+				velocity.y = 0;
+			}
+			else 
+				velocity.y += velocity.x*velocity.x / 5;
+
+			velocity.x = 20;
+			position.y -= velocity.y * _DeltaTime;
 			position.x += velocity.x * _DeltaTime * 8;
+
 			timerSprite += _DeltaTime;
 
 			if (timerSprite >= ANIM_TIME)
@@ -83,7 +89,7 @@ void Panther::Update(const float &_DeltaTime)
 				sprite->Next(3, 5);
 				timerSprite = 0;
 			}
-		}			
+		}
 	}
 }
 
@@ -112,7 +118,7 @@ void Panther::CheckActive()
 {
 	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
 		isActive = false;
-	
+
 }
 
 bool Panther::CheckGroundCollision(World * manager, const float _DeltaTime) {
@@ -121,7 +127,7 @@ bool Panther::CheckGroundCollision(World * manager, const float _DeltaTime) {
 	for (int i = 0; i < (manager->groupQuadtreeCollision->number); i++)
 	{
 		GameObject *object = manager->groupQuadtreeCollision->objects[i];
-		
+
 		switch (object->objectType)
 		{
 		case GROUND_TYPE:

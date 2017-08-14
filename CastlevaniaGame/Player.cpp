@@ -1091,3 +1091,10 @@ void Player::ChangeSubWeapon()
 	if (this->subWeapon >= 7)
 		this->subWeapon = this->subWeapon / 7 + 1;
 }
+
+//~~~~~~~~~~~~~~~~~~~Test Crystall Item
+void Player::CreateCrystallItem()
+{
+	this->manager->crystal->Init(this->position.x + 100, this->position.y + 200);
+	this->manager->groupItem->AddObject(this->manager->crystal);
+}

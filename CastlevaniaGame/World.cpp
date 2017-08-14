@@ -112,6 +112,9 @@ void World::Init()
 	groupProjectile->AddObject(holyWater[1]);
 	groupProjectile->AddObject(holyWater[2]);
 	// ##
+
+	// Constructor for crystal test
+	this->crystal = new Crystal(spriteHandler, this);
 }
 
 // gọi ở đầu game_run
@@ -186,6 +189,11 @@ void World::CheckActive(float _DeltaTime)
 	///////////////
 	
 	
+}
+
+void World::NextLevel()
+{
+	this->castlevania->NextLevel();
 }
 
 void World::Destroy()

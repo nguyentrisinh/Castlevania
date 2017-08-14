@@ -36,21 +36,21 @@ void Crystal::Init(int _X, int _Y)
 void Crystal::Update(const float &_DeltaTime)
 {
 	timeSurvive += _DeltaTime;
-	if (timeSurvive >= 3.0f)
+	if (timeSurvive >= 100.0f)
 		isActive = false;
+
+	// Effect for crystal
+	timerSprite += _DeltaTime;
+	if (timerSprite > ANIM_TIME)
+	{
+		sprite->Next(16, 17);
+		timerSprite -= ANIM_TIME;
+	}
 	if (velocity.y == 0)
 		return;
 	if (isActive)
 	{
 		position.y += velocity.y * _DeltaTime;
-
-		timerSprite += _DeltaTime;
-		if (timerSprite >= 0.2f)
-		{
-			sprite->Next(16, 17);
-			timerSprite = 0;
-		}
-		//Khi chạm nền thì dừng lại
 		if (Item::CheckGroundCollision(manager, _DeltaTime))
 			velocity.y = 0;
 	}
@@ -70,7 +70,9 @@ void Crystal::Destroy()
 void Crystal::Collision(Player *player)
 {
 	isActive = false;
-	//xu ly qua man
+	//Hoi mau va xu ly qua man
+	this->manager->Simon->RestoreHP();
+	this->manager->NextLevel();
 }
 
 void Crystal::Init(int _X, int _Y, int type)

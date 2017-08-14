@@ -79,6 +79,8 @@ public:
 	GroupObject *groupEffect;
 	GroupObject *groupProjectile;
 
+	// Crystal for test
+	Crystal *crystal;
 	
 	
 	// ---- bo sung K_1.7 ---
@@ -101,6 +103,9 @@ public:
 	void Render();
 	void CheckActive(float _DeltaTime);
 	void Destroy();
+
+	// Function for Next Level 
+	void NextLevel();
 };
 
 

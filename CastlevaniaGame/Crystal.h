@@ -3,6 +3,8 @@
 #define _CRYSTAL_
 
 #include "Item.h"
+//#include "MainGame.h"
+//#include "World.h"
 
 class Crystal :
 	public Item

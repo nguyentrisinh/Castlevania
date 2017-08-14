@@ -109,6 +109,9 @@ public:
 	void IncreaseHeart();
 	void ChangeSubWeapon();
 
+	// Test Crystall Item
+	void CreateCrystallItem();
+
 };
 
 #endif

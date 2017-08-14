@@ -334,6 +334,10 @@ void MainGame::OnKeyDown(int KeyCode)					//Chỉ nhảy khi vừa nhấn, nhấ
 		break;
 	case DIK_O:
 		world->Simon->SimonDeath();
+		break;
+	case DIK_P:
+		world->Simon->CreateCrystallItem();
+		break;
 	}
 }
 

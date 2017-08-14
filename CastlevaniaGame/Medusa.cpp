@@ -32,40 +32,28 @@ void Medusa::Init(int _X, int _Y)
 	position.y = _Y;
 	limitTop = _Y;
 	limitBot = _Y - 100;
+	limitRight = _X + 200;
+	limitLeft = _X - 200;
 	
 }
-
-void Medusa::Update(const float &_DeltaTime)
-{
-	_deltaTime = _DeltaTime;
-	
-	switch (way) {
-	case 0:
-		moveRightDown(way);
-		break;
-	case 1:
-		moveRightUp(way);
-		break;
-	case 2:
-		moveLeftDown(way);
-		break;
-	case 3:
-		moveLeftUp(way);
-		break;
-	default:
-		break;
-	}
-
+void Medusa::setSprite() {
 	timerSprite += _deltaTime;
 	if (timerSprite >= 0.2f)
 	{
 		sprite->Next(0, 4);
 		timerSprite = 0;
 	}
+}
+void Medusa::Update(const float &_DeltaTime)
+{
+	_deltaTime = _DeltaTime;
 	
+	moveZicZac();
+
+	setSprite();
 }
 
-void Medusa::moveRightDown(int &way) {
+void Medusa::moveRightDown() {
 	if (position.y >= limitBot) {
 		position.x += (velocity.x * _deltaTime);
 		position.y += (-velocity.y * _deltaTime);
@@ -77,18 +65,26 @@ void Medusa::moveRightDown(int &way) {
 	}
 }
 
-void Medusa::moveRightUp(int &way) {
+void Medusa::moveRightUp() {
+	//Move right up and not reach any limits
 	if (position.y <= limitTop) {
 		position.x += (velocity.x * _deltaTime);
 		position.y += (velocity.y * _deltaTime);
 		count++;
+		return;
 	}
-	else {
-		count = 0;
+	
+	//Reach limit top and right, then move left down
+	if (position.y > limitTop && position.x >= limitRight) {
 		way++;
+		return;
 	}
+
+	//Only reach limit top but not right, then move 
+	way--;
+	return;
 }
-void Medusa::moveLeftDown(int &way) {
+void Medusa::moveLeftDown() {
 	if (position.y >= limitBot) {
 		position.x += (-velocity.x * _deltaTime);
 		position.y += (-velocity.y * _deltaTime);
@@ -99,15 +95,40 @@ void Medusa::moveLeftDown(int &way) {
 		way++;
 	}
 }
-void Medusa::moveLeftUp(int &way) {
+void Medusa::moveLeftUp() {
 	if (position.y <= limitTop) {
 		position.x += (-velocity.x * _deltaTime);
 		position.y += (velocity.y * _deltaTime);
 		count++;
+		return;
 	}
-	else {
-		count = 0;
+
+	//Reach limit top and left, then move right down
+	if (position.y > limitTop && position.x <= limitLeft) {
 		way = 0;
+		return;
+	}
+
+	//Only reach limit top but not left, then move 
+	way--;
+	return;
+}
+void Medusa::moveZicZac() {
+	switch (way) {
+	case 0:
+		moveRightDown();
+		break;
+	case 1:
+		moveRightUp();
+		break;
+	case 2:
+		moveLeftDown();
+		break;
+	case 3:
+		moveLeftUp();
+		break;
+	default:
+		break;
 	}
 }
 void Medusa::Render()

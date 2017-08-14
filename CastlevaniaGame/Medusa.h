@@ -12,6 +12,8 @@ class Medusa :
 public:
 	int limitTop;
 	int limitBot;
+	int limitRight;
+	int limitLeft;
 	int maxCount = 900;
 	int way = 0;
 	int count = 0;
@@ -30,10 +32,13 @@ public:
 	virtual void Render();
 	virtual void Destroy();
 	virtual void Collision();
-	void moveRightDown(int &way);
-	void moveRightUp(int &way);
-	void moveLeftDown(int &way);
-	void moveLeftUp(int &way);
+	void moveRightDown();
+	void moveRightUp();
+	void moveLeftDown();
+	void moveLeftUp();
+
+	void moveZicZac();
+	void setSprite();
 	virtual void CheckActive();
 };
 #endif // !_MEDUSA_H_

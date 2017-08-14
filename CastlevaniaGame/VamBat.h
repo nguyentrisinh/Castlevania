@@ -9,7 +9,9 @@ class VamBat :
 
 {
 public:
-	
+	float posMiddle;
+	bool isSleep;
+	float timerPause;
 	VamBat();
 	VamBat(LPD3DXSPRITE _SpriteHandler, World *_manager);
 	~VamBat();

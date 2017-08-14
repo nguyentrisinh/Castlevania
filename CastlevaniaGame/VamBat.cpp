@@ -10,6 +10,7 @@ VamBat::VamBat(LPD3DXSPRITE _SpriteHandler, World *_manager) :Enemy(_SpriteHandl
 	collider->setCollider(14, -14, -10, 10);
 	enemyType = VAMBAT;
 	spriteVamBat = new Sprite(_SpriteHandler, "Resources\\Sprites\\VamBat.png", 96, 46, 3, 3);
+	health = 34;
 }
 
 VamBat :: ~VamBat()
@@ -19,11 +20,15 @@ VamBat :: ~VamBat()
 
 void VamBat::Init(int _X, int _Y)
 {
+	sprite = spriteVamBat;
 	isActive = true;
+	isSleep = true;
 	position.x = _X;
 	position.y = _Y;
-	velocity.y = -250;
+	velocity.y = -200;
 	velocity.x = -160;
+	timerPause = 2;
+	posMiddle = (Sprite::cameraX + Sprite::cameraX + 512) / 2;
 	//if (manager->Simon->isRight)
 	//	velocity.x = -160;
 	//else
@@ -38,25 +43,51 @@ void VamBat::Update(const float &_DeltaTime)
 	else
 		sprite = spriteLeft;*/
 	// move
-	sprite = spriteVamBat;
-	if (position.x >= 1000 - 400)
+
+	if (isSleep)
 	{
-		position.x += velocity.x * _DeltaTime;
-		position.y += velocity.y * _DeltaTime;
-	}
-	
-	timerSprite += _DeltaTime;
-	if (timerSprite >= 0.2f)
-	{
-		velocity.y = velocity.y / 2;
-		sprite->Next(0, 2);
-		timerSprite -= 0.2f;
+		sprite->Next(0, 0);
+		if (position.x > manager->Simon->position.x + 20 || position.x < manager->Simon->position.x - 20)
+			isSleep = false;
 	}
 	else
-	{
-		velocity.y = -250;
-	}
+	{	
+		if (position.y < 550)
+		{	
+			velocity.y = 150;
+		}
 
+		if (position.y > 650)
+		{
+			velocity.y = -150;
+		}
+
+		if (position.x < Sprite::cameraX + 50 || position.x > Sprite::cameraX + 450)
+		{
+			velocity.x = 0;
+			velocity.y = 0;
+			timerPause -= _DeltaTime;
+			if (timerPause < 0)
+			{
+				if (position.x < posMiddle)
+					velocity.x = -150;
+				else
+					velocity.x = 150;
+				timerPause = 2;
+			}
+		}
+
+		timerSprite += _DeltaTime;
+		if (timerSprite >= 0.2f)
+		{
+			velocity.y -= velocity.x / 5;
+			sprite->Next(1, 2);
+			timerSprite -= 0.2f;
+		}
+
+		position.x += velocity.x * _DeltaTime;
+		position.y += velocity.y * _DeltaTime;
+	}	
 }
 
 
@@ -68,7 +99,7 @@ void VamBat::Render()
 
 void VamBat::Destroy()
 {
-	// hang 1
+	//hang 1 
 	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y + 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y + 32, -1, spriteHandler, manager);
@@ -76,7 +107,7 @@ void VamBat::Destroy()
 	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y + 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 
-	// hang 2
+	//hang 2 
 	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y, -1, spriteHandler, manager);
@@ -84,10 +115,10 @@ void VamBat::Destroy()
 	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 
-	// hang 3
+	//hang 3 
 	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y - 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y - 32, -1, spriteHandler, manager);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y -32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y - 32, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
@@ -107,7 +138,7 @@ void VamBat::Collision()
 
 void VamBat::CheckActive()
 {
-	if (manager->Simon->position.x<1000-200 || manager->Simon->position.x>1500) //zone của vamBat từ 1000 - 15000, bắt đầu hành động khi simon còn cách 200
+	if (manager->Simon->position.x<1000-200 || manager->Simon->position.x>1500) //zone của vamBat từ 1000 - 1500, bắt đầu hành động khi simon còn cách 200
 		isActive = false;  
 	else
 		isActive = true;

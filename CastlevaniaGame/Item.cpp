@@ -164,6 +164,10 @@ Item * Item::CreateItem(int itemType, int _X, int _Y, LPD3DXSPRITE _SpriteHandle
 		item = new Treasure(_SpriteHandler, _manager);
 		item->Init(_X, _Y, CROWN);
 		break;
+	case CRYSTAL:
+		item = new Crystal(_SpriteHandler, _manager);
+		item->Init(_X, _Y);
+		break;
 	}
 	return item;
 }

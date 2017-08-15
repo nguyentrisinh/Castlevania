@@ -8,9 +8,10 @@ class Knight :
 
 {
 public:
+	int limitRight;
 	World *_manager;
 	float _deltaTime;
-
+	int startX, startY;
 	bool isSleeping;
 	Knight();
 	Knight(LPD3DXSPRITE _SpriteHandler, World *_manager);
@@ -20,10 +21,10 @@ public:
 	virtual void Render();
 	virtual void Destroy();
 	virtual void Collision();
-
 	virtual void CheckActive();
+	void setSprite();
 	bool CheckGroundCollision();
-	bool checkWallCollision();
+	int checkWallCollision();
 };
 #endif // !_Knight_H_
 

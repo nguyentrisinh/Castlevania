@@ -147,7 +147,7 @@ Enemy* Enemy::CreateEnemy(int* parameters, LPD3DXSPRITE spriteHandler, World *ma
 
 		// boss enemies
 	case VAMBAT:
-		newEnemy = new VamBat(spriteHandler, manager);
+		newEnemy = manager->vamBat;
 		break;
 	case MEDUSA:
 		newEnemy = new Medusa(spriteHandler, manager);

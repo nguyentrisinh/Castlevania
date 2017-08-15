@@ -326,190 +326,23 @@ GameObject* OLoader::CreateGameObject(int* parameters)
 	switch (parameters[1] / 100)
 	{
 	case ENEMY_TYPE:
-		gameObject = CreateEnemy(parameters);
+		gameObject = Enemy::CreateEnemy(parameters, spriteHandler, manager);
 		break;
 	case DESTRUCTIBLE_TYPE:
-		gameObject = CreateDestructible(parameters);
+		gameObject = Destructible::CreateDestructible(parameters, spriteHandler, manager);
 		break;
 	case GROUND_TYPE:
-		gameObject = CreateGround(parameters);
+		gameObject = Ground::CreateGround(parameters, spriteHandler, manager);
 		break;
 	case STAIR_TYPE:
-		gameObject = CreateStair(parameters);
+		gameObject = Stair::CreateStair(parameters, spriteHandler, manager);
 		break;
 	case ZONE_TYPE:
-		gameObject = CreateZone(parameters);
+		gameObject = Zone::CreateZone(parameters, spriteHandler, manager);
 		break;
 	default:
 		break;
 	}
 
 	return gameObject;
-}
-
-// tạo enemy dựa vào mảng số
-Enemy* OLoader::CreateEnemy(int* parameters)
-{
-	// #######################
-	// shold make static method Enemy::CreateEnemy()  (view the method Item::CreateItem() )
-	//#########################
-
-
-	Enemy* newEnemy = NULL;
-
-	switch (parameters[1] % 100)
-	{
-		// map1 enemies
-	case REDBAT:
-		newEnemy = new RedBat(spriteHandler, manager);
-		break;
-	case GHOUL:
-		newEnemy = new Ghoul(spriteHandler, manager);
-		break;
-	case FISH:
-		newEnemy = new Fish(spriteHandler, manager);
-		break;
-	case PANTHER:
-		newEnemy = new Panther(spriteHandler, manager);
-		break;
-
-		// boss enemies
-	case VAMBAT:
-		newEnemy = new VamBat(spriteHandler, manager);
-		break;
-	case MEDUSA:
-		newEnemy = new Medusa(spriteHandler, manager);
-		break;
-
-		// map2 enemies
-	case BLUEBAT:
-		newEnemy = new BlueBat(spriteHandler, manager);
-		break;
-	case KNIGHT:
-		newEnemy = new Knight(spriteHandler, manager);
-		break;
-		/*
-		case HEAD:
-		newEnemy = new Head(spriteHandler, manager);
-		break;
-		case GHOST:
-		newEnemy = new Ghost(spriteHandler, manager);
-		break;
-		case BONE:
-		newEnemy = new Bone(spriteHandler, manager);
-		break;*/
-	default:
-		return NULL;
-		break;
-
-	}
-
-	// nếu vị trí == 0 thì enemy sẽ không active
-	if ((parameters[2] == 0) && (parameters[3] == 0))
-	{
-		newEnemy->isActive = false;
-	}
-	else
-	{
-		newEnemy->Init(parameters[2], parameters[3]);
-	}
-
-	// ----------------- test 
-	if (newEnemy->enemyType == VAMBAT)
-		newEnemy->isActive = false;
-	if (newEnemy->enemyType == MEDUSA)
-		newEnemy->isActive = false;
-	// --------------------
-
-	return newEnemy;
-}
-
-Destructible* OLoader::CreateDestructible(int* parameters)
-{
-	Destructible* newDestructible = NULL;
-
-	newDestructible = new Destructible(spriteHandler, manager, parameters[1] % 100);
-	newDestructible->Init(parameters[2], parameters[3], parameters[4]);
-
-	return newDestructible;
-}
-
-Ground* OLoader::CreateGround(int* parameters)
-{
-	Ground* newGround = NULL;
-
-	switch (parameters[1] % 100)
-	{
-		// khối block bình thường, đứng lên dc, tuỳ chỉnh kích thước
-	case GROUND_BLOCK:
-		newGround = new ColliderBlock(spriteHandler, manager);
-		break;
-		// các cục gạch có thể bị đập bể & rớt item
-	case GROUND_BRICK1:
-	case GROUND_BRICK2:
-	case GROUND_BRICK3:
-	case GROUND_BRICK4:
-		newGround = new Brick(spriteHandler, manager, parameters[1] % 100);
-		break;
-		// 1 thanh ground đi qua đi lại
-	case GROUND_BAR:
-		newGround = new Bar(spriteHandler, manager);
-		break;
-	default:
-		break;
-	}
-
-	if (newGround != NULL)
-		newGround->Init(parameters[2], parameters[3], parameters[4], parameters[5]);
-
-	return newGround;
-}
-
-Stair* OLoader::CreateStair(int* parameters)
-{
-	Stair* newStair = NULL;
-
-	newStair = new Stair(spriteHandler, manager, parameters[1] % 100);
-	newStair->Init(parameters[2], parameters[3]);
-
-	return newStair;
-}
-
-Zone* OLoader::CreateZone(int* parameters)
-{
-	Zone* newZone = NULL;
-
-	switch (parameters[1] % 100)
-	{
-		// đụng vào đây là dịch chuyển
-	case ZONE_GATEWAY:
-		newZone = new GateWay(spriteHandler, manager);
-		break;
-		// chuyên thả item
-	case ZONE_STAND:
-	case ZONE_CROUCH:
-		newZone = new StandItem(spriteHandler, manager);
-		break;
-	case ZONE_SPAWNER:
-		newZone = new Spawner(spriteHandler, manager);
-		break;
-	case ZONE_DEAD:
-	case ZONE_GRINDER:
-		newZone = new DeadZone(spriteHandler, manager, parameters[1] % 100);
-		break;
-	case ZONE_BATTLEBOSS:
-		newZone = new BattleBoss(spriteHandler, manager);
-		break;
-	default:
-		break;
-	}
-
-	// tổng cộng Zone cần đến 11 paramaters
-	if (newZone != NULL)
-		newZone->Init(parameters[2], parameters[3], parameters[4], parameters[5]
-			, parameters[6], parameters[7]
-			, parameters[8], parameters[9], parameters[10]);
-
-
-	return newZone;
 }

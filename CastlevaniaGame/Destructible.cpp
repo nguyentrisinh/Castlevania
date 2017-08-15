@@ -109,3 +109,13 @@ void Destructible::Collision()
 {
 
 }
+
+Destructible* Destructible::CreateDestructible(int* parameters, LPD3DXSPRITE spriteHandler, World *manager)
+{
+	Destructible* newDestructible = NULL;
+
+	newDestructible = new Destructible(spriteHandler, manager, parameters[1] % 100);
+	newDestructible->Init(parameters[2], parameters[3], parameters[4]);
+
+	return newDestructible;
+}

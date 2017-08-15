@@ -50,3 +50,13 @@ void Stair::Collision()
 {
 
 }
+
+Stair* Stair::CreateStair(int* parameters, LPD3DXSPRITE spriteHandler, World *manager)
+{
+	Stair* newStair = NULL;
+
+	newStair = new Stair(spriteHandler, manager, parameters[1] % 100);
+	newStair->Init(parameters[2], parameters[3]);
+
+	return newStair;
+}

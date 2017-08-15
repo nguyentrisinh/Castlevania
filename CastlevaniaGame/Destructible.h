@@ -25,6 +25,7 @@ public:
 	virtual void Render();
 	virtual void Destroy();
 	virtual void Collision();
+	static Destructible* CreateDestructible(int* parameters, LPD3DXSPRITE priteHandler, World *manager);
 };
 #endif // !_Destructible_H_
 

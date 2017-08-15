@@ -49,13 +49,6 @@ public:
 	// tạo object từ mảng số
 	GameObject* CreateGameObject(int* parameters);
 
-	// cụ thể hoá từng vấn đề tạo object
-	Enemy* CreateEnemy(int* parameters);
-	Destructible* CreateDestructible(int* parameters);
-	Ground* CreateGround(int* parameters);
-	Stair* CreateStair(int* parameters);
-	Zone* CreateZone(int* parameters);
-
 };
 
 #endif

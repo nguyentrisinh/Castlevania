@@ -25,6 +25,7 @@ public:
 	virtual void Render();
 	virtual void Destroy();
 	virtual void Collision(Player *actor, const float &_DeltaTime);
+	static Zone* CreateZone(int* parameters, LPD3DXSPRITE spriteHandler, World *manager);
 };
 #endif // !_ZONE_H_
 

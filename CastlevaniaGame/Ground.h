@@ -25,6 +25,7 @@ public:
 	virtual void Render();
 	virtual void Destroy();
 	virtual void Collision();
+	static Ground* CreateGround(int* parameters, LPD3DXSPRITE spriteHandler, World *manager);
 };
 #endif // !_GROUND_H_
 

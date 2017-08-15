@@ -20,6 +20,7 @@ public:
 	virtual void Render();
 	virtual void Destroy();
 	virtual void Collision();
+	static Stair* CreateStair(int* parameters, LPD3DXSPRITE spriteHandler, World *manager);
 };
 #endif // !_STAIR_H_
 

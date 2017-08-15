@@ -1,4 +1,9 @@
 ﻿#include "Zone.h"
+#include "GateWay.h"
+#include "StandItem.h"
+#include "DeadZone.h"
+#include "Spawner.h"
+#include "BattleBoss.h"
 
 Zone::Zone(LPD3DXSPRITE _SpriteHandler, World *_manager)
 {
@@ -48,4 +53,43 @@ void Zone::Destroy()
 void Zone::Collision(Player *actor, const float &_DeltaTime)
 {
 	// virtual
+}
+
+Zone* Zone::CreateZone(int* parameters, LPD3DXSPRITE spriteHandler, World *manager)
+{
+	Zone* newZone = NULL;
+
+	switch (parameters[1] % 100)
+	{
+		// đụng vào đây là dịch chuyển
+	case ZONE_GATEWAY:
+		newZone = new GateWay(spriteHandler, manager);
+		break;
+		// chuyên thả item
+	case ZONE_STAND:
+	case ZONE_CROUCH:
+		newZone = new StandItem(spriteHandler, manager);
+		break;
+	case ZONE_SPAWNER:
+		newZone = new Spawner(spriteHandler, manager);
+		break;
+	case ZONE_DEAD:
+	case ZONE_GRINDER:
+		newZone = new DeadZone(spriteHandler, manager, parameters[1] % 100);
+		break;
+	case ZONE_BATTLEBOSS:
+		newZone = new BattleBoss(spriteHandler, manager);
+		break;
+	default:
+		break;
+	}
+
+	// tổng cộng Zone cần đến 11 paramaters
+	if (newZone != NULL)
+		newZone->Init(parameters[2], parameters[3], parameters[4], parameters[5]
+			, parameters[6], parameters[7]
+			, parameters[8], parameters[9], parameters[10]);
+
+
+	return newZone;
 }

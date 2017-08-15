@@ -113,3 +113,79 @@ bool Enemy::CheckGroundCollision(World * manager, const float _DeltaTime)
 	}
 	return false;
 }
+
+Enemy* Enemy::CreateEnemy(int* parameters, LPD3DXSPRITE spriteHandler, World *manager)
+{
+	// #######################
+	// shold make static method Enemy::CreateEnemy()  (view the method Item::CreateItem() )
+	//#########################
+
+
+	Enemy* newEnemy = NULL;
+
+	switch (parameters[1] % 100)
+	{
+		// map1 enemies
+	case REDBAT:
+		newEnemy = new RedBat(spriteHandler, manager);
+		break;
+	case GHOUL:
+		newEnemy = new Ghoul(spriteHandler, manager);
+		break;
+	case FISH:
+		newEnemy = new Fish(spriteHandler, manager);
+		break;
+	case PANTHER:
+		newEnemy = new Panther(spriteHandler, manager);
+		break;
+
+		// boss enemies
+	case VAMBAT:
+		newEnemy = new VamBat(spriteHandler, manager);
+		break;
+	case MEDUSA:
+		newEnemy = new Medusa(spriteHandler, manager);
+		break;
+
+		// map2 enemies
+	case BLUEBAT:
+		newEnemy = new BlueBat(spriteHandler, manager);
+		break;
+	case KNIGHT:
+		newEnemy = new Knight(spriteHandler, manager);
+		break;
+		/*
+		case HEAD:
+		newEnemy = new Head(spriteHandler, manager);
+		break;
+		case GHOST:
+		newEnemy = new Ghost(spriteHandler, manager);
+		break;
+		case BONE:
+		newEnemy = new Bone(spriteHandler, manager);
+		break;*/
+	default:
+		return NULL;
+		break;
+
+	}
+
+	// nếu vị trí == 0 thì enemy sẽ không active
+	if ((parameters[2] == 0) && (parameters[3] == 0))
+	{
+		newEnemy->isActive = false;
+	}
+	else
+	{
+		newEnemy->Init(parameters[2], parameters[3]);
+	}
+
+	// ----------------- test 
+	if (newEnemy->enemyType == VAMBAT)
+		newEnemy->isActive = false;
+	if (newEnemy->enemyType == MEDUSA)
+		newEnemy->isActive = false;
+	// --------------------
+
+	return newEnemy;
+}

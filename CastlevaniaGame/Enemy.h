@@ -46,6 +46,7 @@ public:
 	static Enemy* CreateEnemy(int type, int X, int Y, LPD3DXSPRITE _SpriteHandler,
 		World *_manager);
 	bool CheckGroundCollision(World *manager, const float _DeltaTime);
+	static Enemy* CreateEnemy(int* parameters, LPD3DXSPRITE spriteHandler, World *manager);
 };
 #endif // !_ENEMY_H_
 

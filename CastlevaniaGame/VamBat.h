@@ -9,10 +9,8 @@ class VamBat :
 
 {
 public:
-	float posMiddle;
 	bool isSleep;
 	float timerPause;
-	int healthBar;
 	VamBat();
 	VamBat(LPD3DXSPRITE _SpriteHandler, World *_manager);
 	~VamBat();

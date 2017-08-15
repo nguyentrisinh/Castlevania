@@ -201,7 +201,7 @@ void MainGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv)// , int t)
 
 	world->Render();
 	
-	LoadStatusBar(world->Simon->health, world->vamBat->healthBar);
+	LoadStatusBar(world->Simon->health, world->vamBat->health);
 	_SpriteHandler->End();
 	//------------Lúc simon ăn thánh giá -> sấm chớp--------
 	

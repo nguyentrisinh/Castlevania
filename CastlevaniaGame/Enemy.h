@@ -21,6 +21,9 @@ public:
 	int health;
 	int enemyType;
 
+	// Test for trigger damage
+	bool isDamage;
+
 	Sprite *spriteLeft;
 	Sprite *spriteRight;
 	Sprite *spriteVamBat;

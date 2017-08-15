@@ -106,6 +106,9 @@ public:
 
 	// Function for Next Level 
 	void NextLevel();
+
+	// Test for damage
+	void deactiveDamage();
 };
 
 

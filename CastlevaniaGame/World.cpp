@@ -200,3 +200,22 @@ void World::Destroy()
 {
 
 }
+
+
+// Test for Damage
+void World::deactiveDamage()
+{
+	GameObject * tempObject;
+
+	for (int i = 0; i < groupSpecialCollision->number; i++)
+	{
+		tempObject = groupSpecialCollision->objects[i];
+
+		switch (tempObject->objectType)
+		{
+		case ENEMY_TYPE:
+			((Enemy*)tempObject)->isDamage = false;
+			break;
+		}
+	}
+}

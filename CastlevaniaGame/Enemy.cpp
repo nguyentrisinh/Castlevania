@@ -11,6 +11,7 @@ Enemy::Enemy(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	collider = new Collider();
 	
 	isActive = false;
+	isDamage = false;
 	sizeWidth = 64;
 	sizeHeight = 64;
 	spriteHandler = _SpriteHandler;
@@ -71,7 +72,9 @@ void Enemy::CheckActive()
 
 void Enemy::TakeDamage(GameObject * actor, int damage)
 {
-	health -= damage;
+	if (!this->isDamage)
+		health -= damage;
+	
 	if (health <= 0)
 		Destroy();
 }

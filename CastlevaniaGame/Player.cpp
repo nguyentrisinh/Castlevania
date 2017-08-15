@@ -126,7 +126,7 @@ void Player::Collision()
 // ---=== UPDATE ===---
 void Player::Update(const float &_DeltaTime)
 {
-	this->heart = this->manager->vamBat->health;
+	//this->heart = this->manager->vamBat->health;
 	if (isDeath)
 	{
 		this->UpdateSimonDeath(_DeltaTime);

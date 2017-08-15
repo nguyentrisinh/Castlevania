@@ -8,6 +8,9 @@ class Whip :
 {
 public:
 
+	// Test for Whip damage
+	bool alreadyActack;
+
 	Whip(LPD3DXSPRITE _SpriteHandler, World *_manager);
 	~Whip();
 	int whipLevel;

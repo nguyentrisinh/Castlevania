@@ -14,6 +14,9 @@ public:
 	int projectileType;
 	int Damage;
 
+	// Test for HolyFire
+	float timerDamage = 0.0f;
+
 	// constructor & destructor
 	Projectile();
 	Projectile(LPD3DXSPRITE _SpriteHandler, World *_manager);

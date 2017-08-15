@@ -51,7 +51,12 @@ void Enemy::Destroy()
 
 void Enemy::TakeDamage(int Damage)
 {
-	health -= Damage;
+	//health -= Damage;
+
+	// Test for Damage
+	//if (!this->isDamage)
+		health -= Damage;
+
 	if (health <= 0)
 		Destroy();
 }
@@ -72,6 +77,7 @@ void Enemy::CheckActive()
 
 void Enemy::TakeDamage(GameObject * actor, int damage)
 {
+	// Test for Damage
 	if (!this->isDamage)
 		health -= damage;
 	

@@ -13,6 +13,7 @@ Whip::Whip(LPD3DXSPRITE _SpriteHandler, World *_manager) :Projectile(_SpriteHand
 	whipLevel = 0;
 	Damage = 3;
 	isActive = false;
+	alreadyActack = false;
 
 }
 Whip::~Whip()
@@ -28,6 +29,9 @@ Whip::~Whip()
 }
 void Whip::Init(int _X, int _Y)
 {
+	// Test Whip for Damage
+	alreadyActack = true;
+
 	isActive = true;
 
 	position.x = _X;
@@ -73,8 +77,12 @@ void Whip::Init(int _X, int _Y)
 
 void Whip::Update(const float &_DeltaTime)
 {
-	if (!manager->Simon->isAttack)
+	if (!manager->Simon->isAttack && alreadyActack)
+	{
+		alreadyActack = false;
 		isActive = false;
+		this->manager->deactiveDamage();
+	}
 	if (!isActive)
 		return;
 	position.x = manager->Simon->position.x;
@@ -114,17 +122,16 @@ void Whip::Update(const float &_DeltaTime)
 }
 void Whip::Render()
 {
-
 	if (isActive)
 	{
 		sprite->Render(position.x, position.y);
 	}
-
 }
 
 void Whip::Destroy()
 {
 	isActive = false;
+	this->manager->deactiveDamage();
 }
 void Whip::Collision()
 {}

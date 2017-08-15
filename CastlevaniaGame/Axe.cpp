@@ -79,12 +79,10 @@ void Axe::Update(const float &_DeltaTime)
 }
 void Axe::Render()
 {
-
 	if (isActive)
 	{
 		sprite->Render(position.x, position.y);
 	}
-
 }
 
 void Axe::Destroy()

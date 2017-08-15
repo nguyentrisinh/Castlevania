@@ -29,6 +29,7 @@ void HolyFire::Init(int _X, int _Y)
 {
 	timeActive = 0;
 	isActive = true;
+	this->timerDamage = 0;
 	position.x = _X;
 	position.y = _Y;
 

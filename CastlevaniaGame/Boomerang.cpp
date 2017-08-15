@@ -170,6 +170,7 @@ void Boomerang::Render()
 void Boomerang::Destroy()
 {
 	isActive = false;
+	this->manager->deactiveDamage();
 }
 void Boomerang::Collision()
 {

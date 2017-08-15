@@ -94,14 +94,15 @@ void Fish::Update(const float &_DeltaTime)
 
 	//xac dinh toòa do Y
 	velocity.y += -(600 * _DeltaTime);
-	position.y += (velocity.y * _DeltaTime);
 
 	//kiem tra neu Y huong xuong va vi?tri doi tuong thap hon mãòt ðâìt
-	if (velocity.y < 0 && position.y < 224)
+	if (Enemy::CheckGroundCollision(manager, _DeltaTime))
 	{
-
+		velocity.y = 0;
 		jumping = false;
-		position.y = 224;
+	}
+	if (!jumping)
+	{
 		position.x += velocity.x * _DeltaTime;
 
 		//tinh thoi gian tan cong
@@ -139,7 +140,7 @@ void Fish::Update(const float &_DeltaTime)
 				//kiem tra va cho con ca tan cong
 				if (TimeToAttack >= timer)
 				{
-					//ActivateFishFire();
+					ActivateFishFire();
 					sprite->_Index = 11;
 					TimeToAttack = 0;
 					isFiring = true;
@@ -149,6 +150,10 @@ void Fish::Update(const float &_DeltaTime)
 		}
 
 	}
+	position.y += (velocity.y * _DeltaTime);
+
+	if (!IsInCamera())
+		this->isActive = false;
 }
 
 
@@ -178,9 +183,9 @@ void Fish::CheckActive()
 		isActive = false;
 }
 
-//void Fish::ActivateFishFire()
-//{
-//	EnemyFire *enemyFire = new EnemyFire(manager->spriteHandler, manager);
-//	enemyFire->Init(position.x, position.y + 17);
-//	manager->groupEnemy->AddObject(enemyFire);
-//}
+void Fish::ActivateFishFire()
+{
+	EnemyFire *enemyFire = new EnemyFire(manager->spriteHandler, manager);
+	enemyFire->Init(position.x, position.y + 17, isRight);
+	manager->groupEnemy->AddObject(enemyFire);
+}

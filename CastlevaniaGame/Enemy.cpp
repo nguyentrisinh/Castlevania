@@ -11,6 +11,7 @@ Enemy::Enemy(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	collider = new Collider();
 	
 	isActive = false;
+	isDamage = false;
 	sizeWidth = 64;
 	sizeHeight = 64;
 	spriteHandler = _SpriteHandler;
@@ -71,7 +72,9 @@ void Enemy::CheckActive()
 
 void Enemy::TakeDamage(GameObject * actor, int damage)
 {
-	health -= damage;
+	if (!this->isDamage)
+		health -= damage;
+	
 	if (health <= 0)
 		Destroy();
 }
@@ -88,33 +91,25 @@ Enemy * Enemy::CreateEnemy(int enemyType, int X, int Y, LPD3DXSPRITE _SpriteHand
 	}
 	return enemy;
 }
+
 bool Enemy::CheckGroundCollision(World * manager, const float _DeltaTime)
 {
 	float collisionScale = 0;
+	GameObject* tempObject;
+	// Xét va chạm với nhóm đối tượng trong quadtree. Ví dụ như Ground, Destructibe, Zone,...
 	for (int i = 0; i < (manager->groupQuadtreeCollision->number); i++)
 	{
-		GameObject* tempObject = manager->groupQuadtreeCollision->objects[i];
-		switch (tempObject->objectType)
+		tempObject = manager->groupQuadtreeCollision->objects[i];
+		if (tempObject->objectType == GROUND_TYPE)
 		{
-		case GROUND_TYPE:
 			collisionScale = SweptAABB(tempObject, _DeltaTime);
-			if (collisionScale < 1.0f)
+			// nếu có va chạm
+			if (collisionScale < 1.0f && normaly > 0.1f)
 			{
-				switch (((Ground*)tempObject)->typeGround)
-				{
-				case GROUND_BLOCK:
-					if (normaly > 0.1f)//chạm từ trên xuống
-						return true;
-					else
-						return false;
-					break;
-				}
+				SlideFromGround(tempObject, _DeltaTime, collisionScale);
+				return true;
 			}
-			break;
-		default:
-			return false;
-			break;
 		}
 	}
-	
+	return false;
 }

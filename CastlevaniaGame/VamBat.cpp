@@ -7,10 +7,11 @@ VamBat::VamBat() {}
 
 VamBat::VamBat(LPD3DXSPRITE _SpriteHandler, World *_manager) :Enemy(_SpriteHandler, _manager)
 {
+	health = 32;
 	collider->setCollider(14, -14, -10, 10);
 	enemyType = VAMBAT;
 	spriteVamBat = new Sprite(_SpriteHandler, "Resources\\Sprites\\VamBat.png", 96, 46, 3, 3);
-	health = 34;
+	healthBar = 16;
 }
 
 VamBat :: ~VamBat()
@@ -28,7 +29,6 @@ void VamBat::Init(int _X, int _Y)
 	velocity.y = -200;
 	velocity.x = -160;
 	timerPause = 2;
-	posMiddle = (Sprite::cameraX + Sprite::cameraX + 512) / 2;
 	//if (manager->Simon->isRight)
 	//	velocity.x = -160;
 	//else
@@ -62,18 +62,18 @@ void VamBat::Update(const float &_DeltaTime)
 			velocity.y = -150;
 		}
 
-		if (position.x < Sprite::cameraX + 50 || position.x > Sprite::cameraX + 450)
+		if (position.x < 5250 || position.x > 5656)
 		{
 			velocity.x = 0;
 			velocity.y = 0;
 			timerPause -= _DeltaTime;
 			if (timerPause < 0)
 			{
-				if (position.x < posMiddle)
-					velocity.x = -150;
-				else
+				if (position.x < 5406)
 					velocity.x = 150;
-				timerPause = 2;
+				else
+					velocity.x = -150;
+				timerPause = 1;
 			}
 		}
 
@@ -87,6 +87,8 @@ void VamBat::Update(const float &_DeltaTime)
 
 		position.x += velocity.x * _DeltaTime;
 		position.y += velocity.y * _DeltaTime;
+
+		healthBar = (int)(((float)health) / 2);
 	}	
 }
 
@@ -100,28 +102,28 @@ void VamBat::Render()
 void VamBat::Destroy()
 {
 	//hang 1 
-	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y + 32, -1, spriteHandler, manager);
-	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y + 32, -1, spriteHandler, manager);
-	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y + 32, -1, spriteHandler, manager);
-	manager->groupEffect->AddObject(effect);
+	//Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y + 32, -1, spriteHandler, manager);
+	//manager->groupEffect->AddObject(effect);
+	//effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y + 32, -1, spriteHandler, manager);
+	//manager->groupEffect->AddObject(effect);
+	//effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y + 32, -1, spriteHandler, manager);
+	//manager->groupEffect->AddObject(effect);
 
-	//hang 2 
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y, -1, spriteHandler, manager);
-	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y, -1, spriteHandler, manager);
-	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y, -1, spriteHandler, manager);
-	manager->groupEffect->AddObject(effect);
+	////hang 2 
+	//effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y, -1, spriteHandler, manager);
+	//manager->groupEffect->AddObject(effect);
+	//effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y, -1, spriteHandler, manager);
+	//manager->groupEffect->AddObject(effect);
+	//effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y, -1, spriteHandler, manager);
+	//manager->groupEffect->AddObject(effect);
 
-	//hang 3 
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y - 32, -1, spriteHandler, manager);
-	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y -32, -1, spriteHandler, manager);
-	manager->groupEffect->AddObject(effect);
-	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y - 32, -1, spriteHandler, manager);
-	manager->groupEffect->AddObject(effect);
+	////hang 3 
+	//effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y - 32, -1, spriteHandler, manager);
+	//manager->groupEffect->AddObject(effect);
+	//effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y -32, -1, spriteHandler, manager);
+	//manager->groupEffect->AddObject(effect);
+	//effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y - 32, -1, spriteHandler, manager);
+	//manager->groupEffect->AddObject(effect);
 
 	manager->Simon->score += 3000;
 	isActive = false;

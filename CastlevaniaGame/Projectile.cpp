@@ -70,6 +70,9 @@ void Projectile::CollisionObject(float _DeltaTime)
 				if (collisionScale < 1.0f&& collisionScale > 0.0f)
 				{
 					((Enemy*)tempObject)->TakeDamage(Damage);
+
+					// Test for damage
+					((Enemy*)tempObject)->isDamage = true;
 				}
 			}
 			else
@@ -81,6 +84,10 @@ void Projectile::CollisionObject(float _DeltaTime)
 				if (IsCollide(tempObject))
 				{
 					((Enemy*)tempObject)->TakeDamage(Damage);
+
+					// Test for damage
+					((Enemy*)tempObject)->isDamage = true;
+
 					if (this->projectileType == KNIFE)
 						this->isActive = false;
 				}

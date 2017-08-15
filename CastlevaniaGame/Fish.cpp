@@ -140,7 +140,7 @@ void Fish::Update(const float &_DeltaTime)
 				//kiem tra va cho con ca tan cong
 				if (TimeToAttack >= timer)
 				{
-					//ActivateFishFire();
+					ActivateFishFire();
 					sprite->_Index = 11;
 					TimeToAttack = 0;
 					isFiring = true;
@@ -183,9 +183,9 @@ void Fish::CheckActive()
 		isActive = false;
 }
 
-//void Fish::ActivateFishFire()
-//{
-//	EnemyFire *enemyFire = new EnemyFire(manager->spriteHandler, manager);
-//	enemyFire->Init(position.x, position.y + 17);
-//	manager->groupEnemy->AddObject(enemyFire);
-//}
+void Fish::ActivateFishFire()
+{
+	EnemyFire *enemyFire = new EnemyFire(manager->spriteHandler, manager);
+	enemyFire->Init(position.x, position.y + 17, isRight);
+	manager->groupEnemy->AddObject(enemyFire);
+}

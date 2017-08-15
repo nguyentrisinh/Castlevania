@@ -72,24 +72,24 @@ void Axe::Update(const float &_DeltaTime)
 
 	if (!IsInCamera())
 	{
-		isActive = false;
+		//isActive = false;
+		this->Destroy();
 		return;
 	}
 	CollisionObject(_DeltaTime);
 }
 void Axe::Render()
 {
-
 	if (isActive)
 	{
 		sprite->Render(position.x, position.y);
 	}
-
 }
 
 void Axe::Destroy()
 {
 	isActive = false;
+	manager->deactiveDamage();
 }
 void Axe::Collision()
 {

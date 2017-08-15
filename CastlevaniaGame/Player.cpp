@@ -126,7 +126,7 @@ void Player::Collision()
 // ---=== UPDATE ===---
 void Player::Update(const float &_DeltaTime)
 {
-	this->heart = this->manager->vamBat->health;
+	//this->heart = this->manager->vamBat->health;
 	if (isDeath)
 	{
 		this->UpdateSimonDeath(_DeltaTime);
@@ -1015,11 +1015,15 @@ void Player::CollisionObject(float _DeltaTime)
 			if (collisionScale < 1.0f)
 			{
 				if (!isImmortal)
+				{
 					if (normalx > 0.1f)
 						Injured(1);
 					else
 						Injured(-1);
-				tempObject->Collision();
+					
+					// với hàm collision ở đây thì quái đụng Simon, Enemy chỉ mất máu 1 lần mà thôi
+					tempObject->Collision();
+				}
 			}
 			break;
 		case STAIR_TYPE:

@@ -69,11 +69,26 @@ void Projectile::CollisionObject(float _DeltaTime)
 				// // -----------------
 				if (collisionScale < 1.0f&& collisionScale > 0.0f)
 				{
-					((Enemy*)tempObject)->TakeDamage(Damage);
+					//((Enemy*)tempObject)->TakeDamage(Damage);
+
+					//// Test for damage
+					//((Enemy*)tempObject)->isDamage = true;
+
+					// Test for Damage
+					if (!((Enemy*)tempObject)->isDamage)
+					{
+						// Test for damage
+						((Enemy*)tempObject)->isDamage = true;
+
+						((Enemy*)tempObject)->TakeDamage(Damage);
+					}
 
 					// Test for damage
-					((Enemy*)tempObject)->isDamage = true;
+					continue;
 				}
+
+				// Nếu projectile không có chạm enemy thì chuyển isDamage của Enemy đó về lại thành false
+				((Enemy*)tempObject)->isDamage = false;
 			}
 			else
 			{
@@ -83,14 +98,42 @@ void Projectile::CollisionObject(float _DeltaTime)
 				// cái này phải dùng Intersect để xét va chạm
 				if (IsCollide(tempObject))
 				{
-					((Enemy*)tempObject)->TakeDamage(Damage);
+					// Test for HolyFire
+					if (this->projectileType == HOLYFIRE)
+					{
+						this->timerDamage += _DeltaTime;
+						if (this->timerDamage >= ANIM_TIME)
+						{
+							((Enemy*)tempObject)->TakeDamage(this->Damage);
+							this->timerDamage -= ANIM_TIME;
+						}
+						continue;
+					}
 
-					// Test for damage
-					((Enemy*)tempObject)->isDamage = true;
+					// Test for Damage
+					if (!((Enemy*)tempObject)->isDamage)
+					{
+						// Test for damage
+						((Enemy*)tempObject)->isDamage = true;
+
+						((Enemy*)tempObject)->TakeDamage(Damage);
+
+					}
 
 					if (this->projectileType == KNIFE)
-						this->isActive = false;
+					{
+						//this->isActive = false;
+						this->Destroy();
+					}
+
+
+
+					// Test for damage
+					continue;
 				}
+
+				// Nếu projectile không có chạm enemy thì chuyển isDamage của Enemy đó về lại thành false
+				((Enemy*)tempObject)->isDamage = false;
 			}
 			break;
 		default:

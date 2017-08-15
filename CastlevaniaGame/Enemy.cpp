@@ -51,15 +51,20 @@ void Enemy::Destroy()
 
 void Enemy::TakeDamage(int Damage)
 {
+	//health -= Damage;
+
+	// Test for Damage
+	//if (!this->isDamage)
 	health -= Damage;
+
 	if (health <= 0)
 		Destroy();
 }
 
 void Enemy::Collision()
 {
-	Effect* effect = Effect::CreateEffect(EFFECT_HIT, position.x, position.y, -1, spriteHandler, manager);
-	manager->groupEffect->AddObject(effect);
+	//Effect* effect = Effect::CreateEffect(EFFECT_HIT, position.x, position.y, -1, spriteHandler, manager);
+	//manager->groupEffect->AddObject(effect);
 	TakeDamage(NULL, 1);
 }
 
@@ -72,6 +77,7 @@ void Enemy::CheckActive()
 
 void Enemy::TakeDamage(GameObject * actor, int damage)
 {
+	// Test for Damage
 	if (!this->isDamage)
 		health -= damage;
 	

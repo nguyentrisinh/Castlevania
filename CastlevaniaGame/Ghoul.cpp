@@ -16,7 +16,7 @@ Ghoul :: ~Ghoul()
 
 void Ghoul::Init(int _X, int _Y, bool isRight)
 {
-	health = 1;
+	health = 2;
 
 	isActive = true;
 	position.y = _Y;
@@ -73,7 +73,8 @@ void Ghoul::Destroy()
 	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 	manager->Simon->score += 100;
-	isActive = false;
+	this->isDamage = false;
+	this->isActive = false;
 }
 
 void Ghoul::Collision()

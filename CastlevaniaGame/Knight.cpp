@@ -23,7 +23,7 @@ Knight :: ~Knight()
 void Knight::Init(int _X, int _Y)
 {
 	// -----------
-	health = 100;
+	health = 8;
 	startX = _X,
 	startY = _Y;
 	isActive = true;

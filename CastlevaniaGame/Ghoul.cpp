@@ -16,7 +16,7 @@ Ghoul :: ~Ghoul()
 
 void Ghoul::Init(int _X, int _Y, bool isRight)
 {
-	health = 1;
+	health = 2;
 
 	isActive = true;
 	position.y = _Y;

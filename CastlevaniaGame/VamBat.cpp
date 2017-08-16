@@ -7,11 +7,10 @@ VamBat::VamBat() {}
 
 VamBat::VamBat(LPD3DXSPRITE _SpriteHandler, World *_manager) :Enemy(_SpriteHandler, _manager)
 {
-	health = 32;
+	health = 16;
 	collider->setCollider(14, -14, -10, 10);
 	enemyType = VAMBAT;
 	spriteVamBat = new Sprite(_SpriteHandler, "Resources\\Sprites\\VamBat.png", 96, 46, 3, 3);
-	healthBar = 16;
 }
 
 VamBat :: ~VamBat()
@@ -87,8 +86,6 @@ void VamBat::Update(const float &_DeltaTime)
 
 		position.x += velocity.x * _DeltaTime;
 		position.y += velocity.y * _DeltaTime;
-
-		healthBar = (int)(((float)health) / 2);
 	}	
 }
 
@@ -102,28 +99,28 @@ void VamBat::Render()
 void VamBat::Destroy()
 {
 	//hang 1 
-	//Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y + 32, -1, spriteHandler, manager);
-	//manager->groupEffect->AddObject(effect);
-	//effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y + 32, -1, spriteHandler, manager);
-	//manager->groupEffect->AddObject(effect);
-	//effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y + 32, -1, spriteHandler, manager);
-	//manager->groupEffect->AddObject(effect);
+	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y + 32, -1, spriteHandler, manager);
+	manager->groupEffect->AddObject(effect);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y + 32, -1, spriteHandler, manager);
+	manager->groupEffect->AddObject(effect);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y + 32, -1, spriteHandler, manager);
+	manager->groupEffect->AddObject(effect);
 
-	////hang 2 
-	//effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y, -1, spriteHandler, manager);
-	//manager->groupEffect->AddObject(effect);
-	//effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y, -1, spriteHandler, manager);
-	//manager->groupEffect->AddObject(effect);
-	//effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y, -1, spriteHandler, manager);
-	//manager->groupEffect->AddObject(effect);
+	//hang 2 
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y, -1, spriteHandler, manager);
+	manager->groupEffect->AddObject(effect);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y, -1, spriteHandler, manager);
+	manager->groupEffect->AddObject(effect);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y, -1, spriteHandler, manager);
+	manager->groupEffect->AddObject(effect);
 
-	////hang 3 
-	//effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y - 32, -1, spriteHandler, manager);
-	//manager->groupEffect->AddObject(effect);
-	//effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y -32, -1, spriteHandler, manager);
-	//manager->groupEffect->AddObject(effect);
-	//effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y - 32, -1, spriteHandler, manager);
-	//manager->groupEffect->AddObject(effect);
+	//hang 3 
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x - 32, position.y - 32, -1, spriteHandler, manager);
+	manager->groupEffect->AddObject(effect);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y -32, -1, spriteHandler, manager);
+	manager->groupEffect->AddObject(effect);
+	effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x + 32, position.y - 32, -1, spriteHandler, manager);
+	manager->groupEffect->AddObject(effect);
 
 	manager->Simon->score += 3000;
 	isActive = false;
@@ -131,6 +128,7 @@ void VamBat::Destroy()
 	// tạo item add vào world
 	Item* newItem = Item::CreateItem(CRYSTAL, this->position.x, this->position.y, spriteHandler, manager);
 	manager->groupItem->AddObject(newItem);
+	health = 0;
 }
 
 void VamBat::Collision()

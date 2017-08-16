@@ -1,4 +1,4 @@
-#ifndef _REDBAT_H_
+﻿#ifndef _REDBAT_H_
 #define _REDBAT_H_
 
 #include "Enemy.h"
@@ -8,8 +8,8 @@ class RedBat :
 
 {
 public:
-	float a; //dung de xac dinh ham sin
-	float lineY;// dung de tinh vi tri y
+	float angle; //góc bay
+	float yOgirin; // đường bay xác định lúc đầu
 
 	RedBat();
 	RedBat(LPD3DXSPRITE _SpriteHandler, World *_manager);

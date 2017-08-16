@@ -9,7 +9,6 @@ RedBat::RedBat(LPD3DXSPRITE _SpriteHandler, World *_manager) :Enemy(_SpriteHandl
 {
 	collider->setCollider(14, -14, -10, 10);
 	enemyType = REDBAT;
-	// ---- update K_1.7
 	spriteLeft->_Index = 7;
 	spriteRight->_Index = 7;
 }
@@ -26,13 +25,13 @@ void RedBat::Init(int _X, int _Y)
 	isActive = true;
 	position.y = _Y;
 	position.x = _X;
-	a = 0;
+	angle = 0;
 	if (manager->Simon->isRight)
 		velocity.x = -150;
 	else
 		velocity.x = 150;
 
-	lineY = manager->Simon->position.y;
+	yOgirin = manager->Simon->position.y;
 }
 
 void RedBat::Init(int _X, int _Y, bool isRight)
@@ -43,10 +42,10 @@ void RedBat::Init(int _X, int _Y, bool isRight)
 
 	//position.y = _Y;
 	//position.y = manager->Simon->position.y;
-	lineY = manager->Simon->position.y;
+	yOgirin = manager->Simon->position.y;
 
 	position.x = _X;
-	a = 0;
+	angle = 0;
 
 	if (manager->Simon->isRight)
 	{
@@ -64,11 +63,11 @@ void RedBat::Init(int _X, int _Y, bool isRight)
 void RedBat::Update(const float &_DeltaTime)
 {
 	position.x += velocity.x * _DeltaTime;
-	a += 0.05;
+	angle += 0.05;
 	timerSprite += _DeltaTime;
 	if (timerSprite >= 0.2f)
 	{
-		position.y = 20 * sin(a) + lineY;
+		position.y = 20 * sin(angle) + yOgirin;
 		sprite->Next(7, 10);
 		timerSprite = 0;
 	}

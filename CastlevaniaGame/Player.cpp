@@ -964,11 +964,13 @@ void Player::CollisionObject(float _DeltaTime)
 			if (collisionScale < 1.0f)
 			{
 				if (!isImmortal)
+				{
 					if (normalx > 0.1f)
 						Injured(1);
 					else
 						Injured(-1);
-				tempObject->Collision();
+					tempObject->Collision();
+				}
 			}
 			break;
 		

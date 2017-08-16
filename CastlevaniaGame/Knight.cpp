@@ -1,11 +1,12 @@
 ﻿#include "Knight.h"
 #include "Sprite.h"
 #include "World.h"
-
+int Knight::index = 0;
 Knight::Knight() {}
 
 Knight::Knight(LPD3DXSPRITE _SpriteHandler, World *_manager):Enemy(_SpriteHandler, _manager)
 {
+	//collider->setCollider(24, -24, -14, 14);
 	collider->setCollider(24, -24, -14, 14);
 	this->_manager = _manager;
 	enemyType = KNIGHT;
@@ -23,6 +24,7 @@ Knight :: ~Knight()
 void Knight::Init(int _X, int _Y)
 {
 	// -----------
+	
 	health = 8;
 	startX = _X,
 	startY = _Y;
@@ -30,9 +32,17 @@ void Knight::Init(int _X, int _Y)
 	isSleeping = true;
 	position.y = _Y;
 	position.x = _X;
-	velocity.x = -40; //default go from right to left
+	velocity.x = -100; //default go from right to left
 	sprite = spriteLeft;
 	limitRight = startX + 100;
+	limitLeft = startX - 100;
+	index++;
+	
+	if (index == 3) {
+		limitLeft = startX - 70;
+		limitRight = startX + 50;
+		//velocity.x = -40;
+	}
 	/*
 	if (manager->Simon->isRight)
 		velocity.x = -30;
@@ -44,15 +54,23 @@ void Knight::Init(int _X, int _Y)
 
 void Knight::Update(const float &_DeltaTime)
 {
+	//CheckActive();
+	//if (!CheckGroundCollision())
+		//return;
+
+	//if (isActive == false)
+		//return;
+
 
 	_deltaTime = _DeltaTime;
-
+	//notMovingThroughWall();
 	//Nếu chạm tường bên trái
 	if (checkWallCollision() != 0) {
 		if (velocity.x > 0)
 			sprite = spriteLeft;
 		else
 			sprite = spriteRight;
+
 		velocity.x = -velocity.x;
 	}
 
@@ -62,6 +80,21 @@ void Knight::Update(const float &_DeltaTime)
 		velocity.x = -velocity.x;
 	}
 
+	//Set limit right để khỏi rơi xuống
+	if (position.x <= limitLeft) {
+		sprite = spriteRight;
+		velocity.x = -velocity.x;
+	}
+
+	//Chắc chắn một lần nữa để con Knight không rơi xuống
+	if (!CheckGroundCollision()) {
+		if (velocity.x < 0) {
+			sprite = spriteRight;
+		}
+		else
+			sprite = spriteLeft;
+		velocity.x = -velocity.x;
+	}
 	//Cập nhật theo delta time sau khi xác định được hướng
 	position.x += (velocity.x * _deltaTime);
 	setSprite();
@@ -99,6 +132,23 @@ int Knight::checkWallCollision() {
 	return 0;
 }
 
+void Knight::notMovingThroughWall() {
+	float collisionScale = 0;
+	for (int i = 0; i < (manager->groupQuadtreeCollision->number); i++)
+	{
+		GameObject *object = manager->groupQuadtreeCollision->objects[i];
+
+		switch (object->objectType)
+		{
+		case GROUND_TYPE:
+			collisionScale = SweptAABB(object, _deltaTime);
+			SlideFromGround(object, _deltaTime, collisionScale);
+			break;
+		default:
+			break;
+		}
+	}
+}
 bool Knight::CheckGroundCollision()
 {
 	for (int i = 0; i < (manager->groupQuadtreeCollision->number); i++)
@@ -141,5 +191,4 @@ void Knight::CheckActive()
 {
 	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
 		isActive = false;
-
 }

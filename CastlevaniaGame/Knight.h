@@ -8,6 +8,8 @@ class Knight :
 
 {
 public:
+	static int index;
+	int limitLeft;
 	int limitRight;
 	World *_manager;
 	float _deltaTime;
@@ -22,6 +24,7 @@ public:
 	virtual void Destroy();
 	virtual void Collision();
 	virtual void CheckActive();
+	void notMovingThroughWall();
 	void setSprite();
 	bool CheckGroundCollision();
 	int checkWallCollision();

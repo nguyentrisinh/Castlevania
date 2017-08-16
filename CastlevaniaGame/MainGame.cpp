@@ -362,4 +362,7 @@ void MainGame::NextLevel()
 	// cập nhật các con trỏ object theo lvl
 	oloader = oloaders[lvl - 1];
 	oloader->Reload();
+	//cap nhat lai danh sach cac ID tile có nằm trong viewport
+	size = 0;
+	TreeBr->ListObjectInViewPort(ListTileBackgoundID, size);
 }

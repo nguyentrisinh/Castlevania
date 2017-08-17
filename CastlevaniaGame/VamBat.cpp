@@ -46,33 +46,53 @@ void VamBat::Update(const float &_DeltaTime)
 	if (isSleep)
 	{
 		sprite->Next(0, 0);
-		if (position.x > manager->Simon->position.x + 20 || position.x < manager->Simon->position.x - 20)
-			isSleep = false;
+		timerPause -= _DeltaTime;
+		if (timerPause < 0)
+		{
+			if (position.x > manager->Simon->position.x + 30 || position.x < manager->Simon->position.x - 30)
+			{
+				isSleep = false;
+				timerPause = 2;
+			}
+		}
 	}
 	else
 	{	
-		if (position.y < 550)
-		{	
-			velocity.y = 150;
-		}
-
-		if (position.y > 650)
-		{
-			velocity.y = -150;
-		}
-
-		if (position.x < 5250 || position.x > 5656)
+		if (position.y > 685)
 		{
 			velocity.x = 0;
-			velocity.y = 0;
-			timerPause -= _DeltaTime;
-			if (timerPause < 0)
+			velocity.y = -30;
+		}
+		else
+		{
+			if (position.y < 550)
 			{
-				if (position.x < 5406)
-					velocity.x = 150;
-				else
-					velocity.x = -150;
-				timerPause = 1;
+				velocity.y = 150;
+			}
+
+			if (position.y > 650)
+			{
+				velocity.y = -150;
+			}
+
+			if (position.x < 5250 || position.x > 5656)
+			{
+				velocity.x = 0;
+				velocity.y = 0;
+				timerPause -= _DeltaTime;
+				if (timerPause < 0)
+				{
+					if (position.x < 5406)
+						velocity.x = 150;
+					else
+						velocity.x = -150;
+					timerPause = 1;
+				}
+			}
+			else
+			{
+				if (velocity.x == 0)
+					velocity.x = -160;
 			}
 		}
 

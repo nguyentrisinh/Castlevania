@@ -15,6 +15,7 @@
 #include "Medusa.h"
 #include "Snake.h"
 #include "Knight.h"
+#include "Head.h"
 //-------Item--------
 #include "Heart.h"
 #include "BigHeart.h"

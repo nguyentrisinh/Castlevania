@@ -36,7 +36,7 @@ void Panther::Init(int _X, int _Y, bool _isRight) {
 	hasJumped = false;
 	position.y = _Y - 10;
 	limitTop = _Y + 10;
-	limitDown = position.y - 50;
+	limitDown = position.y - 30;
 	position.x = _X;
 	isRight = _isRight;
 	state = 0;
@@ -75,22 +75,23 @@ void Panther::runningLeft() {
 
 void Panther::jumping() {
 	if (position.y >= limitTop) {
+		//move to next state
 		state++;
 		return;
 	}
-	position.y += (velocity.y * _deltaTime);
-	position.x += (-velocity.x * _deltaTime);
+	position.y += ((velocity.y * 5) * _deltaTime);
+	position.x += ((-velocity.x * 2) *_deltaTime);
 }
 
 void Panther::downing() {
-	if (position.y < limitDown) {
+	if (position.y <= limitDown) {
 		if (CheckGroundCollision()) {
 			state++;
 			return;
 		}
 	}
-	position.y += ((-velocity.y * 4) * _deltaTime);
-	position.x += (-velocity.x * _deltaTime);
+	position.y += ((-velocity.y * 5) * _deltaTime);
+	position.x += ((-velocity.x - 10) * _deltaTime);
 }
 void Panther::runningRight() {
 	position.x += (velocity.x * _deltaTime);
@@ -99,7 +100,9 @@ void Panther::runningRight() {
 
 void Panther::Update(const float &_DeltaTime)
 {
-	if (manager->Simon->position.x > distanceToSimon)
+	if (manager->Simon->position.x > distanceToSimon
+		&& position.x >= Sprite::cameraXLeft
+		&& position.x <= Sprite::cameraXRight)
 		isSleeping = false;
 
 	if (isSleeping)
@@ -109,6 +112,7 @@ void Panther::Update(const float &_DeltaTime)
 	moving();
 
 	setSprite();
+
 	//kiem tra nam ngoai camera
 	if (!IsInCamera())
 		isActive = false;

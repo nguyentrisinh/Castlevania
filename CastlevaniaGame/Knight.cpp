@@ -31,8 +31,8 @@ void Knight::Init(int _X, int _Y)
 	isActive = true;
 	isSleeping = true;
 	position.y = _Y;
-	position.x = _X;
-	velocity.x = -100; //default go from right to left
+	position.x = _X-30;
+	velocity.x = -70; //default go from right to left
 	sprite = spriteLeft;
 	limitRight = startX + 100;
 	limitLeft = startX - 100;
@@ -41,7 +41,8 @@ void Knight::Init(int _X, int _Y)
 	if (index == 3) {
 		limitLeft = startX - 70;
 		limitRight = startX + 50;
-		//velocity.x = -40;
+		//
+		velocity.x = -40;
 	}
 	/*
 	if (manager->Simon->isRight)

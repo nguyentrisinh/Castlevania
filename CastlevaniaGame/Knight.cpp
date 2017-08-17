@@ -32,7 +32,7 @@ void Knight::Init(int _X, int _Y)
 	isSleeping = true;
 	position.y = _Y;
 	position.x = _X-30;
-	velocity.x = -70; //default go from right to left
+	velocity.x = -40; //default go from right to left
 	sprite = spriteLeft;
 	limitRight = startX + 100;
 	limitLeft = startX - 100;

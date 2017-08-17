@@ -12,6 +12,7 @@
 #define VAMBAT 7
 #define MEDUSA 8
 #define SNAKE 9
+#define HEAD 11
 
 class Enemy :
 	public GameObject

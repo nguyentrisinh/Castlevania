@@ -61,6 +61,9 @@ void Spawner::Init(int _X, int _Y, int _Width, int _Height,// rect
 			break;
 
 			// map2 enemies
+		case HEAD:	
+			objects[i] = new Head(spriteHandler, manager);
+			break;
 			/*case HEAD:
 			newEnemy = new Head(spriteHandler, manager);
 			break;

@@ -61,12 +61,6 @@ void World::Init()
 
 	
 	// need to be clean, put into "GroupObject" ----
-	// dùng để test lúc đầu 
-	ghoul = new Ghoul(spriteHandler, this);
-	redBat = new RedBat(spriteHandler, this);
-	blueBat = new BlueBat(spriteHandler, this);
-	
-	fish = new Fish(spriteHandler, this);
 	vamBat = new VamBat(spriteHandler, this);
 	// ---------------
 
@@ -138,10 +132,6 @@ void World::Update(float _DeltaTime)
 		flash->Next(0, 1);
 		timer = 0;
 	}*/
-	// lol, what are you doing here, fish?
-	fish->Update(_DeltaTime);
-
-
 
 
 	groupQuadtreeCollision->Update(_DeltaTime);
@@ -152,8 +142,6 @@ void World::Update(float _DeltaTime)
 // gọi bên trong BeginScene() và EndScene();
 void World::Render()
 {
-	fish->Render();
-	
 	groupQuadtreeCollision->Render();
 	groupSpecialCollision->Render();
 

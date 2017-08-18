@@ -84,8 +84,7 @@ public:
 	Crystal *crystal;
 	
 	
-	// ---- bo sung K_1.7 ---
-	// 2 cái này cập nhật theo map
+	// update by OLoader, init as NULL
 	GroupObject* groupEnemy;
 	OTreeNode* rootGONode;
 

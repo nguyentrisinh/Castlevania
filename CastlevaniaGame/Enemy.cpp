@@ -122,11 +122,6 @@ bool Enemy::CheckGroundCollision(World * manager, const float _DeltaTime)
 
 Enemy* Enemy::CreateEnemy(int* parameters, LPD3DXSPRITE spriteHandler, World *manager)
 {
-	// #######################
-	// shold make static method Enemy::CreateEnemy()  (view the method Item::CreateItem() )
-	//#########################
-
-
 	Enemy* newEnemy = NULL;
 
 	switch (parameters[1] % 100)

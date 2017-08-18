@@ -251,6 +251,9 @@
     <ClCompile Include="Axe.cpp">
       <Filter>Projectiles</Filter>
     </ClCompile>
+    <ClCompile Include="Head.cpp">
+      <Filter>Enemies\Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Heart.h">
@@ -432,6 +435,9 @@
     </ClInclude>
     <ClInclude Include="Knife.h">
       <Filter>Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Head.h">
+      <Filter>Enemies\Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

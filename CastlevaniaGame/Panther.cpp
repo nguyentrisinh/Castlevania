@@ -35,9 +35,9 @@ void Panther::Init(int _X, int _Y, bool _isRight) {
 	isSleeping = true;
 	hasJumped = false;
 	position.y = _Y - 10;
-	limitTop = _Y + 10;
+	limitTop = _Y + 20;
 	limitDown = position.y - 30;
-	position.x = _X;
+	position.x = _X - 20;
 	isRight = _isRight;
 	state = 0;
 	sprite = spriteLeft;
@@ -70,7 +70,7 @@ void Panther::runningLeft() {
 		state++;
 		return;
 	}
-	position.x += (-velocity.x * _deltaTime);
+	position.x += ((-velocity.x) * _deltaTime);
 }
 
 void Panther::jumping() {
@@ -79,8 +79,8 @@ void Panther::jumping() {
 		state++;
 		return;
 	}
-	position.y += ((velocity.y * 5) * _deltaTime);
-	position.x += ((-velocity.x * 2) *_deltaTime);
+	position.y += ((velocity.y * 3) * _deltaTime);
+	position.x += ((-velocity.x + -300) *_deltaTime);
 }
 
 void Panther::downing() {
@@ -90,11 +90,11 @@ void Panther::downing() {
 			return;
 		}
 	}
-	position.y += ((-velocity.y * 5) * _deltaTime);
-	position.x += ((-velocity.x - 10) * _deltaTime);
+	position.y += ((-velocity.y * 8) * _deltaTime);
+	position.x += ((-velocity.x + -50) * _deltaTime);
 }
 void Panther::runningRight() {
-	position.x += (velocity.x * _deltaTime);
+	position.x += ((velocity.x) * _deltaTime);
 	sprite = spriteRight;
 }
 

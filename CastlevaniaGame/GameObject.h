@@ -104,6 +104,8 @@ public:
 
 	virtual void CollisionObject(GameObject *target, const float &_DeltaTime);	// xét có va chạm không, nếu có thì xử lý
 
+	//Bổ trợ làm hiệu ứng lấp lánh (Hit)
+	int RandomOutside(int radiusSmall, int radiusBig);
 	
 
 	

@@ -90,6 +90,13 @@ void Destructible::Destroy()
 	Effect* newEffect = Effect::CreateEffect(3, this->position.x, this->position.y, 1, spriteHandler, manager);
 	manager->groupEffect->AddObject(newEffect);
 
+	//làm hiệu ứng lấp lánh
+	int randomX = RandomOutside(8, 12);
+	int randomY = RandomOutside(8, 12);
+
+	Effect* hitEffect = Effect::CreateEffect(EFFECT_HIT, this->position.x + randomX, this->position.y + randomY, 1, spriteHandler, manager);
+	manager->groupEffect->AddObject(hitEffect);
+
 	int itemType = dropTable->DropItem();
 	// nếu item = tim nhỏ, xem coi whip lvl của simon đã đủ chưa
 	//, chưa đủ thì cho khả năng ngẫu nhiên rớt whip upgrade

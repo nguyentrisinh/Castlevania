@@ -450,3 +450,20 @@ void GameObject::CollisionObject(GameObject *target, const float &_DeltaTime)
 	}
 }
 // ----------
+
+int GameObject::RandomOutside(int radiusSmall, int radiusBig)
+{
+	int theRandomNumber;
+	int key = rand() % 2;
+	switch (key)
+	{
+	case 0:
+		theRandomNumber = rand() % (radiusBig - radiusSmall) - (radiusSmall * 2);
+		break;
+
+	case 1:
+		theRandomNumber = rand() % (radiusBig - radiusSmall) + radiusSmall;
+		break;
+	}
+	return theRandomNumber;
+}

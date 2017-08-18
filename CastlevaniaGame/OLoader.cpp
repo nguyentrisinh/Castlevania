@@ -138,7 +138,7 @@ void OLoader::ReadObjectListFromFile(const char* filename)
 			lineStr = lineStr.substr(0, lineStr.find("//"));
 		}
 
-		// nếu hàng này không có gì => skip
+		// nếu hàng này không có gì
 		if (lineStr == "")
 		{
 			continue;

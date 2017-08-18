@@ -1,4 +1,4 @@
-#ifndef _FISH_H_
+ï»¿#ifndef _FISH_H_
 #define _FISH_H_
 
 #include "Enemy.h"
@@ -15,7 +15,7 @@ public:
 	// trang thai nhay tu nuoc len
 	bool jumping;
 
-	// trang thaìi con ca?mõÒ miêòng bãìn
+	// tráº¡ng thÃ¡i con cÃ¡ Ä‘ang báº¯n
 	bool isFiring;
 
 	//bien do thoi gian de con ca tan cong

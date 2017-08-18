@@ -7,7 +7,7 @@ Fish::Fish() {}
 
 Fish::Fish(LPD3DXSPRITE _SpriteHandler, World *_manager) :Enemy(_SpriteHandler, _manager)
 {
-	collider->setCollider(22, -24, -13, 13);
+	collider->setCollider(22, -32, -13, 13);
 	enemyType = FISH;
 
 	isFiring = false;
@@ -30,7 +30,7 @@ void Fish::Init(int _X, int _Y)
 	TimeToAttack = 0;
 	isActive = true;
 	position.y = 0;
-	velocity.y = 450;
+	velocity.y = 650;
 	position.x = _X;
 
 
@@ -76,6 +76,13 @@ void Fish::Init(int _X, int _Y, bool isRight)
 	}
 
 	jumping = true;
+
+	Effect* bubble1 = Effect::CreateEffect(EFFECT_BUBBLE, position.x, position.y + 20, -4, spriteHandler, manager);
+	manager->groupEffect->AddObject(bubble1);
+	Effect* bubble2 = Effect::CreateEffect(EFFECT_BUBBLE, position.x, position.y + 40, -2, spriteHandler, manager);
+	manager->groupEffect->AddObject(bubble2);
+	Effect* bubble3 = Effect::CreateEffect(EFFECT_BUBBLE, position.x, position.y + 20, 1, spriteHandler, manager);
+	manager->groupEffect->AddObject(bubble3);
 
 }
 

@@ -137,6 +137,7 @@
     <ClCompile Include="Crystal.cpp" />
     <ClCompile Include="DeadZone.cpp" />
     <ClCompile Include="GetSubWeapon.cpp" />
+    <ClCompile Include="Head.cpp" />
     <ClCompile Include="Heart.cpp" />
     <ClCompile Include="Hit.cpp" />
     <ClCompile Include="HolyFire.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Crystal.h" />
     <ClInclude Include="DeadZone.h" />
     <ClInclude Include="GetSubWeapon.h" />
+    <ClInclude Include="Head.h" />
     <ClInclude Include="Heart.h" />
     <ClInclude Include="Hit.h" />
     <ClInclude Include="HolyFire.h" />

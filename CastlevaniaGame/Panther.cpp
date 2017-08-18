@@ -80,7 +80,7 @@ void Panther::jumping() {
 		return;
 	}
 	position.y += ((velocity.y * 3) * _deltaTime);
-	position.x += ((-velocity.x + -300) *_deltaTime);
+	position.x += ((-velocity.x + -100) *_deltaTime);
 }
 
 void Panther::downing() {
@@ -90,7 +90,7 @@ void Panther::downing() {
 			return;
 		}
 	}
-	position.y += ((-velocity.y * 8) * _deltaTime);
+	position.y += ((-velocity.y * 5) * _deltaTime);
 	position.x += ((-velocity.x + -50) * _deltaTime);
 }
 void Panther::runningRight() {

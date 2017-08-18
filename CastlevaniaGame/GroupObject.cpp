@@ -79,8 +79,8 @@ void GroupObject::GetCollisionSpecial()
 	this->objects.clear();
 	number = 0;
 	GetObjectFrom(manager->groupItem);
-	GetObjectFrom(manager->groupEffect);
 	GetObjectFrom(manager->groupEnemy);
+	GetObjectFrom(manager->groupEffect);
 	GetObjectFrom(manager->groupProjectile);
 }
 

@@ -21,5 +21,6 @@ public:
 	virtual void Collision();
 
 	virtual void CheckActive();
+	virtual void TakeDamage(int damage);
 };
 #endif // !_VAMBAT_H_

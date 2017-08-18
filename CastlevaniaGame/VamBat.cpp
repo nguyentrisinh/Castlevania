@@ -158,8 +158,18 @@ void VamBat::Collision()
 
 void VamBat::CheckActive()
 {
-	if (manager->Simon->position.x<1000-200 || manager->Simon->position.x>1500) //zone của vamBat từ 1000 - 1500, bắt đầu hành động khi simon còn cách 200
+	if (manager->Simon->position.x < position.x - 200) //zone của vamBat từ 10	00 - 1500, bắt đầu hành động khi simon còn cách 200
 		isActive = false;  
 	else
 		isActive = true;
+}
+
+void VamBat::TakeDamage(int Damage)
+{
+	Effect* effect = Effect::CreateEffect(EFFECT_HIT, position.x + 14, position.y, -1, spriteHandler, manager);
+	manager->groupEffect->AddObject(effect);
+	health -= Damage;
+
+	if (health <= 0)
+		Destroy();
 }

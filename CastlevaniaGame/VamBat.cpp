@@ -50,7 +50,7 @@ void VamBat::Update(const float &_DeltaTime)
 		timerPause -= _DeltaTime;
 		if (timerPause < 0)
 		{
-			if (position.x > manager->Simon->position.x + 30 || position.x < manager->Simon->position.x - 30)
+			if (position.x < manager->Simon->position.x + 10)
 			{
 				isSleep = false;
 				timerPause = 2;

@@ -185,7 +185,7 @@ Enemy* Enemy::CreateEnemy(int* parameters, LPD3DXSPRITE spriteHandler, World *ma
 
 	// ----------------- test 
 	if (newEnemy->enemyType == VAMBAT)
-		newEnemy->isActive = false;
+		newEnemy->isActive = true;
 	if (newEnemy->enemyType == MEDUSA)
 		newEnemy->isActive = false;
 	// --------------------

@@ -25,9 +25,9 @@ void Head::Init(int _X, int _Y)
 
 	delta = 0;
 	if (manager->Simon->isRight)
-		velocity.x = -150;
+		velocity.x = -130;
 	else
-		velocity.x = 150;
+		velocity.x = 130;
 	
 	lineY = manager->Simon->position.y;
 }
@@ -44,12 +44,12 @@ void Head::Init(int _X, int _Y, bool isRight)
 
 	if (manager->Simon->isRight)
 	{
-		velocity.x = -150;
+		velocity.x = -130;
 		sprite = spriteLeft;
 	}
 	else
 	{
-		velocity.x = 150;
+		velocity.x = 130;
 		sprite = spriteRight;
 	}
 
@@ -58,7 +58,7 @@ void Head::Init(int _X, int _Y, bool isRight)
 void Head::Update(const float &_DeltaTime)
 {
 	position.x += velocity.x * _DeltaTime;
-	delta += 0.05;
+	delta += 0.035;
 
 	position.y = 120 * sin(delta) + lineY;
 

@@ -15,7 +15,7 @@ Medusa::Medusa(LPD3DXSPRITE _SpriteHandler, World *_manager) :Enemy(_SpriteHandl
 	isAttack = false;
 	velocity.y = 20;
 	velocity.x = 20;
-	
+	isShown = false;
 }
 
 Medusa :: ~Medusa()
@@ -25,16 +25,18 @@ Medusa :: ~Medusa()
 
 void Medusa::Init(int _X, int _Y)
 {
-	health = 64;
+	health = 16;
+	isSleep = true;
 	isActive = true;
 	isAttack = false;
+	oriY = _Y;
 	position.x = _X;
-	position.y = _Y;
+	
+	position.y = _Y + 100;
 	limitTop = _Y;
 	limitBot = _Y - 100;
 	limitRight = _X + 200;
 	limitLeft = _X - 200;
-	
 }
 void Medusa::setSprite() {
 	timerSprite += _deltaTime;
@@ -46,11 +48,21 @@ void Medusa::setSprite() {
 }
 void Medusa::Update(const float &_DeltaTime)
 {
-	_deltaTime = _DeltaTime;
-	
-	moveZicZac();
-
-	setSprite();
+	if (isSleep)
+	{
+		position.y = oriY + 120;
+		if (manager->Simon->position.x <= position.x - 100) {
+			isSleep = false;
+			position.y = oriY;
+		}	
+	}
+	else {
+		_deltaTime = _DeltaTime;
+		moveZicZac();
+		setSprite();
+	}
+		
+		
 }
 
 void Medusa::moveRightDown() {
@@ -73,7 +85,7 @@ void Medusa::moveRightUp() {
 		count++;
 		return;
 	}
-	
+
 	//Reach limit top and right, then move left down
 	if (position.y > limitTop && position.x >= limitRight) {
 		way++;
@@ -133,7 +145,8 @@ void Medusa::moveZicZac() {
 }
 void Medusa::Render()
 {
-	sprite->Render(position.x, position.y);
+	if (!isSleep)
+		sprite->Render(position.x, position.y);
 }
 
 void Medusa::Destroy()
@@ -177,6 +190,16 @@ void Medusa::Collision()
 
 void Medusa::CheckActive()
 {
-	if (manager->Simon->position.x < 600 && manager->Simon->position.x>1000) //zone từ 600 - 1000, bắt đầu hành động khi simon còn cách 200
-		isActive = true;
+	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
+		isActive = false;
+}
+
+void Medusa::isSimonNear() {
+	if (manager->Simon->position.x <= (position.x - 150) 
+		&& manager->Simon->position.y >= position.y)
+		isActive = false;
+}
+void Medusa::checkShow() {
+	if (manager->Simon->position.x <= position.x - 200)
+		isShown = true;
 }

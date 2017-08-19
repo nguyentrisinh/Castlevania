@@ -54,7 +54,7 @@ void Fish::Init(int _X, int _Y, bool isRight)
 	damage = 1;
 
 	isFiring = false;
-	TimeToAttack = 0;
+	TimeToAttack = 5;
 	isActive = true;
 	position.y = 0;
 	velocity.y = 650;
@@ -146,7 +146,7 @@ void Fish::Update(const float &_DeltaTime)
 			{
 				sprite->Next(12, 13);
 				//kiem tra va cho con ca tan cong
-				if (TimeToAttack >= timer)
+				if (TimeToAttack >= timer) // con ca khong ban lien tuc
 				{
 					ActivateFishFire();
 					sprite->_Index = 11;

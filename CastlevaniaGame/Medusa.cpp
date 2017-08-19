@@ -61,8 +61,7 @@ void Medusa::Update(const float &_DeltaTime)
 		moveZicZac();
 		setSprite();
 	}
-		
-		
+	
 }
 
 void Medusa::moveRightDown() {

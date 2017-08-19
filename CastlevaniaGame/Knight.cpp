@@ -193,3 +193,12 @@ void Knight::CheckActive()
 	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
 		isActive = false;
 }
+void Knight::TakeDamage(int Damage)
+{
+	Effect* effect = Effect::CreateEffect(EFFECT_HIT, position.x + 14, position.y, -1, spriteHandler, manager);
+	manager->groupEffect->AddObject(effect);
+	health -= Damage;
+	position.x -= 10;
+	if (health <= 0)
+		Destroy();
+}

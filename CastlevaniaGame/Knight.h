@@ -28,6 +28,7 @@ public:
 	void setSprite();
 	bool CheckGroundCollision();
 	int checkWallCollision();
+	void TakeDamage(int Damage);
 };
 #endif // !_Knight_H_
 

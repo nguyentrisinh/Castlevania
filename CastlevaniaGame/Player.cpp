@@ -874,6 +874,62 @@ void Player::Injured(int keyInjured)
 
 }
 
+void Player::Injured(int keyInjured, int damage)
+{
+	if (isImmortal)
+		return;
+	if (isHitted)
+		return;
+	velocity.y = 300;
+
+
+	//bien xac dinh trang thai bi thuong
+	isHitted = true;
+
+	//kich hoat trang thai bất tử
+	isImmortal = true;
+	timeImmortal = 0;
+
+	sprite->Next(9, 9);
+	// update by K
+	if (keyInjured == 1) // va cham tu ben phai
+	{
+		velocity.x = 80;
+		sprite = spriteLeft;
+		isRight = false;
+	}
+
+	else //khong phai va cham tu ben phai
+	{
+		velocity.x = -80;
+		sprite = spriteRight;
+		isRight = true;
+	}
+
+	//khi bị thương, ngừng mọi hoạt động hiện tai như đánh, ngồi, nhảy
+	isCrouch = false;
+	isAttack = false;
+	killingMoment = false;
+	isShocked = false;
+	isChangeFrame = false;
+	isMoveToX = false;
+
+	onStair = -1;
+	stairMoveKey = 0;
+	isShowTime = false;
+	animStart = false;
+
+	//this->health--;
+	this->health -= damage;
+
+	if (this->health < 0)
+		this->health = 0;
+
+	if (this->health == 0)
+		this->SimonDeath();
+
+}
+
 void Player::MovingOnStair(int keyMove)
 {
 	if(isJump || downJump || isHitted)
@@ -965,10 +1021,17 @@ void Player::CollisionObject(float _DeltaTime)
 			{
 				if (!isImmortal)
 				{
+					//if (normalx > 0.1f)
+					//	Injured(1);
+					//else
+					//	Injured(-1);
+					
+					// Test for new injured function 
 					if (normalx > 0.1f)
-						Injured(1);
+						Injured(1, ((Enemy*)tempObject)->damage);
 					else
-						Injured(-1);
+						Injured(-1, ((Enemy*)tempObject)->damage);
+
 					tempObject->Collision();
 				}
 			}
@@ -1018,10 +1081,16 @@ void Player::CollisionObject(float _DeltaTime)
 			{
 				if (!isImmortal)
 				{
+					//if (normalx > 0.1f)
+					//	Injured(1);
+					//else
+					//	Injured(-1);
+
+					// Test for new injured function 
 					if (normalx > 0.1f)
-						Injured(1);
+						Injured(1, ((Enemy*)tempObject)->damage);
 					else
-						Injured(-1);
+						Injured(-1, ((Enemy*)tempObject)->damage);
 					
 					// với hàm collision ở đây thì quái đụng Simon, Enemy chỉ mất máu 1 lần mà thôi
 					tempObject->Collision();

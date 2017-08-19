@@ -14,7 +14,7 @@ Boomerang::Boomerang(LPD3DXSPRITE _SpriteHandler, World *_manager) :Projectile(_
 	sprite->_Index = 5;
 	spriteRight->_Index = 5;
 	spriteLeft->_Index = 5;
-	Damage = 4;
+	Damage = 2;
 	collider->setCollider(10, -10, -10, 10);
 	isReverted = false;
 

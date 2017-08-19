@@ -90,7 +90,8 @@ public:
 	// nhấn 1 lần
 	void Jump();
 	void Attack(int keyAttack);
-	void Injured(int keyInjured);
+	void Injured(int keyInjured); //The old Injured function
+	void Injured(int keyInjured, int damage);
 	void MovingOnStair(int keyMove);
 	void ActivateWeapon();
 	void SimonDeath();

@@ -21,6 +21,7 @@ class Enemy :
 public:
 	int health;
 	int enemyType;
+	int damage; // this param is for Simon injure with this damage
 
 	// Test for trigger damage
 	bool isDamage;

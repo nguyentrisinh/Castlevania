@@ -21,6 +21,7 @@ RedBat :: ~RedBat()
 void RedBat::Init(int _X, int _Y)
 {
 	health = 1;
+	damage = 1;
 
 	isActive = true;
 	position.y = _Y;

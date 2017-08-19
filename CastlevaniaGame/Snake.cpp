@@ -24,6 +24,7 @@ Snake::~Snake()
 void Snake::Init(int _X, int _Y)
 {
 	health = 1;
+	damage = 1;
 
 	isActive = true;
 	position.x = _X;

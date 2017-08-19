@@ -26,6 +26,8 @@ Medusa :: ~Medusa()
 void Medusa::Init(int _X, int _Y)
 {
 	health = 16;
+	damage = 4;
+
 	isSleep = true;
 	isActive = true;
 	isAttack = false;

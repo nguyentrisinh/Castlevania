@@ -13,7 +13,7 @@ Axe::Axe(LPD3DXSPRITE _SpriteHandler, World *_manager) :Projectile(_SpriteHandle
 	sprite->_Index = 1;
 	spriteRight->_Index = 1;
 	spriteLeft->_Index = 1;
-	Damage = 4;
+	Damage = 3;
 	isReverted = false;
 
 	// update by k

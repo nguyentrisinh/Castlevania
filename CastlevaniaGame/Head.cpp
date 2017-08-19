@@ -17,6 +17,8 @@ Head::~Head() {}
 void Head::Init(int _X, int _Y)
 {
 	health = 1;
+	damage = 2;
+
 	isActive = true;
 	position.x = _X;
 	position.y = _Y;

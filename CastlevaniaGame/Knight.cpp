@@ -26,6 +26,8 @@ void Knight::Init(int _X, int _Y)
 	// -----------
 	
 	health = 8;
+	damage = 2;
+
 	startX = _X,
 	startY = _Y;
 	isActive = true;

@@ -8,6 +8,7 @@ VamBat::VamBat() {}
 VamBat::VamBat(LPD3DXSPRITE _SpriteHandler, World *_manager) :Enemy(_SpriteHandler, _manager)
 {
 	health = 16;
+	damage = 3;
 	collider->setCollider(14, -14, -10, 10);
 	enemyType = VAMBAT;
 	spriteVamBat = new Sprite(_SpriteHandler, "Resources\\Sprites\\VamBat.png", 96, 46, 3, 3);

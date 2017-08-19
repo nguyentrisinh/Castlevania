@@ -13,7 +13,7 @@ Knife::Knife(LPD3DXSPRITE _SpriteHandler, World *_manager) :Projectile(_SpriteHa
 	sprite->_Index = 0;
 	spriteRight->_Index = 0;
 	spriteLeft->_Index = 0;
-	Damage = 3;
+	Damage = 2;
 
 }
 Knife::~Knife()

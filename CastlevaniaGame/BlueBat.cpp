@@ -23,6 +23,7 @@ void BlueBat::Init(int _X, int _Y)
 {
 	// -----------
 	health = 1;
+	damage = 2;
 
 	isActive = true;
 	position.x = _X;

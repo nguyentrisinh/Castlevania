@@ -45,6 +45,7 @@ void Panther::Init(int _X, int _Y, bool _isRight) {
 	velocity.y = 50;
 	distanceToSimon = position.x - 250;
 	health = 1;
+	damage = 1;
 }
 void Panther::moving() {
 	switch (state) {

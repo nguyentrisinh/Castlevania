@@ -51,6 +51,7 @@ void Fish::Init(int _X, int _Y)
 void Fish::Init(int _X, int _Y, bool isRight)
 {
 	health = 1;
+	damage = 1;
 
 	isFiring = false;
 	TimeToAttack = 0;

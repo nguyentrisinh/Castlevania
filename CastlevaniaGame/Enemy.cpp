@@ -159,6 +159,7 @@ Enemy* Enemy::CreateEnemy(int* parameters, LPD3DXSPRITE spriteHandler, World *ma
 		break;
 	case BONE:
 		newEnemy = new Bone(spriteHandler, manager);
+		break;
 		/*
 		case HEAD:
 		newEnemy = new Head(spriteHandler, manager);

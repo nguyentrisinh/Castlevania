@@ -13,6 +13,7 @@
 #define MEDUSA 8
 #define SNAKE 9
 #define HEAD 11
+#define BONE 13
 
 class Enemy :
 	public GameObject

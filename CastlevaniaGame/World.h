@@ -17,6 +17,7 @@
 #include "Snake.h"
 #include "Knight.h"
 #include "Head.h"
+#include "Bone.h"
 //-------Item--------
 #include "Heart.h"
 #include "BigHeart.h"

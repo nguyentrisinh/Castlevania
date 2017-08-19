@@ -513,6 +513,12 @@
     <Image Include="Resources\Sprites\flash.bmp">
       <Filter>Resources\Sprites</Filter>
     </Image>
+    <Image Include="Resources\Sprites\grinder.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="Resources\Sprites\grinder_top.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="Resources\Sounds\stage-01.wav">

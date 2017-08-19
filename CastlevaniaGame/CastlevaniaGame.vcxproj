@@ -264,6 +264,8 @@
     <Image Include="Resources\Sprites\blank.bmp" />
     <Image Include="Resources\Sprites\bonus.bmp" />
     <Image Include="Resources\Sprites\flash.bmp" />
+    <Image Include="Resources\Sprites\grinder.bmp" />
+    <Image Include="Resources\Sprites\grinder_top.bmp" />
     <Image Include="Resources\Sprites\snake.png" />
     <Image Include="Resources\Sprites\VamBat.png" />
     <Image Include="Resources\Sprites\creep_left.bmp" />

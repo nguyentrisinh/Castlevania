@@ -105,6 +105,7 @@ void World::Init()
 	groupProjectile->AddObject(holyWater[0]);
 	groupProjectile->AddObject(holyWater[1]);
 	groupProjectile->AddObject(holyWater[2]);
+
 	// ##
 
 	// Constructor for crystal test

@@ -10,6 +10,7 @@
 #include "Item.h"
 #include "Effect.h"
 #include "GateWay.h"
+#include "Grinder.h"
 #include "ThamSo.h"
 #include "VamBat.h"
 #include "Medusa.h"
@@ -82,7 +83,7 @@ public:
 
 	// Crystal for test
 	Crystal *crystal;
-	
+
 	
 	// update by OLoader, init as NULL
 	GroupObject* groupEnemy;

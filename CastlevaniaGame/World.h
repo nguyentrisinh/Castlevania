@@ -89,7 +89,7 @@ public:
 	OTreeNode* rootGONode;
 
 	// ---- bo sung K_1.9 // con trỏ boss
-	GameObject* boss;
+	Enemy* boss;
 	
 	int isPause;
 	bool isFlash;

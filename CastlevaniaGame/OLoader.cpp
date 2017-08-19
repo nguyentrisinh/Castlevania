@@ -90,7 +90,7 @@ void OLoader::Reload()
 	if (it != mappedObjects.end())
 	{
 		//element found;
-		manager->boss = mappedObjects[1000];
+		manager->boss = (Enemy*)mappedObjects[1000];
 	}
 
 }

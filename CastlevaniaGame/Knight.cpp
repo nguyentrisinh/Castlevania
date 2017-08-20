@@ -32,6 +32,8 @@ void Knight::Init(int _X, int _Y)
 	startY = _Y;
 	isActive = true;
 	isSleeping = true;
+	isFrozen = false;
+	timerFrozen = 0.2f;
 	position.y = _Y;
 	position.x = _X+20;
 	velocity.x = -40; //default go from right to left
@@ -56,6 +58,16 @@ void Knight::Init(int _X, int _Y)
 
 void Knight::Update(const float &_DeltaTime)
 {	
+	if (isFrozen)
+	{
+		timerFrozen -= _DeltaTime;
+		if (timerFrozen <= 0) {
+			isFrozen = false;
+			timerFrozen = 0.2f;
+		}
+		return;
+	}
+
 	//Only update if knight is in camera
 	if (isInCamera()) {
 		_deltaTime = _DeltaTime;
@@ -202,10 +214,12 @@ bool Knight::isInCamera() {
 }
 void Knight::TakeDamage(int Damage)
 {
+	
 	Effect* effect = Effect::CreateEffect(EFFECT_HIT, position.x + 14, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 	health -= Damage;
-	position.x -= 10;
+	//position.x -= 10;
+	isFrozen = true;
 	if (health <= 0)
 		Destroy();
 }

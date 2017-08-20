@@ -9,12 +9,14 @@ class Knight :
 {
 public:
 	static int index;
+	float timerFrozen;
 	int limitLeft;
 	int limitRight;
 	World *_manager;
 	float _deltaTime;
 	int startX, startY;
 	bool isSleeping;
+	bool isFrozen;
 	Knight();
 	Knight(LPD3DXSPRITE _SpriteHandler, World *_manager);
 	~Knight();

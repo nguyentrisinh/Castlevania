@@ -38,7 +38,8 @@ void Grinder::Init(int _X, int _Y, int _Width, int _Height,// rect
 	// posY = điểm cao nhất của grinder (cái giá treo của grinder) - 
 	// số spriteTop (cột treo grinder) * sizeHeight (chiều cao của cái spriteTop) - 
 	// sizeHeight / 2 (nửa chiều cao của cái grinder)
-	positionY = this->pylonY - this->sizeHeight * this->numCount - this->sizeHeight / 2;
+	//positionY = this->pylonY - this->sizeHeight * this->numCount - this->sizeHeight / 2; Có thể do mình ngu
+	this->position.y = this->pylonY - this->sizeHeight * this->numCount - this->sizeHeight / 2;
 }
 
 void Grinder::Render()
@@ -54,15 +55,48 @@ void Grinder::Render()
 		this->spriteTop->Render(this->position.x, postY);
 	}
 
-	this->sprite->Render(this->position.x, this->positionY);
+	//this->positionY = this->pylonY - this->sizeHeight * this->numCount - this->sizeHeight / 2;
+	this->sprite->Render(this->position.x, this->position.y);
 }
 
 void Grinder::Update(const float &_DeltaTime)
 {
+	this->timerSprite += _DeltaTime;
 
+	if (!this->isLifting)
+	{
+		// Nếu Grinder đang rớt xuống
+		if (timerSprite >= ANIM_TIME)
+		{
+			this->timerSprite -= ANIM_TIME;
+			
+			if (this->numCount >= this->maxCount)
+			{
+				this->isLifting = true;
+				return;
+			}
+
+			this->numCount++;
+		}
+	}
+	else
+	{
+		if (timerSprite >= ANIM_TIME * 2.3)
+		{
+			this->timerSprite -= ANIM_TIME * 2.3;
+
+			if (this->numCount <= 1)
+			{
+				this->isLifting = false;
+				return;
+			}
+			this->numCount--;
+		}
+	}
+	this->position.y = this->pylonY - this->sizeHeight * this->numCount - this->sizeHeight / 2;
 }
 
-void Grinder::Collision(Player *actor, const float &_DeltaTime)
+void Grinder::Collision(Player *Simon, const float &_DeltaTime)
 {
-
+	Simon->Injured(1, 16);
 }

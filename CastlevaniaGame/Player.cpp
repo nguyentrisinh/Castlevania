@@ -880,7 +880,6 @@ void Player::Injured(int keyInjured, int damage)
 		return;
 	if (isHitted)
 		return;
-	velocity.y = 300;
 
 
 	//bien xac dinh trang thai bi thuong
@@ -891,7 +890,7 @@ void Player::Injured(int keyInjured, int damage)
 	timeImmortal = 0;
 
 	sprite->Next(9, 9);
-	// update by K
+
 	if (keyInjured == 1) // va cham tu ben phai
 	{
 		velocity.x = 80;
@@ -926,7 +925,13 @@ void Player::Injured(int keyInjured, int damage)
 		this->health = 0;
 
 	if (this->health == 0)
+	{
 		this->SimonDeath();
+		return;
+	}
+
+	velocity.y = 300;
+
 
 }
 
@@ -961,6 +966,7 @@ void Player::MovingOnStair(int keyMove)
 
 void Player::SimonDeath()
 {
+	this->health = 0;
 	this->timeSimonDeath = 0;
 	this->isDeath = true;
 }
@@ -1055,7 +1061,6 @@ void Player::CollisionObject(float _DeltaTime)
 			collisionScale = SweptAABB(tempObject, _DeltaTime);
 			if (collisionScale < 1.0f)
 			{
-				
 				((Zone*)tempObject)->Collision(this, _DeltaTime);
 			}
 			break;
@@ -1151,6 +1156,8 @@ void Player::CollisionObject(float _DeltaTime)
 void Player::RestoreHP()
 {
 	this->health = 16;
+	this->isDeath = false;
+	this->alreadyDeath = false;
 }
 
 void Player::IncreaseHeart()
@@ -1172,3 +1179,4 @@ void Player::CreateCrystallItem()
 	this->manager->crystal->Init(this->position.x + 100, this->position.y + 200);
 	this->manager->groupItem->AddObject(this->manager->crystal);
 }
+

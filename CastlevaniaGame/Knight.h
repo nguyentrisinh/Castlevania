@@ -29,6 +29,7 @@ public:
 	bool CheckGroundCollision();
 	int checkWallCollision();
 	void TakeDamage(int Damage);
+	bool isInCamera();
 };
 #endif // !_Knight_H_
 

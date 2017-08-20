@@ -33,74 +33,72 @@ void Knight::Init(int _X, int _Y)
 	isActive = true;
 	isSleeping = true;
 	position.y = _Y;
-	position.x = _X-30;
+	position.x = _X+20;
 	velocity.x = -40; //default go from right to left
 	sprite = spriteLeft;
 	limitRight = startX + 100;
 	limitLeft = startX - 100;
 	index++;
 	
+	//A limit special for 3nd knight
 	if (index == 3) {
 		limitLeft = startX - 70;
 		limitRight = startX + 50;
-		//
-		velocity.x = -40;
 	}
-	/*
-	if (manager->Simon->isRight)
-		velocity.x = -30;
-	else
-		velocity.x = 30;
-		*/
+
+	if (index == 2) {
+		limitLeft = startX-20;
+		limitRight = startX +20;
+	}
+
 
 }
 
 void Knight::Update(const float &_DeltaTime)
-{
-	//CheckActive();
-	//if (!CheckGroundCollision())
-		//return;
+{	
+	//Only update if knight is in camera
+	if (isInCamera()) {
+		_deltaTime = _DeltaTime;
+		
+		//Nếu chạm tường bên trái
+		if (checkWallCollision() != 0) {
+			if (velocity.x > 0)
+				sprite = spriteLeft;
+			else
+				sprite = spriteRight;
 
-	//if (isActive == false)
-		//return;
-
-
-	_deltaTime = _DeltaTime;
-	//notMovingThroughWall();
-	//Nếu chạm tường bên trái
-	if (checkWallCollision() != 0) {
-		if (velocity.x > 0)
-			sprite = spriteLeft;
-		else
-			sprite = spriteRight;
-
-		velocity.x = -velocity.x;
-	}
-
-	//Set limit right để khỏi rơi xuống
-	if (position.x >= limitRight) {
-		sprite = spriteLeft;
-		velocity.x = -velocity.x;
-	}
-
-	//Set limit right để khỏi rơi xuống
-	if (position.x <= limitLeft) {
-		sprite = spriteRight;
-		velocity.x = -velocity.x;
-	}
-
-	//Chắc chắn một lần nữa để con Knight không rơi xuống
-	if (!CheckGroundCollision()) {
-		if (velocity.x < 0) {
-			sprite = spriteRight;
+			velocity.x = -velocity.x;
 		}
-		else
+		
+		//Set limit right để khỏi rơi xuống
+		if (position.x >= limitRight) {
 			sprite = spriteLeft;
-		velocity.x = -velocity.x;
+			velocity.x = -velocity.x;
+		}
+
+		//Set limit right để khỏi rơi xuống
+		if (position.x <= limitLeft) {
+			sprite = spriteRight;
+			velocity.x = -velocity.x;
+		}
+
+		
+		//Chắc chắn một lần nữa để con Knight không rơi xuống, đảm bảo luôn trên đất 
+		if (!CheckGroundCollision()) {
+			if (velocity.x < 0) {
+				sprite = spriteRight;
+			}
+			else
+				sprite = spriteLeft;
+			velocity.x = -velocity.x;
+		}
+		
+		//Cập nhật theo delta time sau khi xác định được hướng
+		position.x += (velocity.x * _deltaTime);
+		setSprite();
+		
+		
 	}
-	//Cập nhật theo delta time sau khi xác định được hướng
-	position.x += (velocity.x * _deltaTime);
-	setSprite();
 }
 
 void Knight::setSprite() {
@@ -173,7 +171,8 @@ bool Knight::CheckGroundCollision()
 
 void Knight::Render()
 {
-	if (isActive)
+	// Only render if knight in camera
+	if (isInCamera())
 		sprite->Render(position.x, position.y);
 }
 
@@ -194,6 +193,12 @@ void Knight::CheckActive()
 {
 	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
 		isActive = false;
+}
+
+bool Knight::isInCamera() {
+	if (position.x >= Sprite::cameraXLeft || position.x <= Sprite::cameraXRight)
+		return true;
+	return false;
 }
 void Knight::TakeDamage(int Damage)
 {

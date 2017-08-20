@@ -36,7 +36,7 @@ void Potion::Init(int _X, int _Y)
 void Potion::Update(const float &_DeltaTime)
 {
 	timeSurvive += _DeltaTime;
-	if (timeSurvive >= 3.0f)
+	if (timeSurvive >= 4.0f)
 		isActive = false;
 	if (velocity.y == 0)
 		return;

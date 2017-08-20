@@ -79,23 +79,27 @@ void Knight::Update(const float &_DeltaTime)
 			else
 				sprite = spriteRight;
 
-			velocity.x = -velocity.x;
+			if (velocity.x < 0)
+				velocity.x = -velocity.x;
 		}
 		
 		//Set limit right để khỏi rơi xuống
 		if (position.x >= limitRight) {
 			sprite = spriteLeft;
-			velocity.x = -velocity.x;
+			if (velocity.x > 0)
+				velocity.x = -velocity.x;
 		}
 
 		//Set limit right để khỏi rơi xuống
 		if (position.x <= limitLeft) {
 			sprite = spriteRight;
-			velocity.x = -velocity.x;
+			if (velocity.x < 0)
+				velocity.x = -velocity.x;
 		}
 
 		
 		//Chắc chắn một lần nữa để con Knight không rơi xuống, đảm bảo luôn trên đất 
+		/*
 		if (!CheckGroundCollision()) {
 			if (velocity.x < 0) {
 				sprite = spriteRight;
@@ -104,7 +108,7 @@ void Knight::Update(const float &_DeltaTime)
 				sprite = spriteLeft;
 			velocity.x = -velocity.x;
 		}
-		
+		*/
 		//Cập nhật theo delta time sau khi xác định được hướng
 		position.x += (velocity.x * _deltaTime);
 		setSprite();
@@ -172,7 +176,7 @@ bool Knight::CheckGroundCollision()
 		{
 		case GROUND_TYPE:
 			float collisionScale = SweptAABB(object, _deltaTime);
-			if (collisionScale != 0.0f)
+			if (collisionScale < 1.0f)
 			{
 				return true;
 			}

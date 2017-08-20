@@ -44,7 +44,7 @@ void Panther::Init(int _X, int _Y, bool _isRight) {
 	sprite = spriteLeft;
 	velocity.x = 200;
 	velocity.y = 50;
-	distanceToSimon = position.x - 100;
+	distanceToSimon = position.x - 200;
 	health = 1;
 	damage = 1;
 	if (index == 1) {
@@ -85,7 +85,7 @@ void Panther::jumping() {
 		return;
 	}
 	position.y += ((velocity.y * 3) * _deltaTime);
-	position.x += ((-velocity.x + -100) *_deltaTime);
+	position.x += ((-velocity.x + -300) *_deltaTime);
 }
 
 void Panther::downing() {
@@ -95,8 +95,8 @@ void Panther::downing() {
 			return;
 		}
 	}
-	position.y += ((-velocity.y * 5) * _deltaTime);
-	position.x += ((-velocity.x + -50) * _deltaTime);
+	position.y += ((-velocity.y * 7) * _deltaTime);
+	position.x += ((-velocity.x + -20) * _deltaTime);
 }
 void Panther::runningRight() {
 	position.x += ((velocity.x) * _deltaTime);

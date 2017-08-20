@@ -578,7 +578,4 @@
       <Filter>Resources\Maps</Filter>
     </Text>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="changelog_v_2.3" />
-  </ItemGroup>
 </Project>

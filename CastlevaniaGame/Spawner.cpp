@@ -37,6 +37,9 @@ void Spawner::Init(int _X, int _Y, int _Width, int _Height,// rect
 	Zone::Init(_X, _Y, _Width, _Height);
 	// ----------
 
+	//sprite = new Sprite(spriteHandler, "Resources\\Sprites\\blank.bmp", _Width, _Height, 1, 1);
+
+
 	typeEnemy = _TypeEnemy % 100; // 503 => 3 là ghoul
 	numberEnemy = _Count;
 
@@ -110,8 +113,8 @@ void Spawner::Collision(Player *actor, const float &_DeltaTime)
 		if (objects[i]->isActive == false)
 		{
 			// chờ 1 lúc rồi mới tạo lại
-			if (objects[i]->enemyType == GHOST)
-				timers[i] += 1;
+			if (objects[i]->enemyType == GHOST || objects[i]->enemyType == HEAD)
+				timers[i] += 0.3;
 			timers[i] += _DeltaTime;
 			if (timers[i] >= TIME_RESPAWN)
 			{
@@ -136,3 +139,8 @@ void Spawner::Collision(Player *actor, const float &_DeltaTime)
 		}
 	}
 }
+
+//void Spawner::Render()
+//{
+//	sprite->Render(position.x, position.y);
+//}

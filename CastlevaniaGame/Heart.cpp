@@ -39,7 +39,7 @@ void Heart::Init(int _X, int _Y)
 void Heart::Update(const float &_DeltaTime)
 {
 	timeSurvive += _DeltaTime;
-	if (timeSurvive >= 5.0f)
+	if (timeSurvive >= 3.0f)
 		Destroy();
 	if (velocity.x == 0 && velocity.y == 0)
 		return;

@@ -52,7 +52,7 @@ void Treasure::Init(int _X, int _Y, int _type)
 void Treasure::Update(const float &_DeltaTime)
 {
 	timeSurvive += _DeltaTime;
-	if (timeSurvive >= 15.0f)
+	if (timeSurvive >= 5.0f)
 		isActive = false;
 
 	timerSprite += _DeltaTime;

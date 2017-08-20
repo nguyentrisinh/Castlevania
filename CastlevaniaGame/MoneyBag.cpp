@@ -53,7 +53,7 @@ void MoneyBag::Init(int _X, int _Y, int _type)
 void MoneyBag::Update(const float &_DeltaTime)
 {
 	timeSurvive += _DeltaTime;
-	if (timeSurvive >= 6.0f)
+	if (timeSurvive >= 3.0f)
 		isActive = false;
 	if (velocity.y == 0)
 		return;

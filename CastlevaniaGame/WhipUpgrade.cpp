@@ -36,7 +36,7 @@ void WhipUpgrade::Init(int _X, int _Y)
 void WhipUpgrade::Update(const float &_DeltaTime)
 {
 	timeSurvive += _DeltaTime;
-	if (timeSurvive >= 5.0f)
+	if (timeSurvive >= 3.0f)
 		isActive = false;
 	if (velocity.y == 0)
 		return;

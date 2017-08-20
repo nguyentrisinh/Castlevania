@@ -64,6 +64,9 @@ void Spawner::Init(int _X, int _Y, int _Width, int _Height,// rect
 		case HEAD:	
 			objects[i] = new Head(spriteHandler, manager);
 			break;
+		case GHOST:
+			objects[i] = new Ghost(spriteHandler, manager);
+			break;
 			/*case HEAD:
 			newEnemy = new Head(spriteHandler, manager);
 			break;

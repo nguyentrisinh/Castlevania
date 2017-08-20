@@ -37,7 +37,7 @@ void Panther::Init(int _X, int _Y, bool _isRight) {
 	hasJumped = false;
 	position.y = _Y - 10;
 	limitTop = _Y + 20;
-	limitDown = position.y - 30;
+	limitDown = position.y - 50;
 	position.x = _X + 50;
 	isRight = _isRight;
 	state = 0;
@@ -95,8 +95,8 @@ void Panther::downing() {
 			return;
 		}
 	}
-	position.y += ((-velocity.y * 7) * _deltaTime);
-	position.x += ((-velocity.x + -20) * _deltaTime);
+	position.y += ((-velocity.y * 8) * _deltaTime);
+	position.x += ((-velocity.x + -10) * _deltaTime);
 }
 void Panther::runningRight() {
 	position.x += ((velocity.x) * _deltaTime);

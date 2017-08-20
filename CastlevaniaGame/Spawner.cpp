@@ -110,6 +110,8 @@ void Spawner::Collision(Player *actor, const float &_DeltaTime)
 		if (objects[i]->isActive == false)
 		{
 			// chờ 1 lúc rồi mới tạo lại
+			if (objects[i]->enemyType == GHOST)
+				timers[i] += 1;
 			timers[i] += _DeltaTime;
 			if (timers[i] >= TIME_RESPAWN)
 			{

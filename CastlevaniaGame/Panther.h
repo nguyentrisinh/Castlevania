@@ -8,6 +8,7 @@ class Panther :
 
 {
 public:
+	static int index;
 	int distanceToSimon;
 	int limitTop;
 	int limitDown;
@@ -36,6 +37,7 @@ public:
 	void runningRight();
 	virtual void CheckActive();
 	bool CheckGroundCollision();
+	bool isInCamera();
 };
 #endif // !_PANTHER_H_
 

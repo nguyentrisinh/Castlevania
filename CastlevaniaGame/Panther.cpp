@@ -1,7 +1,7 @@
 ﻿#include "Panther.h"
 #include "Sprite.h"
 #include "World.h"
-
+int Panther::index = 0;
 Panther::Panther() {}
 
 Panther::Panther(LPD3DXSPRITE _SpriteHandler, World *_manager) :Enemy(_SpriteHandler, _manager)
@@ -31,21 +31,25 @@ void Panther::Init(int _X, int _Y)
 }
 
 void Panther::Init(int _X, int _Y, bool _isRight) {
+	index++;
 	isActive = true;
 	isSleeping = true;
 	hasJumped = false;
 	position.y = _Y - 10;
 	limitTop = _Y + 20;
 	limitDown = position.y - 30;
-	position.x = _X - 20;
+	position.x = _X + 50;
 	isRight = _isRight;
 	state = 0;
 	sprite = spriteLeft;
 	velocity.x = 200;
 	velocity.y = 50;
-	distanceToSimon = position.x - 250;
+	distanceToSimon = position.x - 100;
 	health = 1;
 	damage = 1;
+	if (index == 1) {
+		distanceToSimon = position.x - 70;
+	}
 }
 void Panther::moving() {
 	switch (state) {
@@ -101,22 +105,27 @@ void Panther::runningRight() {
 
 void Panther::Update(const float &_DeltaTime)
 {
-	if (manager->Simon->position.x > distanceToSimon
-		&& position.x >= Sprite::cameraXLeft
-		&& position.x <= Sprite::cameraXRight)
-		isSleeping = false;
+	if (isInCamera()) {
+		if (manager->Simon->position.x > distanceToSimon
+			&& position.x >= Sprite::cameraXLeft
+			&& position.x <= Sprite::cameraXRight)
+			isSleeping = false;
 
-	if (isSleeping)
-		return;
-	_deltaTime = _DeltaTime;
+		if (isSleeping)
+			return;
 
-	moving();
+		_deltaTime = _DeltaTime;
 
-	setSprite();
+		moving();
 
-	//kiem tra nam ngoai camera
+		setSprite();
+
+		//kiem tra nam ngoai camera
+	}
 	if (!IsInCamera())
 		isActive = false;
+		
+		
 }
 
 void Panther::setSprite() {
@@ -134,7 +143,7 @@ void Panther::setSprite() {
 }
 void Panther::Render()
 {
-	if (isActive)
+	if (isActive && isInCamera())
 		sprite->Render(position.x, position.y);
 }
 
@@ -153,9 +162,9 @@ void Panther::Collision()
 
 void Panther::CheckActive()
 {
-	if (position.x < Sprite::cameraXLeft || position.x > Sprite::cameraXRight)
-		isActive = false;
-
+	if (position.x >= Sprite::cameraXLeft && position.x <= Sprite::cameraXRight)
+		isActive = true;
+	isActive = false;
 }
 
 bool Panther::CheckGroundCollision() {
@@ -183,5 +192,11 @@ bool Panther::CheckGroundCollision() {
 			}
 		}
 	}
+	return false;
+}
+
+bool Panther::isInCamera() {
+	if (position.x >= Sprite::cameraXLeft || position.x <= Sprite::cameraXRight)
+		return true;
 	return false;
 }

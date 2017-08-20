@@ -1,4 +1,4 @@
-#include "EnemyFire.h"
+﻿#include "EnemyFire.h"
 #include "Sprite.h"
 #include "World.h"
 
@@ -49,6 +49,11 @@ void EnemyFire::Update(const float &_DeltaTime)
 	if (!isActive)
 		return;
 	position.x += velocity.x * _DeltaTime;
+
+	// điều kiện để lửa un-active
+	// không thôi bay như chiến trường vậy
+	if (!IsInCamera())
+		this->isActive = false;
 
 }
 

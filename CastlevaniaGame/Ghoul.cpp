@@ -62,6 +62,7 @@ void Ghoul::Update(const float &_DeltaTime)
 	{
 		velocity.y = 0;
 	}
+	CheckActive();
 }
 
 void Ghoul::Render()
@@ -85,7 +86,7 @@ void Ghoul::Collision()
 
 void Ghoul::CheckActive()
 {
-	if (position.x < Sprite::cameraX || position.x > Sprite::cameraX + 512)
+	if (position.x < Sprite::cameraX - 100|| position.x > Sprite::cameraX + 512 + 100)
 		isActive = false;
 }
 

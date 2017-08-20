@@ -4,6 +4,7 @@
 #include "DeadZone.h"
 #include "Spawner.h"
 #include "BattleBoss.h"
+#include "Grinder.h"
 
 Zone::Zone(LPD3DXSPRITE _SpriteHandler, World *_manager)
 {
@@ -74,8 +75,11 @@ Zone* Zone::CreateZone(int* parameters, LPD3DXSPRITE spriteHandler, World *manag
 		newZone = new Spawner(spriteHandler, manager);
 		break;
 	case ZONE_DEAD:
-	case ZONE_GRINDER:
 		newZone = new DeadZone(spriteHandler, manager, parameters[1] % 100);
+		break;
+	case ZONE_GRINDER:
+		//newZone = new DeadZone(spriteHandler, manager, parameters[1] % 100);
+		newZone = new Grinder(spriteHandler, manager);
 		break;
 	case ZONE_BATTLEBOSS:
 		newZone = new BattleBoss(spriteHandler, manager);

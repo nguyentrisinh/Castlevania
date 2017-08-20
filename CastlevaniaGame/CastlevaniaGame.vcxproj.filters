@@ -254,6 +254,12 @@
     <ClCompile Include="Head.cpp">
       <Filter>Enemies\Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Grinder.cpp">
+      <Filter>Zone</Filter>
+    </ClCompile>
+    <ClCompile Include="Bone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Heart.h">
@@ -439,6 +445,10 @@
     <ClInclude Include="Head.h">
       <Filter>Enemies\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Grinder.h">
+      <Filter>Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="Bone.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Sprites\subweapon_left.bmp">

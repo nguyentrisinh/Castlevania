@@ -138,7 +138,6 @@
 120	904	3648	23	1022	44	
 // region 3
 116	906	4576	648	766	336	503	2	// spawner ghoul
-117	906	4480	704	566	194	503	1	// spawner ghoul up
 118	906	4576	540	766	116	503	1	// spawner ghoul down
 121	907	5512	528	32	96	// battle boss
 // ====== BRICK & MISC ======

@@ -260,6 +260,9 @@
     <ClCompile Include="Bone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ghost.cpp">
+      <Filter>Enemies\Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Heart.h">
@@ -449,6 +452,9 @@
       <Filter>Zone</Filter>
     </ClInclude>
     <ClInclude Include="Bone.h" />
+    <ClInclude Include="Ghost.h">
+      <Filter>Enemies\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Sprites\subweapon_left.bmp">
@@ -571,8 +577,5 @@
     <Text Include="Resources\Maps\map2_GO_quadtree.txt">
       <Filter>Resources\Maps</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="changelog_v_2.3" />
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 #define _GRINDER_H_
 
 #include "Zone.h"
+#include "Player.h"
 
 class Grinder : 
 	public Zone
@@ -23,7 +24,7 @@ public:
 		int param7, int param8, int _maxCount);
 	virtual void Update(const float &_DeltaTime);
 	virtual void Render();
-	virtual void Collision(Player *actor, const float &_DeltaTime);
+	virtual void Collision(Player *Simon, const float &_DeltaTime);
 };
 
 

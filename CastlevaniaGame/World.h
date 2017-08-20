@@ -18,6 +18,7 @@
 #include "Knight.h"
 #include "Head.h"
 #include "Bone.h"
+#include "Ghost.h"
 //-------Item--------
 #include "Heart.h"
 #include "BigHeart.h"

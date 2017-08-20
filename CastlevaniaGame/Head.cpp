@@ -69,10 +69,7 @@ void Head::Update(const float &_DeltaTime)
 		timerSprite -= 0.1f;	
 	}
 
-	if (!IsInCamera())
-	{
-		this->isActive = false;
-	}
+	CheckActive();
 }
 
 void Head::Render()
@@ -95,6 +92,6 @@ void Head::Collision()
 
 void Head::CheckActive()
 {
-	if ((position.x < Sprite::cameraX) || (position.x > Sprite::cameraX + 512))
+	if ((position.x < Sprite::cameraX - 100) || (position.x > Sprite::cameraX + 512 + 100))
 		isActive = false;
 }

@@ -138,6 +138,7 @@
     <ClCompile Include="Crystal.cpp" />
     <ClCompile Include="DeadZone.cpp" />
     <ClCompile Include="GetSubWeapon.cpp" />
+    <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="Grinder.cpp" />
     <ClCompile Include="Head.cpp" />
     <ClCompile Include="Heart.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="Crystal.h" />
     <ClInclude Include="DeadZone.h" />
     <ClInclude Include="GetSubWeapon.h" />
+    <ClInclude Include="Ghost.h" />
     <ClInclude Include="Grinder.h" />
     <ClInclude Include="Head.h" />
     <ClInclude Include="Heart.h" />
@@ -304,9 +306,6 @@
     <Text Include="Resources\Maps\map2_GO_quadtree.txt" />
     <Text Include="Resources\Maps\map2_matrix.txt" />
     <Text Include="Resources\Maps\map2_quadtree.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="changelog_v_2.3" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

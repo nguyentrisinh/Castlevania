@@ -99,6 +99,7 @@ void MoneyBag::Destroy()
 
 void MoneyBag::Collision(Player *player)
 {
+	Game::gameSound->playSound(EATMONEY);
 	isActive = false;
 	switch (itemType)
 	{

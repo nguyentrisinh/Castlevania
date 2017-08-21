@@ -72,6 +72,7 @@ void BigHeart::Destroy()
 
 void BigHeart::Collision(Player *player)
 {
+	Game::gameSound->playSound(EATHEART);
 	player->heart += 5;
 	Destroy();
 }

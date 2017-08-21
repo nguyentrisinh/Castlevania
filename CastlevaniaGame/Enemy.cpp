@@ -51,7 +51,7 @@ void Enemy::Destroy()
 
 void Enemy::TakeDamage(int Damage)
 {
-	
+	Game::gameSound->playSound(HITSOFT);	
 	health -= Damage;
 	if (health <= 0) 
 	{

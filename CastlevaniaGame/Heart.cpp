@@ -79,6 +79,7 @@ void Heart::Destroy()
 
 void Heart::Collision(Player *player)
 {
+	Game::gameSound->playSound(EATHEART);
 	isActive = false;
 	player->heart++;
 	

@@ -3,6 +3,7 @@
 #include "World.h"
 #include "Item.h"
 #include "GroupObject.h"
+#include "Game.h"
 
 Destructible::Destructible() {}
 
@@ -84,6 +85,7 @@ void Destructible::Render()
 
 void Destructible::Destroy()
 {
+	Game::gameSound->playSound(HITSOFT);
 	this->isActive = false;
 
 	// làm hiệu ứng cháy

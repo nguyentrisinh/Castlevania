@@ -2,6 +2,7 @@
 #define _ENEMY_H_
 
 #include "GameObject.h"
+#include "Game.h"
 
 #define REDBAT 1
 #define BLUEBAT 2

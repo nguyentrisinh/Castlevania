@@ -115,6 +115,7 @@ void GetSubWeapon::Destroy()
 void GetSubWeapon::Collision(Player *player)
 {
 	isActive = false;
+	Game::gameSound->playSound(EATWEAPON_CHICKEN);
 	switch (itemType)
 	{
 	case GETKNIFE:

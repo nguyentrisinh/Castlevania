@@ -91,4 +91,5 @@ void Brick::Destroy()
 	Item* theItem = Item::CreateItem(a, this->position.x, this->position.y + 2, spriteHandler, manager);
 	// thêm item vào world
 	manager->groupItem->AddObject(theItem);
+	Game::gameSound->playSound(BRICKBREAK);
 }

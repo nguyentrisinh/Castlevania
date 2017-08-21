@@ -69,6 +69,7 @@ void Crystal::Destroy()
 
 void Crystal::Collision(Player *player)
 {
+	Game::gameSound->playSound(EATCRYSTAL);
 	isActive = false;
 	//Hoi mau va xu ly qua man
 	this->manager->Simon->RestoreHP();

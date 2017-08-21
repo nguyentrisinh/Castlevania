@@ -87,6 +87,8 @@ void Bone::Render()
 
 void Bone::Destroy()
 {
+	Effect* effect = Effect::CreateEffect(EFFECT_SPIRIT, position.x, position.y, -1, spriteHandler, manager);
+	manager->groupEffect->AddObject(effect);
 	manager->Simon->score += 300;
 	isActive = false;
 }

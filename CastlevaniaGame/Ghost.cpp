@@ -17,7 +17,7 @@ Ghost::~Ghost() {}
 
 void Ghost::Init(int _X, int _Y)
 {
-	health = 3;
+	health = 5;
 	damage = 1;
 
 	isActive = true;
@@ -32,7 +32,7 @@ void Ghost::Init(int _X, int _Y)
 
 void Ghost::Init(int _X, int _Y, bool isRight)
 {
-	health = 3;
+	health = 5;
 	damage = 1;
 
 	isActive = true;
@@ -98,4 +98,11 @@ void Ghost::CheckActive()
 		isActive = false;
 	else
 		isActive = true;
+}
+
+void Ghost::TakeDamage(int damage)
+{
+	Enemy::TakeDamage(damage);
+	Effect* effect = Effect::CreateEffect(EFFECT_HIT, position.x, position.y, -1, spriteHandler, manager);
+	manager->groupEffect->AddObject(effect);
 }

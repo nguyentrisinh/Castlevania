@@ -19,6 +19,6 @@ public:
 
 	virtual void Init(int _X, int _Y, bool isRight);
 	virtual void CheckActive();
-
+	virtual void TakeDamage(int damage);
 };
 #endif 

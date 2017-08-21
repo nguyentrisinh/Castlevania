@@ -6,7 +6,7 @@ Snake::Snake(LPD3DXSPRITE _SpriteHandler, World *_manager)
 {
 	manager = _manager;
 	collider = new Collider();
-	collider->setCollider(18, 4, 26, 72);
+	collider->setCollider(18, -14, 26, 72);
 
 	position.x = 0;
 	position.y = 0;
@@ -26,11 +26,17 @@ void Snake::Init(int _X, int _Y, bool isRight)
 	//limitLeft, limitRight???
 	health = 1;
 	damage = 1;
-	if (isRight)
-		velocity.x = 40;
-	else
-		velocity.x = -40;
-	velocity.y = -20;
+	limitRight = 535;
+	if (isRight) {
+		velocity.x = 150;
+		sprite = spriteRight;
+	}
+	else {
+		velocity.x = -150;
+		sprite = spriteLeft;
+	}
+		
+	velocity.y = -150;
 	isActive = true;
 	position.x = _X;
 	position.y = _Y;
@@ -39,7 +45,7 @@ void Snake::Init(int _X, int _Y, bool isRight)
 void Snake::Update(const float &_DeltaTime)
 {
 	_deltaTime = _DeltaTime;
-	if (!CheckGroundCollision()) {
+	if (!CheckGroundCollision() || position.x >= limitRight) {
 		position.y += (velocity.y * _deltaTime);
 	}
 	else {

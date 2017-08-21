@@ -91,18 +91,21 @@ void Medusa::Update(const float &_DeltaTime)
 			sprite->Next(2, 3);
 			velocity.x = 0;
 			velocity.y = 0;
-			Snake *snake = new Snake(spriteHandler, manager);
-			snake->Init(position.x, position.y - 5, manager->Simon->isRight);
-			snake->Update(_DeltaTime);
 
 			if (timePause > -0.5)
 			{
-				list_snakes[0]->Init(position.x, position.y, manager->Simon->isRight);
+				if (position.x <= manager->Simon->position.x)
+					list_snakes[0]->Init(position.x, position.y, true);
+				else
+					list_snakes[0]->Init(position.x, position.y, false);
 				manager->groupEnemy->AddObject(list_snakes[0]);
 			}
 			else
 			{
-				list_snakes[1]->Init(position.x, position.y, manager->Simon->isRight);
+				if (position.x <= manager->Simon->position.x)
+					list_snakes[1]->Init(position.x, position.y, true);
+				else
+					list_snakes[1]->Init(position.x, position.y, false);
 				manager->groupEnemy->AddObject(list_snakes[1]);
 			}
 

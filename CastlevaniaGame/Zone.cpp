@@ -78,7 +78,6 @@ Zone* Zone::CreateZone(int* parameters, LPD3DXSPRITE spriteHandler, World *manag
 		newZone = new DeadZone(spriteHandler, manager, parameters[1] % 100);
 		break;
 	case ZONE_GRINDER:
-		//newZone = new DeadZone(spriteHandler, manager, parameters[1] % 100);
 		newZone = new Grinder(spriteHandler, manager);
 		break;
 	case ZONE_BATTLEBOSS:

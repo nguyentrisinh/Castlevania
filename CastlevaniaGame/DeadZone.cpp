@@ -57,4 +57,6 @@ void DeadZone::Collision(Player *actor, const float &_DeltaTime)
 {
 	// chết ngay lập tức!
 	//actor->Destroy();
+	// Chết ngay lập tức
+	actor->Injured(1, 16);
 }

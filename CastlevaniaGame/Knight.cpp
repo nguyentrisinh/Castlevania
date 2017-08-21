@@ -38,7 +38,7 @@ void Knight::Init(int _X, int _Y)
 	position.x = _X+20;
 	velocity.x = -40; //default go from right to left
 	sprite = spriteLeft;
-	limitRight = startX + 100;
+	limitRight = startX + 65;
 	limitLeft = startX - 100;
 	index++;
 	

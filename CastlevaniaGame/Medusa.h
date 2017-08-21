@@ -4,6 +4,8 @@
 #define _MEDUSA_H_
 
 #include "Enemy.h"
+#include "Snake.h"
+#include <map>
 
 class Medusa :
 	public Enemy
@@ -22,6 +24,12 @@ public:
 	float _deltaTime;
 	double a;
 	bool isAttack;
+
+	/*std::map<int, Snake*>listSnakes;
+	std::map<int, GameObject*>mappedObjects;
+*/
+	Snake** list_snakes;
+	int number_snakes;
 	
 	int oriY;
 	bool isSleep;

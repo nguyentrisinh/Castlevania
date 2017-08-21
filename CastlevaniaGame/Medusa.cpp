@@ -16,6 +16,8 @@ Medusa::Medusa(LPD3DXSPRITE _SpriteHandler, World *_manager) :Enemy(_SpriteHandl
 	velocity.y = 20;
 	velocity.x = 20;
 	isShown = false;
+
+	list_snakes = new Snake*[2];
 }
 
 Medusa :: ~Medusa()
@@ -32,13 +34,21 @@ void Medusa::Init(int _X, int _Y)
 	isActive = true;
 	isAttack = false;
 	oriY = _Y;
-	position.x = _X;
+	position.x = 288;
 	
-	position.y = _Y + 100;
+	position.y = 1055;
 	limitTop = _Y;
 	limitBot = _Y - 100;
 	limitRight = _X + 200;
 	limitLeft = _X - 200;
+
+	timePause = 2;
+
+	number_snakes = 0;
+	list_snakes[0] = new Snake(spriteHandler, manager);
+	list_snakes[1] = new Snake(spriteHandler, manager);
+
+	sprite->Next(4, 4);
 }
 void Medusa::setSprite() {
 	timerSprite += _deltaTime;
@@ -50,18 +60,73 @@ void Medusa::setSprite() {
 }
 void Medusa::Update(const float &_DeltaTime)
 {
+	// left: 520
+	// right: 1100
+	// tam: 288, 1055
 	if (isSleep)
 	{
-		position.y = oriY + 120;
-		if (manager->Simon->position.x <= position.x - 100) {
+		sprite->Next(4, 4);
+		if (manager->Simon->position.x < position.x + 50 && manager->Simon->position.y > position.y - 50) 
+		{
 			isSleep = false;
-			position.y = oriY;
+			position.x = 288;
+			position.y = 1055;
+			velocity.y = -50;
 		}	
 	}
 	else {
-		_deltaTime = _DeltaTime;
-		moveZicZac();
-		setSprite();
+		if (position.y < 1015)
+			velocity.y = 150;
+		if (position.y > 1100)
+			velocity.y = -150;
+
+		if (position.x < 156)
+			velocity.x = 150;
+		if (position.x > 465)
+			velocity.x = -150;
+
+		timePause -= _DeltaTime;
+		if (timePause < 0)
+		{
+			sprite->Next(2, 3);
+			velocity.x = 0;
+			velocity.y = 0;
+			Snake *snake = new Snake(spriteHandler, manager);
+			snake->Init(position.x, position.y - 5, manager->Simon->isRight);
+			snake->Update(_DeltaTime);
+
+			if (timePause > -0.5)
+			{
+				list_snakes[0]->Init(position.x, position.y, manager->Simon->isRight);
+				manager->groupEnemy->AddObject(list_snakes[0]);
+			}
+			else
+			{
+				list_snakes[1]->Init(position.x, position.y, manager->Simon->isRight);
+				manager->groupEnemy->AddObject(list_snakes[1]);
+			}
+
+			if (timePause < -2)
+			{
+				velocity.x = 150;
+				velocity.y = -150;
+				timePause = 2;
+			}
+		}
+
+		timerSprite += _DeltaTime;
+		if (timerSprite > 0.2f)
+		{
+			velocity.y -= velocity.x / 7;
+			sprite->Next(0, 1);
+			timerSprite -= 0.2;
+		}
+
+		position.y += velocity.y * _DeltaTime;
+		position.x += velocity.x * _DeltaTime;
+		/*_deltatime = _deltatime;
+		moveziczac();
+		setsprite();*/
 	}
 	
 }
@@ -146,8 +211,7 @@ void Medusa::moveZicZac() {
 }
 void Medusa::Render()
 {
-	if (!isSleep)
-		sprite->Render(position.x, position.y);
+	sprite->Render(position.x, position.y);
 }
 
 void Medusa::Destroy()
@@ -177,6 +241,7 @@ void Medusa::Destroy()
 	manager->groupEffect->AddObject(effect);
 
 	manager->Simon->score += 3000;
+	health = 0;
 	isActive = false;
 
 	// tạo item add vào world

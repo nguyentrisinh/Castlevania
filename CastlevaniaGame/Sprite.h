@@ -24,6 +24,9 @@ public:
 	// bien index, da bi di doi sang public
 	int _Index;								// Current sprite index, [0,n-1]
 
+	// biến giúp đổi màu khi render
+	int red, green, blue;
+
 	// ==== CÁC BIẾN STATIC ======
 	static int cameraXLeft;
 	static int cameraXRight;
@@ -38,6 +41,9 @@ public:
 	void Next(int start,int end);
 	void Index(int index);
 	void Reset();
+
+	// Set color
+	void SetColorOverlay(int r, int g, int b);
 
 	// Render current sprite at location (X,Y) at the target surface
 	void Render(int X, int Y);

@@ -68,6 +68,7 @@ Sprite::Sprite(LPD3DXSPRITE SpriteHandler, LPCSTR FilePath, int Width, int Heigh
 	_Count = Count;
 	_SpritePerRow = SpritePerRow;
 	_Index = 0;
+	red = green = blue = -1;
 
 	D3DXIMAGE_INFO info;
 	D3DXGetImageInfoFromFile(FilePath, &info);
@@ -127,13 +128,35 @@ void Sprite::Render(LPDIRECT3DSURFACE9 Target, int X, int Y)
 
 	D3DXVECTOR3 p(vp_pos.x, vp_pos.y, 0);
 	D3DXVECTOR3 center((float)_Width / 2, (float)_Height / 2, 0);
-	_SpriteHandler->Draw(
+
+	// Thay đổi màu 
+	if (red == green == blue == -1)
+	{
+		_SpriteHandler->Draw(
+			_Image,
+			&srect,
+			&center,
+			&p,
+			D3DCOLOR_XRGB(255, 255, 255)
+		);
+	}
+	else
+	{
+		_SpriteHandler->Draw(
+			_Image,
+			&srect,
+			&center,
+			&p,
+			D3DCOLOR_XRGB(red, green, blue)
+		);
+	}
+	/*_SpriteHandler->Draw(
 		_Image,
 		&srect,
 		&center,
 		&p,
 		D3DCOLOR_XRGB(255, 255, 255)
-		);
+		);*/
 }
 
 void Sprite::Next(int start,int end)
@@ -152,4 +175,11 @@ void Sprite::Reset()
 Sprite::~Sprite()
 {
 	_Image->Release();
+}
+
+void Sprite::SetColorOverlay(int r, int g, int b)
+{
+	red = r;
+	green = g;
+	blue = b;
 }

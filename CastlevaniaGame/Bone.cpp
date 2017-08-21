@@ -105,6 +105,8 @@ void Bone::ActivateBoneFire()
 void Bone::TakeDamage(int damage)
 {
 	health -= damage;
+	// Biến đỏ
+	sprite->SetColorOverlay(255, 0, 0);
 	if (health <= 0)
 	{
 		Destroy();

@@ -21,36 +21,40 @@ Snake::~Snake()
 {
 	
 }
-void Snake::Init(int _X, int _Y)
+void Snake::Init(int _X, int _Y, bool isRight)
 {
+	//limitLeft, limitRight???
 	health = 1;
 	damage = 1;
-
+	if (isRight)
+		velocity.x = 40;
+	else
+		velocity.x = -40;
+	velocity.y = -20;
 	isActive = true;
 	position.x = _X;
 	position.y = _Y;
 	velocity.x = -160;
-	
 }
 
 void Snake::Update(const float &_DeltaTime)
 {
-	if (!manager->medusa->isAttack)
-		isActive = false;
+	_deltaTime = _DeltaTime;
+	if (!CheckGroundCollision()
+		&& position.x <= limitLeft
+		&& position.x >= limitRight ) {
+		position.y += (velocity.y * _deltaTime);
+	}
+	else {
+		position.x += (velocity.x * _deltaTime);
+	}
 	
-	position.x += velocity.x*_DeltaTime;
-
-	//position.y = velocity.y*_DeltaTime;
 	timerSprite += _DeltaTime;
-
 	if (timerSprite >= 0.2f)
 	{
-		
 		sprite->Next(0, 1);
 		timerSprite = 0;
 	}
-	if (manager->medusa->isAttack )
-		CollisionObject(_DeltaTime);
 }
 void Snake::Render()
 {
@@ -72,33 +76,30 @@ void Snake::Destroy()
 void Snake::Collision()
 {}
 
-void Snake::CollisionObject(float _DeltaTime)
-{
-	float collisionScale = 0;
-	GameObject* tempObject;
+bool Snake::CheckGroundCollision() {
 
-	/*for (int i = 0; i < (manager->groupQuadtreeCollision->number); i++)
+	//Check for each object in quad tree is ground and collision?
+	for (int i = 0; i < (manager->groupQuadtreeCollision->number); i++)
 	{
+		GameObject *object = manager->groupQuadtreeCollision->objects[i];
 
-		tempObject = manager->groupQuadtreeCollision->objects[i];
-
-		switch (tempObject->objectType)
+		switch (object->objectType)
 		{
-		case ENEMY_TYPE:
-			if (tempObject->objectType == MEDUSA)
-				break;
-			else
+		case GROUND_TYPE:
+			float collisionScale = SweptAABB(object, _deltaTime);
+
+			if (collisionScale < 1.0f)
 			{
-				collisionScale = SweptAABB(tempObject, _DeltaTime);
-				if (collisionScale < 1.0f)
+				switch (((Ground*)object)->typeGround)
 				{
-					tempObject->Collision();
+				case GROUND_BLOCK:
+					return true;
+					break;
+				default:
+					break;
 				}
-				break;
 			}
-			
-		default:
-			break;
 		}
-	}*/
+	}
+	return false;
 }

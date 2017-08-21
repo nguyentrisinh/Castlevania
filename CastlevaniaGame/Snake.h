@@ -8,16 +8,18 @@ class Snake :
 	public Enemy
 {
 public:
+	int limitLeft, limitRight;
+	float _deltaTime;
 	Snake(LPD3DXSPRITE _SpriteHandler, World *_manager);
 	~Snake();
 	
-	virtual void Init(int _X, int _Y);
+	virtual void Init(int _X, int _Y, bool isRight);
 	virtual void Update(const float &_DeltaTime);
 	virtual void Render();
 	virtual void Destroy();
 	virtual void Collision();
 
-	void Snake::CollisionObject(float _DeltaTime);
+	bool CheckGroundCollision();
 };
 
 #endif // !_SNAKE_

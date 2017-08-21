@@ -1,4 +1,4 @@
-#include "BlueBat.h"
+﻿#include "BlueBat.h"
 #include "Sprite.h"
 #include "World.h"
 
@@ -9,7 +9,7 @@ BlueBat::BlueBat(LPD3DXSPRITE _SpriteHandler, World *_manager) :Enemy(_SpriteHan
 {
 	collider->setCollider(14, -14, -10, 10);
 	enemyType = BLUEBAT;
-	// ---- update K_1.7
+	isSleeping = true;
 	spriteLeft->_Index = 18;
 	spriteRight->_Index = 18;
 }
@@ -26,6 +26,8 @@ void BlueBat::Init(int _X, int _Y)
 	damage = 2;
 
 	isActive = true;
+	isSleeping = true;
+
 	position.x = _X;
 	position.y = _Y;
 	velocity.y = -250;
@@ -38,11 +40,39 @@ void BlueBat::Init(int _X, int _Y)
 
 void BlueBat::Update(const float &_DeltaTime)
 {
-	// set sprites with direction
-	if (velocity.x > 0)
-		sprite = spriteRight;
-	else
-		sprite = spriteLeft;
+	if (isSleeping)
+	{
+		if (sqrt(
+			pow(manager->Simon->position.x - this->position.x, 2) +
+			pow(manager->Simon->position.y - this->position.y, 2))
+			< 210)
+		{
+			isSleeping = false;
+
+			// chuyển sprite 
+			spriteLeft->_Index = 19;
+			spriteRight->_Index = 19;
+
+			if (manager->Simon->isRight)
+			{
+				velocity.x = -160;
+				// set sprites with direction
+				sprite = spriteLeft;
+			}
+			else
+			{
+				velocity.x = 160;
+				// set sprites with direction
+				sprite = spriteRight;
+			}
+		}
+	}
+
+	if (isSleeping)
+	{
+		return;
+	}
+
 	// move
 
 	position.x += velocity.x * _DeltaTime;

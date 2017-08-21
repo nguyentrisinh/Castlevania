@@ -11,6 +11,8 @@ public:
 	BlueBat();
 	BlueBat(LPD3DXSPRITE _SpriteHandler, World *_manager);
 	~BlueBat();
+
+	bool isSleeping;
 	virtual void Init(int _X, int _Y);
 	virtual void Update(const float &_DeltaTime);
 	virtual void Render();

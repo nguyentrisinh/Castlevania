@@ -34,15 +34,12 @@ void Snake::Init(int _X, int _Y, bool isRight)
 	isActive = true;
 	position.x = _X;
 	position.y = _Y;
-	velocity.x = -160;
 }
 
 void Snake::Update(const float &_DeltaTime)
 {
 	_deltaTime = _DeltaTime;
-	if (!CheckGroundCollision()
-		&& position.x <= limitLeft
-		&& position.x >= limitRight ) {
+	if (!CheckGroundCollision()) {
 		position.y += (velocity.y * _deltaTime);
 	}
 	else {

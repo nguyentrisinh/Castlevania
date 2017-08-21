@@ -52,11 +52,6 @@ void Enemy::Destroy()
 void Enemy::TakeDamage(int Damage)
 {
 	
-	
-	//health -= Damage;
-
-	// Test for Damage
-	//if (!this->isDamage)
 	health -= Damage;
 	if (health <= 0) 
 	{
@@ -66,11 +61,7 @@ void Enemy::TakeDamage(int Damage)
 	{
 		Effect* effect = Effect::CreateEffect(EFFECT_HIT, position.x + 14, position.y, -1, spriteHandler, manager);
 		manager->groupEffect->AddObject(effect);
-	}
-	
-
-	
-		
+	}	
 }
 
 void Enemy::Collision()

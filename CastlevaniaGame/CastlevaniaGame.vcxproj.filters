@@ -263,6 +263,9 @@
     <ClCompile Include="Ghost.cpp">
       <Filter>Enemies\Sources</Filter>
     </ClCompile>
+    <ClCompile Include="GSound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Heart.h">
@@ -455,6 +458,7 @@
     <ClInclude Include="Ghost.h">
       <Filter>Enemies\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="GSound.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Sprites\subweapon_left.bmp">

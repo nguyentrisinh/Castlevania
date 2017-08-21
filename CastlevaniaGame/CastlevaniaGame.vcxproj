@@ -140,6 +140,7 @@
     <ClCompile Include="GetSubWeapon.cpp" />
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="Grinder.cpp" />
+    <ClCompile Include="GSound.cpp" />
     <ClCompile Include="Head.cpp" />
     <ClCompile Include="Heart.cpp" />
     <ClCompile Include="Hit.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="GetSubWeapon.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="Grinder.h" />
+    <ClInclude Include="GSound.h" />
     <ClInclude Include="Head.h" />
     <ClInclude Include="Heart.h" />
     <ClInclude Include="Hit.h" />

@@ -42,6 +42,7 @@ void BlueBat::Update(const float &_DeltaTime)
 {
 	if (isSleeping)
 	{
+		// căn k/c giữa Simon và thím dơi
 		if (sqrt(
 			pow(manager->Simon->position.x - this->position.x, 2) +
 			pow(manager->Simon->position.y - this->position.y, 2))
@@ -73,7 +74,7 @@ void BlueBat::Update(const float &_DeltaTime)
 		return;
 	}
 
-	// move
+	// bay (ko ngủ)
 
 	position.x += velocity.x * _DeltaTime;
 

@@ -95,7 +95,7 @@ public:
 	void _InitWindow();
 	void _InitDirectX();
 	void _InitKeyboard();
-	void _LoadSound();
+	//void _LoadSound();
 	void _InitFont();
 
 	//Khởi tạo sound

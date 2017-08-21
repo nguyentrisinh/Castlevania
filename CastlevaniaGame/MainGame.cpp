@@ -1,4 +1,5 @@
-﻿#include "MainGame.h"
+﻿#pragma one
+#include "MainGame.h"
 #include <d3d9.h>
 #include <d3dx9.h>
 #include "OLoader.h"
@@ -362,6 +363,23 @@ void MainGame::NextLevel()
 	// cập nhật các con trỏ object theo lvl
 	oloader = oloaders[lvl - 1];
 	oloader->Reload();
+
+	switch (lvl)
+	{
+	case 1:
+		Game::gameSound->stopSound(LVL2_STALKER);
+		Game::gameSound->playSoundLoop(LVL1_VAMKILL);
+		//world->Simon->timeUI = 300;
+		break;
+	case 2:
+		Game::gameSound->stopSound(LVL1_VAMKILL);
+		Game::gameSound->playSoundLoop(LVL2_STALKER);
+		//world->Simon->timeUI = 600;
+		break;
+	default:
+		break;
+	}
+
 	//cap nhat lai danh sach cac ID tile có nằm trong viewport
 	size = 0;
 	TreeBr->ListObjectInViewPort(ListTileBackgoundID, size);

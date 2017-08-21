@@ -18,6 +18,7 @@
 #include <dinput.h>
 #include <dxerr.h>
 #include <dsound.h>
+#include "GSound.h"
 #include <string>
 #include "TileMaps.h"
 
@@ -54,6 +55,7 @@ public:
 	//Doi tuong Direct Sound
 	LPDIRECTSOUND8        g_pDS;
 	LPDIRECTSOUNDBUFFER DSBuffer;
+	static GSound *gameSound;
 
 	//Bien dung cho Game time
 	DWORD _DeltaTime;							//Thoi gian tu frame truoc den frame nay
@@ -94,7 +96,7 @@ public:
 	void _InitWindow();
 	void _InitDirectX();
 	void _InitKeyboard();
-	void _LoadSound();
+	//void _LoadSound();
 	void _InitFont();
 	void _InitMap();
 	void _InitBackgroundQuadTree();

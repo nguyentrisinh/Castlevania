@@ -5,7 +5,9 @@
 #define SCREEN_WIDTH 512
 #define SCREEN_HEIGHT 448 
 
-#pragma
+#pragma warning
+GSound* Game::gameSound = NULL;
+
 
 Game::Game(HINSTANCE hInstance, LPCSTR Name, int IsFullscreen, int FrameRate)
 {
@@ -27,6 +29,7 @@ Game::Game(HINSTANCE hInstance, LPCSTR Name, int IsFullscreen, int FrameRate)
 
 	g_pDS = NULL;
 	DSBuffer = NULL;
+	Game::gameSound = new GSound();
 }
 
 void Game::_InitWindow()
@@ -147,131 +150,22 @@ void Game::_InitFont()
 	SetRect(&recZone2, 295, 48, 600, 600);
 }
 
-void Game::_LoadSound()
-{
-	
-	if (!initDirectSound(_hWnd))
-	{
-		MessageBox(NULL, "Unable to init DirectSound", "ERROR", MB_OK);
-	}
-	
-	DSBuffer = LoadWaveToSoundBuffer("Resources\\Sounds\\stage-01.wav");
-	if (!DSBuffer)
-	{
-		MessageBox(NULL, "Unable to load sound.wav", "ERROR", MB_OK);
-		
-	}
-	
-}
-
-//-------Cài đặt Sound--------
-bool Game::initDirectSound(HWND hwnd)
-{
-	HRESULT hr;
-
-	hr = DirectSoundCreate8(NULL, &g_pDS, NULL);
-	if FAILED(hr)
-		return false;
-
-	// Set DirectSound cooperative level 
-	hr = g_pDS->SetCooperativeLevel(hwnd, DSSCL_PRIORITY);
-	if FAILED(hr)
-		return false;
-
-	return true;
-}
-void Game::shutdownDirectSound(void)
-{
-	if (g_pDS)
-	{
-		g_pDS->Release();
-		g_pDS = NULL;
-	}
-}
-LPDIRECTSOUNDBUFFER Game::LoadWaveToSoundBuffer(std::string wavFilename)
-{
-	LPDIRECTSOUNDBUFFER apDSBuffer = NULL;
-	CWaveFile *wavFile;
-	HRESULT hr;
-
-	wavFile = new CWaveFile();
-	wavFile->Open((char*)wavFilename.c_str(), NULL, WAVEFILE_READ);
-	
-
-	DSBUFFERDESC dsbd;
-	ZeroMemory(&dsbd, sizeof(DSBUFFERDESC));
-	dsbd.dwSize = sizeof(DSBUFFERDESC);
-	dsbd.dwFlags = 0;
-	dsbd.dwBufferBytes = wavFile->GetSize();
-	dsbd.guid3DAlgorithm = GUID_NULL;
-	dsbd.lpwfxFormat = wavFile->m_pwfx;
-
-	hr = g_pDS->CreateSoundBuffer(&dsbd, &apDSBuffer, NULL);
-	if FAILED(hr)
-	{
-		MessageBox(NULL, "unable to create sound buffer", "ERROR", MB_OK);
-		return NULL;
-	}
-
-	VOID*   pDSLockedBuffer = NULL; // Pointer to locked buffer memory
-	DWORD   dwDSLockedBufferSize = 0;    // Size of the locked DirectSound buffer
-	DWORD   dwWavDataRead = 0;    // Amount of data read from the wav file 
-
-	hr = apDSBuffer->Lock(0, wavFile->GetSize(),
-		&pDSLockedBuffer, &dwDSLockedBufferSize,
-		NULL, NULL, 0L);
-	if FAILED(hr)
-		return NULL;
-
-	// Reset the wave file to the beginning 
-	wavFile->ResetFile();
-
-	// Read the wave file
-	hr = wavFile->Read((BYTE*)pDSLockedBuffer,
-		dwDSLockedBufferSize,
-		&dwWavDataRead);
-	// Check to make sure that this was successful
-	if FAILED(hr)
-		return NULL;
-
-	// Check to make sure the wav file is not empty
-	if (dwWavDataRead == 0)
-	{
-		// Wav is blank, so just fill with silence
-		FillMemory((BYTE*)pDSLockedBuffer,
-			dwDSLockedBufferSize,
-			(BYTE)(wavFile->m_pwfx->wBitsPerSample == 8 ? 128 : 0));
-	}
-	else if (dwWavDataRead < dwDSLockedBufferSize)
-	{
-		// Don't repeat the wav file, just fill in silence 
-		FillMemory((BYTE*)pDSLockedBuffer + dwWavDataRead,
-			dwDSLockedBufferSize - dwWavDataRead,
-			(BYTE)(wavFile->m_pwfx->wBitsPerSample == 8 ? 128 : 0));
-	}
-
-	// Unlock the buffer, we don't need it anymore.
-	apDSBuffer->Unlock(pDSLockedBuffer, dwDSLockedBufferSize, NULL, 0);
-
-	// Clean up
-	delete wavFile;
-
-	return apDSBuffer;
-}
-void Game::playSound(LPDIRECTSOUNDBUFFER whichBuffer)
-{
-	whichBuffer->Play(0, 0, 0);
-}
-void Game::playSoundLoop(LPDIRECTSOUNDBUFFER whichBuffer)
-{
-	whichBuffer->Play(0, 0, DSBPLAY_LOOPING);
-}
-void Game::stopSound(LPDIRECTSOUNDBUFFER whichBuffer)
-{
-	whichBuffer->Stop();
-}
-
-//------------------------------
+//void Game::_LoadSound()
+//{
+//	
+//	if (!initDirectSound(_hWnd))
+//	{
+//		MessageBox(NULL, "Unable to init DirectSound", "ERROR", MB_OK);
+//	}
+//	
+//	DSBuffer = LoadWaveToSoundBuffer("Resources\\Sounds\\stage-01.wav");
+//	if (!DSBuffer)
+//	{
+//		MessageBox(NULL, "Unable to load sound.wav", "ERROR", MB_OK);
+//		
+//	}
+//	
+//}
 
 void Game::Init()
 {
@@ -279,7 +173,8 @@ void Game::Init()
 	_InitDirectX();
 	_InitKeyboard();
 	_InitFont();
-	_LoadSound();
+	//_LoadSound();
+	Game::gameSound->LoadSound(_hWnd);
 	LoadResources(d3ddevice);
 }
 
@@ -402,7 +297,8 @@ Game::~Game()
 	}
 
 	// shutdown DirectSound
-	shutdownDirectSound();
+	//shutdownDirectSound();
+	Game::gameSound->shutdownDirectSound();
 	
 }
 

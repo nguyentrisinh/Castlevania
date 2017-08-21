@@ -139,6 +139,34 @@ class OLoader;
 #define VELOCITY 150
 #define HEALTH 16
 
+// ====---SOUND--=======
+#define INTRODUCE1 0
+#define INTRODUCE2 1
+#define LVL1_VAMKILL 2
+#define LVL2_STALKER 3
+#define BOOMERANG 4
+#define BRICKBREAK 5
+#define DOWNWATER 6
+#define EATCROSS 7
+#define EATCRYSTAL 8
+#define EATHEART 9
+#define EATMONEY 10
+#define EATPOTION 11
+#define EATWEAPON_CHICKEN 12
+#define HITSOFT 13
+#define HITSTEEL 14
+#define HOLYWATERBREAK 15
+#define INJURED 16
+#define SOUNDKNIFE 17
+#define MAINGATE 18
+#define PAUSE 19
+#define POTIONIMMORTAL 20
+#define SHOWSECRETITEM 21
+#define TETRENCAOXUONG 22
+#define TICKTICKTICK 23
+#define TIMENEAREND 24
+#define UPWATER 25
+#define WHIPATTACK_AXE 26
 
 
 #endif // !_THAMSO_H_

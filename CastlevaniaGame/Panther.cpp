@@ -95,7 +95,7 @@ void Panther::downing() {
 			return;
 		}
 	}
-	position.y += ((-velocity.y * 8) * _deltaTime);
+	position.y += ((-velocity.y * 6.5) * _deltaTime);
 	position.x += ((-velocity.x + -10) * _deltaTime);
 }
 void Panther::runningRight() {

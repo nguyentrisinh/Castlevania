@@ -1,4 +1,4 @@
-#include "Ghoul.h"
+﻿#include "Ghoul.h"
 #include "Sprite.h"
 #include "World.h"
 Ghoul::Ghoul() {}
@@ -37,7 +37,11 @@ void Ghoul::Init(int _X, int _Y)
 }
 
 void Ghoul::Update(const float &_DeltaTime)
-{
+{   
+	// trọng lực
+	velocity.y += -(1000 * _DeltaTime);
+	Enemy::CheckGroundCollision(manager, _DeltaTime);
+
 	position.x += velocity.x * _DeltaTime;
 	position.y += velocity.y * _DeltaTime;
 	
@@ -53,16 +57,8 @@ void Ghoul::Update(const float &_DeltaTime)
 		timerSprite = 0;
 	}
 
-	// ghoul neu khong va cham voi ground se roi xuong
-	if (!CheckGroundCollision(_DeltaTime))
-	{
-		velocity.y = -200;
-	}
-	else
-	{
-		velocity.y = 0;
-	}
-	CheckActive();
+	if (!IsInCamera())
+		this->isActive = false;
 }
 
 void Ghoul::Render()
@@ -90,32 +86,32 @@ void Ghoul::CheckActive()
 		isActive = false;
 }
 
-bool Ghoul::CheckGroundCollision(const float &_DeltaTime)
-{
-	float collisionScale = 0;
-	for (int i = 0; i < (manager->groupQuadtreeCollision->number); i++)
-	{
-		GameObject *tempObject = manager->groupQuadtreeCollision->objects[i];
-		switch (tempObject->objectType)
-		{
-		case GROUND_TYPE:
-			collisionScale = SweptAABB(tempObject, _DeltaTime);
-			// ghoul va cham voi ground
-			if (collisionScale < 1.0f)
-			{
-				switch (((Ground*)tempObject)->typeGround)
-				{
-				case GROUND_BLOCK:
-					return true;
-					break;
-				default:
-					break;
-				}
-			}
-		default:
-			break;
-		}
-	}
-	return false;
-}
+//bool Ghoul::CheckGroundCollision(const float &_DeltaTime)
+//{
+//	float collisionScale = 0;
+//	for (int i = 0; i < (manager->groupQuadtreeCollision->number); i++)
+//	{
+//		GameObject *tempObject = manager->groupQuadtreeCollision->objects[i];
+//		switch (tempObject->objectType)
+//		{
+//		case GROUND_TYPE:
+//			collisionScale = SweptAABB(tempObject, _DeltaTime);
+//			// ghoul va cham voi ground
+//			if (collisionScale < 1.0f)
+//			{
+//				switch (((Ground*)tempObject)->typeGround)
+//				{
+//				case GROUND_BLOCK:
+//					return true;
+//					break;
+//				default:
+//					break;
+//				}
+//			}
+//		default:
+//			break;
+//		}
+//	}
+//	return false;
+//}
 

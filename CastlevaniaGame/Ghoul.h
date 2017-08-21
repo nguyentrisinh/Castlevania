@@ -19,7 +19,7 @@ public:
 
 	virtual void Init(int _X, int _Y, bool isRight);
 	virtual void CheckActive();
-	virtual bool CheckGroundCollision(const float &_DeltaTime);
+	//virtual bool CheckGroundCollision(const float &_DeltaTime);
 };
 #endif // !_GHOUL_H_
 

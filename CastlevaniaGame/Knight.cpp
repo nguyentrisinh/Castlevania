@@ -216,14 +216,3 @@ bool Knight::isInCamera() {
 		return true;
 	return false;
 }
-void Knight::TakeDamage(int Damage)
-{
-	
-	Effect* effect = Effect::CreateEffect(EFFECT_HIT, position.x + 14, position.y, -1, spriteHandler, manager);
-	manager->groupEffect->AddObject(effect);
-	health -= Damage;
-	//position.x -= 10;
-	isFrozen = true;
-	if (health <= 0)
-		Destroy();
-}

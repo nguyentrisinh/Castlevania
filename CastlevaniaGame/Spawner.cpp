@@ -37,7 +37,7 @@ void Spawner::Init(int _X, int _Y, int _Width, int _Height,// rect
 	Zone::Init(_X, _Y, _Width, _Height);
 	// ----------
 
-	sprite = new Sprite(spriteHandler, "Resources\\Sprites\\blank.bmp", _Width, _Height, 1, 1);
+	//sprite = new Sprite(spriteHandler, "Resources\\Sprites\\blank.bmp", _Width, _Height, 1, 1);
 
 
 	typeEnemy = _TypeEnemy % 100; // 503 => 3 là ghoul
@@ -140,7 +140,7 @@ void Spawner::Collision(Player *actor, const float &_DeltaTime)
 	}
 }
 
-void Spawner::Render()
-{
-	sprite->Render(position.x, position.y);
-}
+//void Spawner::Render()
+//{
+//	sprite->Render(position.x, position.y);
+//}

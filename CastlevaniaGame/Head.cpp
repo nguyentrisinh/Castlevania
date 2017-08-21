@@ -35,6 +35,7 @@ void Head::Init(int _X, int _Y)
 void Head::Init(int _X, int _Y, bool isRight)
 {
 	health = 1;
+	damage = 2;
 	isActive = true;
 
 	lineY = manager->Simon->position.y;

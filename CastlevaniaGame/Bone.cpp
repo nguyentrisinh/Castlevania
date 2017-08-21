@@ -45,6 +45,7 @@ void Bone::Init(int _X, int _Y)
 
 void Bone::Update(const float &_DeltaTime)
 {
+	sprite->SetColorOverlay(255, 255, 255);
 	//random thời gian tấn công
 	srand(time(NULL));
 	timer = (rand() % 400 + 100) / 100.0;
@@ -66,6 +67,12 @@ void Bone::Update(const float &_DeltaTime)
 	{
 		TimeToAttack = 0;
 		ActivateBoneFire();
+	}
+
+	if (isDamage == true)
+	{
+		// Biến đỏ
+		sprite->SetColorOverlay(255, 0, 0);
 	}
 
 }
@@ -105,8 +112,6 @@ void Bone::ActivateBoneFire()
 void Bone::TakeDamage(int damage)
 {
 	health -= damage;
-	// Biến đỏ
-	sprite->SetColorOverlay(255, 0, 0);
 	if (health <= 0)
 	{
 		Destroy();

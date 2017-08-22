@@ -56,4 +56,6 @@ void GateWay::Collision(Player *actor, const float &_DeltaTime)
 	Sprite::cameraXLeft = camXLeft;
 	Sprite::cameraXRight = camXRight;
 	Sprite::cameraY = camY;
+	
+	actor->SavePoint(triggerX, triggerY, camXLeft, camXRight, camY);
 }

@@ -45,6 +45,13 @@ public:
 	bool isShowTime; // xác định Player đang thực hiện  1 động tác đi cầu thang
 	float timeSimonDeath;
 
+	// Param for save point
+	int triggerXSP;
+	int triggerYSP;
+	int camXLeftSP;
+	int camXRightSP;
+	int camYSP;
+	float relifeTime;
 
 
 	float timeImmortal;//thoi gian bat tu
@@ -113,6 +120,9 @@ public:
 	// Test Crystall Item
 	void CreateCrystallItem();
 
+	// Function to save t respawn when Simon dead
+	void SavePoint(int triggerX, int triggerY, int camXLeft, int camXRight, int camY);
+	void NewLife();
 };
 
 #endif

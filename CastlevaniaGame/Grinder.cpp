@@ -98,5 +98,6 @@ void Grinder::Update(const float &_DeltaTime)
 
 void Grinder::Collision(Player *Simon, const float &_DeltaTime)
 {
-	Simon->Injured(1, 16);
+	//Simon->Injured(1, 16);
+	Simon->NewLife();
 }

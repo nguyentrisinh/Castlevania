@@ -44,10 +44,11 @@ Player::Player(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	weaponNumber = 2;
 	subWeapon = 6;
 	invicinbleTimer = 0;
+	relifeTime = 0;
 
 	heart = 5;
 	health = HEALTH;
-	P = 3;
+	P = 5;
 	score = 0;
 }
 
@@ -105,7 +106,7 @@ void Player::Init(int _X, int _Y)
 
 	heart = 5;
 	health = 16;
-	P = 3;
+	P = 5;
 	score = 0;
 }
 
@@ -504,11 +505,19 @@ void Player::UpdateSimonDeath(float _DeltaTime)
 		{
 			this->timeSimonDeath -= ANIM_TIME;
 			this->sprite->Next(9, 11);
-			this->heart = this->sprite->_Index;
 			if (this->sprite->_Index == 10)
 			{
 				this->alreadyDeath = true;
 			}
+		}
+	}
+	else
+	{
+		this->relifeTime += _DeltaTime;
+
+		if (this->relifeTime >= 3.0f)
+		{
+			this->NewLife();
 		}
 	}
 
@@ -1180,3 +1189,33 @@ void Player::CreateCrystallItem()
 	this->manager->groupItem->AddObject(this->manager->crystal);
 }
 
+
+// Save point 
+void Player::SavePoint(int triggerX, int triggerY, int camXLeft, int camXRight, int camY)
+{
+	this->triggerXSP = triggerX;
+	this->triggerYSP = triggerY;
+	this->camXLeftSP = camXLeft;
+	this->camXRightSP = camXRight;
+	this->camYSP = camY;
+}
+
+void Player::NewLife()
+{
+	// Reset Simon Param
+	this->isImmortal = false;
+	this->invicinbleTimer = 0;
+	this->subWeapon = 1;
+	this->weaponLevel = 1;
+	this->P--;
+	this->RestoreHP();
+	this->relifeTime = 0;
+	this->heart = 10;
+
+	this->position.x = this->triggerXSP;
+	this->position.y = this->triggerYSP;
+
+	Sprite::cameraXLeft = this->camXLeftSP;
+	Sprite::cameraXRight = this->camXRightSP;
+	Sprite::cameraY = this->camYSP;
+}

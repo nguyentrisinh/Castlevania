@@ -27,7 +27,7 @@ void Ghoul::Init(int _X, int _Y, bool isRight)
 	else
 		velocity.x = 70;
 
-	velocity.y = -3000.0f;
+	//velocity.y = -3000.0f;
 }
 void Ghoul::Init(int _X, int _Y)
 {

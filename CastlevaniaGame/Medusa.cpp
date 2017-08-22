@@ -7,7 +7,7 @@ Medusa::Medusa() {}
 
 Medusa::Medusa(LPD3DXSPRITE _SpriteHandler, World *_manager) :Enemy(_SpriteHandler, _manager)
 {
-	collider->setCollider(14, -14, -10, 10);
+	collider->setCollider(14, -14, -12, 12);
 	enemyType = MEDUSA;
 	spriteMedusa = new Sprite(_SpriteHandler, "Resources\\Sprites\\medusa.png", 65, 64, 5, 5);
 	sprite = spriteMedusa;
@@ -65,8 +65,9 @@ void Medusa::Update(const float &_DeltaTime)
 	// tam: 288, 1055
 	if (isSleep)
 	{
+		position.y = 1200;
 		sprite->Next(4, 4);
-		if (manager->Simon->position.x < position.x + 50 && manager->Simon->position.y > position.y - 50) 
+		if (manager->Simon->position.x <= position.x - 150) 
 		{
 			isSleep = false;
 			position.x = 288;
@@ -81,9 +82,9 @@ void Medusa::Update(const float &_DeltaTime)
 			velocity.y = -150;
 
 		if (position.x < 156)
-			velocity.x = 150;
+			velocity.x = 150/3;
 		if (position.x > 465)
-			velocity.x = -150;
+			velocity.x = -150/3;
 
 		timePause -= _DeltaTime;
 		if (timePause < 0)
@@ -94,25 +95,21 @@ void Medusa::Update(const float &_DeltaTime)
 
 			if (timePause > -0.5)
 			{
-				if (position.x <= manager->Simon->position.x)
-					list_snakes[0]->Init(position.x, position.y, true);
-				else
-					list_snakes[0]->Init(position.x, position.y, false);
+				
+					list_snakes[0]->Init(position.x, position.y);
 				manager->groupEnemy->AddObject(list_snakes[0]);
 			}
 			else
 			{
-				if (position.x <= manager->Simon->position.x)
-					list_snakes[1]->Init(position.x, position.y, true);
-				else
-					list_snakes[1]->Init(position.x, position.y, false);
+				
+					list_snakes[1]->Init(position.x, position.y);
 				manager->groupEnemy->AddObject(list_snakes[1]);
 			}
 
 			if (timePause < -2)
 			{
-				velocity.x = 150;
-				velocity.y = -150;
+				velocity.x = 150/3;
+				velocity.y = -150/3;
 				timePause = 2;
 			}
 		}
@@ -214,7 +211,10 @@ void Medusa::moveZicZac() {
 }
 void Medusa::Render()
 {
-	sprite->Render(position.x, position.y);
+	if (!isSleep)
+		sprite->Render(position.x, position.y);
+	else
+		sprite->Render(position.x, 1055);
 }
 
 void Medusa::Destroy()

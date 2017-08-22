@@ -8,12 +8,12 @@ class Snake :
 	public Enemy
 {
 public:
-	int limitLeft, limitRight;
+	int limitRight;
 	float _deltaTime;
 	Snake(LPD3DXSPRITE _SpriteHandler, World *_manager);
 	~Snake();
 	
-	virtual void Init(int _X, int _Y, bool isRight);
+	virtual void Init(int _X, int _Y);
 	virtual void Update(const float &_DeltaTime);
 	virtual void Render();
 	virtual void Destroy();

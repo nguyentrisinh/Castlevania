@@ -21,20 +21,15 @@ Snake::~Snake()
 {
 	
 }
-void Snake::Init(int _X, int _Y, bool isRight)
+void Snake::Init(int _X, int _Y)
 {
 	//limitLeft, limitRight???
 	health = 1;
 	damage = 1;
 	limitRight = 535;
-	if (isRight) {
 		velocity.x = 150;
 		sprite = spriteRight;
-	}
-	else {
-		velocity.x = -150;
-		sprite = spriteLeft;
-	}
+	
 		
 	velocity.y = -150;
 	isActive = true;

@@ -50,12 +50,12 @@ void RedBat::Init(int _X, int _Y, bool isRight)
 
 	if (manager->Simon->isRight)
 	{
-		velocity.x = -150;
+		velocity.x = -135;
 		sprite = spriteLeft;
 	}
 	else
 	{
-		velocity.x = 150;
+		velocity.x = 135;
 		sprite = spriteRight;
 	}
 	sprite->_Index = 7;

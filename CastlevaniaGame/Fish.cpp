@@ -145,6 +145,11 @@ void Fish::Update(const float &_DeltaTime)
 			else // con ca dang khong tan cong
 			{
 				sprite->Next(12, 13);
+
+				if (position.x < manager->Simon->position.x)
+					isRight = true;
+				else
+					isRight = false;
 				//kiem tra va cho con ca tan cong
 				if (TimeToAttack >= timer) // con ca khong ban lien tuc
 				{

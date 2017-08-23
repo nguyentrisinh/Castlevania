@@ -71,10 +71,8 @@ void WhipUpgrade::Destroy()
 
 void WhipUpgrade::Collision(Player *player)
 {
+	Game::gameSound->playSound(EATWEAPON_CHICKEN);
 	isActive = false;
-	// --------- update by K
-	/*if (player->weaponLevel < 3)
-		player->weaponLevel++;*/
 	if (manager->whip->whipLevel < 2)
 		manager->whip->whipLevel++;
 }

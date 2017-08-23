@@ -71,6 +71,7 @@ void Potion::Destroy()
 
 void Potion::Collision(Player *player)
 {
+	Game::gameSound->playSound(POTIONIMMORTAL);
 	isActive = false;
 	player->timeImmortal = -10;
 	player->isImmortal = true;

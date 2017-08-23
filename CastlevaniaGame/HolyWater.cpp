@@ -117,6 +117,7 @@ void HolyWater::Collision()
 	if (count <= this->manager->Simon->weaponNumber)
 	{
 		this->manager->holyFire[count]->Init(this->position.x, this->position.y);
+		Game::gameSound->playSound(HOLYWATERBREAK);
 	}
 }
 

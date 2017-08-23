@@ -1,4 +1,4 @@
-#include "Fish.h"
+ï»¿#include "Fish.h"
 #include "Sprite.h"
 #include "World.h"
 #include <time.h>
@@ -48,8 +48,10 @@ void Fish::Init(int _X, int _Y)
 	jumping = true;
 }
 
+//chá»‰ xÃ i hÃ m nÃ y
 void Fish::Init(int _X, int _Y, bool isRight)
 {
+	Game::gameSound->playSound(UPWATER);
 	health = 1;
 	damage = 1;
 
@@ -100,10 +102,10 @@ void Fish::Update(const float &_DeltaTime)
 
 	// xac dinh sprite can ve
 
-	//xac dinh toòa do Y
+	//xac dinh toÃ²a do Y
 	velocity.y += -(600 * _DeltaTime);
 
-	//kiem tra neu Y huong xuong va vi?tri doi tuong thap hon mãòt ðâìt
+	//kiem tra neu Y huong xuong va vi?tri doi tuong thap hon mÃ£Ã²t Ã°Ã¢Ã¬t
 	if (Enemy::CheckGroundCollision(manager, _DeltaTime))
 	{
 		velocity.y = 0;
@@ -122,7 +124,7 @@ void Fish::Update(const float &_DeltaTime)
 		//thoi gian de chuyen frame 
 		if (timerSprite >= 2 * ANIM_TIME)
 		{
-			// kiem tra con ca co dang tan cong hay không?
+			// kiem tra con ca co dang tan cong hay khÃ´ng?
 			if (isFiring)
 			{
 				if (position.x < manager->Simon->position.x)

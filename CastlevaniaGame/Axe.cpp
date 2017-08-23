@@ -32,6 +32,7 @@ Axe::~Axe()
 }
 void Axe::Init(int _X, int _Y)
 {
+	Game::gameSound->playSoundLoop(WHIPATTACK_AXE);
 	isActive = true;
 	position.x = _X;
 	position.y = _Y;
@@ -73,6 +74,7 @@ void Axe::Update(const float &_DeltaTime)
 	if (!IsInCamera())
 	{
 		//isActive = false;
+		Game::gameSound->stopSound(WHIPATTACK_AXE);
 		this->Destroy();
 		return;
 	}

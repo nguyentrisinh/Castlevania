@@ -33,6 +33,7 @@ Boomerang::~Boomerang()
 }
 void Boomerang::Init(int _X, int _Y)
 {
+	Game::gameSound->playSoundLoop(BOOMERANG);
 	isReverted = false;
 	isActive = true;
 	position.x = _X;
@@ -116,6 +117,7 @@ void Boomerang::Update(const float &_DeltaTime)
 		if (this->isReverted)
 		{
 			this->isActive = false;
+			Game::gameSound->stopSound(BOOMERANG);
 			return;
 		}
 
@@ -151,6 +153,7 @@ void Boomerang::Update(const float &_DeltaTime)
 	// Nếu gặp trúng Simon lúc quay về thì deactive hoặc ra khỏi màn hình thì deactive 
 	if ( (this->SweptAABB(manager->Simon, _DeltaTime) < 1 && this->isReverted) || !this->IsInCamera())
 	{
+		Game::gameSound->stopSound(BOOMERANG);
 		this->isActive = false;
 	}
 	

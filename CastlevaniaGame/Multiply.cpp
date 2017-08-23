@@ -77,6 +77,7 @@ void Multiply::Destroy()
 
 void Multiply::Collision(Player *player)
 {
+	Game::gameSound->playSound(EATWEAPON_CHICKEN);
 	isActive = false;
 	if (player->weaponNumber < 3)
 		player->weaponNumber++;

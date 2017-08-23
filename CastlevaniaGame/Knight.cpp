@@ -219,7 +219,7 @@ bool Knight::isInCamera() {
 
 void Knight::TakeDamage(int Damage)
 {
-
+	Game::gameSound->playSound(HITSOFT);
 	health -= Damage;
 	if (health <= 0)
 	{

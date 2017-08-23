@@ -69,9 +69,9 @@ void Bone::Update(const float &_DeltaTime)
 		ActivateBoneFire();
 	}
 
-	if (isDamage == true)
+	if (isDamage == TRUE)
 	{
-		// Biến đỏ
+		// biến đỏ
 		sprite->SetColorOverlay(255, 0, 0);
 	}
 
@@ -116,7 +116,9 @@ void Bone::TakeDamage(int damage)
 	health -= damage;
 	if (health <= 0)
 	{
+		Game::gameSound->playSound(HITSOFT);
 		Destroy();
 		return;
 	}
+	Game::gameSound->playSound(HITSTEEL);
 }

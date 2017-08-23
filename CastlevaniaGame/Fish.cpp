@@ -62,7 +62,7 @@ void Fish::Init(int _X, int _Y, bool isRight)
 	do
 	{
 		position.x = Sprite::cameraX + 31 + (rand() % 450);
-	} while ((position.x > (manager->Simon->position.x - 80)) && (position.x < (manager->Simon->position.x + 80)));
+	} while ((position.x > (manager->Simon->position.x - 100)) && (position.x < (manager->Simon->position.x + 100)));
 
 
 	if (position.x > manager->Simon->position.x)
@@ -126,30 +126,33 @@ void Fish::Update(const float &_DeltaTime)
 			if (isFiring)
 			{
 				if (position.x < manager->Simon->position.x)
-					velocity.x = 70;
-				else
-					velocity.x = -70;
-				isFiring = false;
-				if (velocity.x > 0)
 				{
-					sprite = spriteRight;
 					isRight = true;
+					sprite = spriteRight;
+					velocity.x = 70;
 				}
 				else
 				{
-					sprite = spriteLeft;
 					isRight = false;
+					sprite = spriteLeft;
+					velocity.x = -70;
 				}
+				isFiring = false;
+				/*if (velocity.x > 0)
+				{
+				sprite = spriteRight;
+				isRight = true;
+				}
+				else
+				{
+				sprite = spriteLeft;
+				isRight = false;
+				}*/
 
 			}
 			else // con ca dang khong tan cong
 			{
 				sprite->Next(12, 13);
-
-				if (position.x < manager->Simon->position.x)
-					isRight = true;
-				else
-					isRight = false;
 				//kiem tra va cho con ca tan cong
 				if (TimeToAttack >= timer) // con ca khong ban lien tuc
 				{

@@ -29,6 +29,7 @@ Knife::~Knife()
 }
 void Knife::Init(int _X, int _Y)
 {
+	Game::gameSound->playSound(SOUNDKNIFE);
 	isActive = true;
 	if (manager->Simon->isCrouch)
 		position.y = _Y - 14;

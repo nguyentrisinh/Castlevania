@@ -70,6 +70,7 @@ void Chicken::Destroy()
 void Chicken::Collision(Player *player)
 {
 	isActive = false;
+	Game::gameSound->playSound(EATWEAPON_CHICKEN);
 	player->health += 2;
 
 	if (player->health > 16)

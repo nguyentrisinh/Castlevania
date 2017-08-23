@@ -74,6 +74,7 @@ void Cross::Destroy()
 void Cross::Collision(Player *player)
 {
 	isActive = false;
+	Game::gameSound->playSound(EATCROSS);
 	manager->isFlash = true;
 	
 	//tieu diet tat ca enemy trong viewport, tru boss

@@ -25,7 +25,7 @@ void Bone::Init(int _X, int _Y)
 {
 
 	health = 24;
-
+	healthBefore = health;
 	TimeToAttack = 0;
 	isActive = true;
 	position.x = _X;
@@ -69,12 +69,12 @@ void Bone::Update(const float &_DeltaTime)
 		ActivateBoneFire();
 	}
 
-	if (isDamage == TRUE)
+	if (health < healthBefore || isDamage == TRUE) // cho chắc cú
 	{
-		// biến đỏ
 		sprite->SetColorOverlay(255, 0, 0);
 	}
 
+	healthBefore = health;
 }
 
 

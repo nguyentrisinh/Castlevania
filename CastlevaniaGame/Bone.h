@@ -16,6 +16,9 @@ public:
 	//khoảng thời gian cần thiết để tấn công
 	float timer;
 
+	//health ban đầu
+	int healthBefore;
+
 	bool isRight;
 	Bone();
 	Bone(LPD3DXSPRITE _SpriteHandler, World *_manager);

@@ -13,7 +13,8 @@ Snake::Snake(LPD3DXSPRITE _SpriteHandler, World *_manager):Enemy(_SpriteHandler,
 	sizeWidth = 32;
 	sizeHeight = 20;
 	enemyType = SNAKE;
-	spriteRight = new Sprite(_SpriteHandler, "Resources\\Sprites\\snake.png", 32, 20, 2, 2);
+	spriteLeft = new Sprite(_SpriteHandler, "Resources\\Sprites\\snake.png", 32, 20, 2, 2);
+	spriteRight = new Sprite(_SpriteHandler, "Resources\\Sprites\\snake_right.png", 32, 20, 2, 2);
 	sprite = spriteRight;
 	isActive = false;
 }
@@ -24,18 +25,22 @@ Snake::~Snake()
 void Snake::Init(int _X, int _Y, bool isRight)
 {
 	//Nếu simon ở bên phải thì đi qua phải
-	if (isRight)
+	if (isRight) {
 		velocity.x = 150;
-	else
+		sprite = spriteRight;
+	}
+		
+	else {
 		velocity.x = -150; //không thì đi về trái
+		sprite = spriteLeft;
+	}
+		
 
 	limitLeft = 100;
 	limitRight = 535;
 
 	health = 1;
 	damage = 1;
-	
-	sprite = spriteRight;
 	velocity.y = -150;
 	isActive = true;
 	position.x = _X;

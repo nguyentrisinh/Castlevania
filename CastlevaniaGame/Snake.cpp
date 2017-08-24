@@ -2,11 +2,11 @@
 #include "World.h"
 #include "GroupObject.h"
 
-Snake::Snake(LPD3DXSPRITE _SpriteHandler, World *_manager)
+Snake::Snake(LPD3DXSPRITE _SpriteHandler, World *_manager):Enemy(_SpriteHandler, _manager)
 {
 	manager = _manager;
 	collider = new Collider();
-	collider->setCollider(18, -14, 26, 72);
+	collider->setCollider(24, -14, 26, 72);
 
 	position.x = 0;
 	position.y = 0;

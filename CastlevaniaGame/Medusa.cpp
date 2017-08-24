@@ -118,6 +118,7 @@ void Medusa::Update(const float &_DeltaTime)
 
 				//nếu simon bên phải boss thì thả rắn đi bên phải
 				if (manager->Simon->position.x > position.x) {
+					
 					list_snakes[0]->Init(position.x, position.y, true);
 					manager->groupEnemy->AddObject(list_snakes[0]);
 				}

@@ -35,7 +35,6 @@ void Medusa::Init(int _X, int _Y)
 	isAttack = false;
 	oriY = _Y;
 	position.x = 288;
-	
 	position.y = 1055;
 	limitTop = _Y;
 	limitBot = _Y - 100;
@@ -43,7 +42,7 @@ void Medusa::Init(int _X, int _Y)
 	limitLeft = _X - 200;
 
 	timePause = 2;
-
+	timeWait = -1.0;
 	number_snakes = 0;
 	list_snakes[0] = new Snake(spriteHandler, manager);
 	list_snakes[1] = new Snake(spriteHandler, manager);
@@ -63,18 +62,39 @@ void Medusa::Update(const float &_DeltaTime)
 	// left: 520
 	// right: 1100
 	// tam: 288, 1055
+
+	//Khi medusa đang ngủ
 	if (isSleep)
 	{
+		//Vị trí nâng medusa lên để khỏi đụng simon
 		position.y = 1200;
 		sprite->Next(4, 4);
-		if (manager->Simon->position.x <= position.x - 150) 
+		
+		
+		
+		//Nếu simon tới cuối cửa, thì kích hoạt đợi 4s sau đó mới wake up
+		//Sau đó ko chạy đoạn này nữa
+		if ((manager->Simon->position.x <= position.x - 150) && (timeWait == -1.0)) //&& (manager->Simon->position.y <= position.y -250))
 		{
-			isSleep = false;
-			position.x = 288;
-			position.y = 1055;
-			velocity.y = -50;
-		}	
+			timeWait += _DeltaTime;
+			return;
+		}
+
+		//Bắt đầu đếm tới 4s
+		if (timeWait > -1.0 && timeWait <= 4.0)
+		{
+			timeWait += _DeltaTime;
+			if (timeWait > 4.0) {
+				isSleep = false;
+				//Xét lại vị trí ở giữa cho medusa
+				position.x = 288;
+				position.y = 1055;
+				velocity.y = -50;
+			}
+			return;
+		}
 	}
+
 	else {
 		if (position.y < 1015)
 			velocity.y = 150;
@@ -82,10 +102,9 @@ void Medusa::Update(const float &_DeltaTime)
 			velocity.y = -150;
 
 		if (position.x < 156)
-			velocity.x = 150/3;
+			velocity.x = 50;
 		if (position.x > 465)
-			velocity.x = -150/3;
-
+			velocity.x = -50;
 		timePause -= _DeltaTime;
 		if (timePause < 0)
 		{
@@ -93,23 +112,40 @@ void Medusa::Update(const float &_DeltaTime)
 			velocity.x = 0;
 			velocity.y = 0;
 
-			if (timePause > -0.5)
+			//time giữa 2 rắn
+			if (timePause > -0.2)
 			{
-				
-					list_snakes[0]->Init(position.x, position.y);
-				manager->groupEnemy->AddObject(list_snakes[0]);
+
+				//nếu simon bên phải boss thì thả rắn đi bên phải
+				if (manager->Simon->position.x > position.x) {
+					list_snakes[0]->Init(position.x, position.y, true);
+					manager->groupEnemy->AddObject(list_snakes[0]);
+				}
+				//thả rắn về bên trái
+				else
+				{
+					list_snakes[0]->Init(position.x, position.y, false);
+					manager->groupEnemy->AddObject(list_snakes[0]);
+				}
 			}
-			else
-			{
-				
-					list_snakes[1]->Init(position.x, position.y);
-				manager->groupEnemy->AddObject(list_snakes[1]);
+
+			//thả rắn 2
+			else {
+				if (manager->Simon->position.x > position.x) {
+					list_snakes[1]->Init(position.x, position.y, true);
+					manager->groupEnemy->AddObject(list_snakes[1]);
+				}
+				else
+				{
+					list_snakes[1]->Init(position.x, position.y, false);
+					manager->groupEnemy->AddObject(list_snakes[1]);
+				}
 			}
 
 			if (timePause < -2)
 			{
-				velocity.x = 150/3;
-				velocity.y = -150/3;
+				velocity.x = 50;
+				velocity.y = -50;
 				timePause = 2;
 			}
 		}
@@ -124,91 +160,12 @@ void Medusa::Update(const float &_DeltaTime)
 
 		position.y += velocity.y * _DeltaTime;
 		position.x += velocity.x * _DeltaTime;
-		/*_deltatime = _deltatime;
-		moveziczac();
-		setsprite();*/
-	}
-	
-}
-
-void Medusa::moveRightDown() {
-	if (position.y >= limitBot) {
-		position.x += (velocity.x * _deltaTime);
-		position.y += (-velocity.y * _deltaTime);
-		count++;
-	}
-	else {
-		count = 0;
-		way++;
-	}
-}
-
-void Medusa::moveRightUp() {
-	//Move right up and not reach any limits
-	if (position.y <= limitTop) {
-		position.x += (velocity.x * _deltaTime);
-		position.y += (velocity.y * _deltaTime);
-		count++;
-		return;
+		
 	}
 
-	//Reach limit top and right, then move left down
-	if (position.y > limitTop && position.x >= limitRight) {
-		way++;
-		return;
-	}
+}
 
-	//Only reach limit top but not right, then move 
-	way--;
-	return;
-}
-void Medusa::moveLeftDown() {
-	if (position.y >= limitBot) {
-		position.x += (-velocity.x * _deltaTime);
-		position.y += (-velocity.y * _deltaTime);
-		count++;
-	}
-	else {
-		count = 0;
-		way++;
-	}
-}
-void Medusa::moveLeftUp() {
-	if (position.y <= limitTop) {
-		position.x += (-velocity.x * _deltaTime);
-		position.y += (velocity.y * _deltaTime);
-		count++;
-		return;
-	}
 
-	//Reach limit top and left, then move right down
-	if (position.y > limitTop && position.x <= limitLeft) {
-		way = 0;
-		return;
-	}
-
-	//Only reach limit top but not left, then move 
-	way--;
-	return;
-}
-void Medusa::moveZicZac() {
-	switch (way) {
-	case 0:
-		moveRightDown();
-		break;
-	case 1:
-		moveRightUp();
-		break;
-	case 2:
-		moveLeftDown();
-		break;
-	case 3:
-		moveLeftUp();
-		break;
-	default:
-		break;
-	}
-}
 void Medusa::Render()
 {
 	if (!isSleep)
@@ -264,7 +221,7 @@ void Medusa::CheckActive()
 }
 
 void Medusa::isSimonNear() {
-	if (manager->Simon->position.x <= (position.x - 150) 
+	if (manager->Simon->position.x <= (position.x - 150)
 		&& manager->Simon->position.y >= position.y)
 		isActive = false;
 }

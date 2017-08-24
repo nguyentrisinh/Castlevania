@@ -20,14 +20,10 @@ public:
 	int way = 0;
 	int count = 0;
 	bool isShown;
-	float timePause;
+	float timePause, timeWait;
 	float _deltaTime;
 	double a;
 	bool isAttack;
-
-	/*std::map<int, Snake*>listSnakes;
-	std::map<int, GameObject*>mappedObjects;
-*/
 	Snake** list_snakes;
 	int number_snakes;
 	
@@ -42,14 +38,6 @@ public:
 	virtual void Render();
 	virtual void Destroy();
 	virtual void Collision();
-
-
-	void moveRightDown();
-	void moveRightUp();
-	void moveLeftDown();
-	void moveLeftUp();
-
-	void moveZicZac();
 	void setSprite();
 	virtual void CheckActive();
 	void checkShow();

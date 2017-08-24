@@ -1,4 +1,4 @@
-#include "Snake.h"
+﻿#include "Snake.h"
 #include "World.h"
 #include "GroupObject.h"
 
@@ -21,16 +21,21 @@ Snake::~Snake()
 {
 	
 }
-void Snake::Init(int _X, int _Y)
+void Snake::Init(int _X, int _Y, bool isRight)
 {
-	//limitLeft, limitRight???
+	//Nếu simon ở bên phải thì đi qua phải
+	if (isRight)
+		velocity.x = 150;
+	else
+		velocity.x = -150; //không thì đi về trái
+
+	limitLeft = 100;
+	limitRight = 535;
+
 	health = 1;
 	damage = 1;
-	limitRight = 535;
-		velocity.x = 150;
-		sprite = spriteRight;
 	
-		
+	sprite = spriteRight;
 	velocity.y = -150;
 	isActive = true;
 	position.x = _X;
@@ -40,9 +45,18 @@ void Snake::Init(int _X, int _Y)
 void Snake::Update(const float &_DeltaTime)
 {
 	_deltaTime = _DeltaTime;
+	
+	//Nếu rắn qua tường trái hoặc rớt xuống quá sâu thì biến mất
+	if (position.x <= limitLeft || position.y <= 915) {
+		isActive = false;
+		return;
+	}
+	//Nếu chưa chạm đất rớt xuống hoặc khi đụng tường bên phải
 	if (!CheckGroundCollision() || position.x >= limitRight) {
 		position.y += (velocity.y * _deltaTime);
 	}
+
+	//Nếu đang ở trên đất, và bắt đầu đi
 	else {
 		position.x += (velocity.x * _deltaTime);
 	}

@@ -6,7 +6,7 @@ Snake::Snake(LPD3DXSPRITE _SpriteHandler, World *_manager):Enemy(_SpriteHandler,
 {
 	manager = _manager;
 	collider = new Collider();
-	collider->setCollider(24, -14, 26, 72);
+	collider->setCollider(24, -16, -3, 3);
 
 	position.x = 0;
 	position.y = 0;
@@ -57,7 +57,7 @@ void Snake::Update(const float &_DeltaTime)
 		return;
 	}
 	//Nếu chưa chạm đất rớt xuống hoặc khi đụng tường bên phải
-	if (!CheckGroundCollision() || position.x >= limitRight) {
+	if (!CheckGroundCollision() || position.x >= (limitRight - 30)) {
 		position.y += (velocity.y * _deltaTime);
 	}
 

@@ -29,7 +29,6 @@ void Medusa::Init(int _X, int _Y)
 {
 	health = 16;
 	damage = 4;
-
 	isSleep = true;
 	isActive = true;
 	isAttack = false;
@@ -59,6 +58,7 @@ void Medusa::setSprite() {
 }
 void Medusa::Update(const float &_DeltaTime)
 {
+	//center: 288, 1055
 	//right: 530
 	//left: 130
 	//bot: 980
@@ -231,4 +231,19 @@ void Medusa::isSimonNear() {
 void Medusa::checkShow() {
 	if (manager->Simon->position.x <= position.x - 200)
 		isShown = true;
+}
+void Medusa::TakeDamage(int Damage)
+{
+	Game::gameSound->playSound(HITSOFT);
+	health -= 1;
+	if (health <= 0)
+	{
+		Destroy();
+	}
+	else
+	{
+		Effect* effect = Effect::CreateEffect(EFFECT_HIT, position.x + 14, position.y, -1, spriteHandler, manager);
+		manager->groupEffect->AddObject(effect);
+		position.x -= 4;
+	}
 }

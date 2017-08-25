@@ -41,5 +41,6 @@ public:
 	void setSprite();
 	virtual void CheckActive();
 	void checkShow();
+	void TakeDamage(int damage);
 };
 #endif // !_MEDUSA_H_

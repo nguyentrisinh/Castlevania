@@ -8,7 +8,6 @@ Rubble::Rubble(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	objectType = EFFECT_TYPE;
 	effectType = EFFECT_RUBBLE;
 	sprite = new Sprite(_SpriteHandler, "Resources\\Sprites\\effect.bmp", 64, 64, 7, 6);
-
 	isActive = false;
 }
 

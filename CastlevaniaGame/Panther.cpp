@@ -7,7 +7,7 @@ Panther::Panther() {}
 
 Panther::Panther(LPD3DXSPRITE _SpriteHandler, World *_manager) :Enemy(_SpriteHandler, _manager)
 {
-	collider->setCollider(14, -32, -14, 14);
+	collider->setCollider(14, -32, -7, 7);
 	enemyType = PANTHER;
 
 	// ---- update K_1.7
@@ -40,6 +40,7 @@ void Panther::Init(int _X, int _Y, bool _isRight) {
 	limitTop = _Y + 20;
 	limitDown = position.y - 50;
 	position.x = _X + 50;
+	oriX = position.x;
 	isRight = _isRight;
 	state = 0;
 	sprite = spriteLeft;
@@ -73,7 +74,7 @@ void Panther::moving() {
 }
 
 void Panther::runningLeft() {
-	if (!CheckGroundCollision()) {
+	if (!CheckGroundCollision() && position.x <= oriX - 50) {
 		state++;
 		return;
 	}

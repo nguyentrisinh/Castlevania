@@ -13,6 +13,7 @@ public:
 	int distanceToSimonY;
 	int limitTop;
 	int limitDown;
+	int oriX;
 	int state; //0: runningLeft, 1: jumping, 2: downing, 3: runningRight
 	float _deltaTime;
 	World *_manager;

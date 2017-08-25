@@ -17,10 +17,13 @@ public:
 	int limitRight;
 	int limitLeft;
 	int maxCount = 900;
+	int distanceToSimonX;
+	int distanceToSimonY;
 	int way = 0;
 	int count = 0;
 	bool isShown;
-	float timePause, timeWait;
+	float timePause = 2.5;
+	float timeWait;
 	float _deltaTime;
 	double a;
 	bool isAttack;
@@ -42,5 +45,6 @@ public:
 	virtual void CheckActive();
 	void checkShow();
 	void TakeDamage(int damage);
+	void createSnakes(const float &_DeltaTime);
 };
 #endif // !_MEDUSA_H_

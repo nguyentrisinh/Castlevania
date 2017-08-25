@@ -45,13 +45,11 @@ void Panther::Init(int _X, int _Y, bool _isRight) {
 	sprite = spriteLeft;
 	velocity.x = 200;
 	velocity.y = 50;
-	distanceToSimon = position.x - 200;
+	distanceToSimon = position.x - 120;
 	distanceToSimonY = position.y - 200;
 	health = 1;
 	damage = 1;
-	if (index == 1) {
-		//distanceToSimon = sqrt((double)position.x - 200 + (double)position.y - 40);
-	}
+	
 }
 void Panther::moving() {
 	switch (state) {
@@ -102,7 +100,7 @@ void Panther::downing() {
 }
 
 void Panther::runningRight() {
-	position.x += ((velocity.x) * _deltaTime);
+	position.x += (280 * _deltaTime); //velocity = 350 để chạy nhanh hơn
 	sprite = spriteRight;
 }
 

@@ -29,7 +29,7 @@ void BigHeart::Init(int _X, int _Y)
 	timeSurvive = 0;
 	position.x = _X;
 	position.y = _Y;
-	collider->setCollider(14, -14, -14, 14);
+	collider->setCollider(12, -12, -12, 12);
 	sprite->Next(9, 9);
 }
 

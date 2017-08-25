@@ -30,7 +30,7 @@ void Treasure::Init(int _X, int _Y, int _type)
 	timeSurvive = 0;
 	position.x = _X;
 	position.y = _Y;
-	collider->setCollider(12, -12, -16, 16);
+	collider->setCollider(8, -8, -14, 14);
 	switch (_type)
 	{
 	case BAG1000:

@@ -89,6 +89,7 @@ void Treasure::Destroy()
 void Treasure::Collision(Player *player)
 {
 	isActive = false;
+	Game::gameSound->playSound(EATMONEY);
 	switch (itemType)
 	{
 	case BAG1000:

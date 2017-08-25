@@ -92,7 +92,7 @@ void VamBat::Update(const float &_DeltaTime)
 		timerSprite += _DeltaTime;
 		if (timerSprite >= 0.2f)
 		{
-			velocity.y -= velocity.x / 3;
+			velocity.y -= velocity.x / 5;
 			sprite->Next(1, 2);
 			timerSprite -= 0.2f;
 		}
@@ -162,7 +162,7 @@ void VamBat::TakeDamage(int Damage)
 	Game::gameSound->playSound(HITSOFT);
 	Effect* effect = Effect::CreateEffect(EFFECT_HIT, position.x + 14, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
-	health -= (Damage / 2);
+	health -= Damage;
 
 	if (health <= 0)
 		Destroy();

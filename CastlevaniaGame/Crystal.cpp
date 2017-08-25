@@ -50,9 +50,10 @@ void Crystal::Update(const float &_DeltaTime)
 		return;
 	if (isActive)
 	{
-		position.y += velocity.y * _DeltaTime;
-		if (Item::CheckGroundCollision(manager, _DeltaTime))
+		if (CheckGroundCollision(manager, _DeltaTime))
 			velocity.y = 0;
+		position.y += velocity.y * _DeltaTime;
+		
 	}
 }
 
@@ -78,4 +79,28 @@ void Crystal::Collision(Player *player)
 
 void Crystal::Init(int _X, int _Y, int type)
 {
+}
+
+bool Crystal::CheckGroundCollision(World * manager, const float _DeltaTime) {
+	float collisionScale = 0;
+	for (int i = 0; i < (manager->groupQuadtreeCollision->number); i++)
+	{
+		GameObject* tempObject = manager->groupQuadtreeCollision->objects[i];
+		switch (tempObject->objectType)
+		{
+		case GROUND_TYPE:
+			collisionScale = SweptAABB(tempObject, _DeltaTime);
+			if (collisionScale < 1.0f)
+			{
+				switch (((Ground*)tempObject)->typeGround)
+				{
+				case GROUND_BLOCK:
+						return true;
+					break;
+				}
+			}
+			break;
+		}
+	}
+	return false;
 }

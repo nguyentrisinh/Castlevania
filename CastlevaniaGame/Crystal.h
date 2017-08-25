@@ -22,6 +22,7 @@ public:
 	virtual void Collision(Player *player);
 
 	virtual void Init(int _X, int _Y, int type);
+	bool CheckGroundCollision(World * manager, const float _DeltaTime);
 };
 #endif // !_CRYSTAL_
 

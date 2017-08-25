@@ -101,7 +101,7 @@ void Medusa::Update(const float &_DeltaTime)
 	else {
 		if (position.y < 980)
 			velocity.y = 100;
-		if (position.y > 1070)
+		if (position.y > 1100)
 			velocity.y = -100;
 
 		if (position.x < 130)

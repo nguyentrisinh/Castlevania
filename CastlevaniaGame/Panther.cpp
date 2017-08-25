@@ -49,7 +49,9 @@ void Panther::Init(int _X, int _Y, bool _isRight) {
 	distanceToSimonY = position.y - 200;
 	health = 1;
 	damage = 1;
-	
+	if (index == 2) {
+		distanceToSimon = position.x - 160;
+	}
 }
 void Panther::moving() {
 	switch (state) {

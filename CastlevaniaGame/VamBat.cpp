@@ -167,6 +167,7 @@ void VamBat::CheckActive()
 
 void VamBat::TakeDamage(int Damage)
 {
+	Game::gameSound->playSound(HITSOFT);
 	Effect* effect = Effect::CreateEffect(EFFECT_HIT, position.x + 14, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
 	health -= Damage;

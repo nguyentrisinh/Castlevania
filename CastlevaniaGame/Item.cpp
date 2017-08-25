@@ -57,7 +57,6 @@ void Item::Destroy()
 void Item::Collision(Player *player)
 {
 	isActive = false;
-	
 }
 
 bool Item::CheckGroundCollision(World * manager, const float _DeltaTime)
@@ -75,8 +74,8 @@ bool Item::CheckGroundCollision(World * manager, const float _DeltaTime)
 				switch (((Ground*)tempObject)->typeGround)
 				{
 				case GROUND_BLOCK:
-					if
-						(normaly > 0.1f)//chạm từ trên xuống
+					//if
+						//(normaly > 0.1f)//chạm từ trên xuống
 						return true;
 					break;
 				}
@@ -89,7 +88,7 @@ bool Item::CheckGroundCollision(World * manager, const float _DeltaTime)
 
 Item * Item::CreateItem(int itemType, int _X, int _Y, LPD3DXSPRITE _SpriteHandler, World *_manager)
 {
-	Item* item=new Item();
+	Item* item = new Item();
 	switch (itemType)
 	{
 	case HEART:

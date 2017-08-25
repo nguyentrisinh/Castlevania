@@ -106,7 +106,7 @@ void Medusa::Update(const float &_DeltaTime)
 
 		if (position.x < 130)
 			velocity.x = 150;
-		if (position.x > 500)
+		if (position.x > 510)
 			velocity.x = -150;
 
 		timePause -= _DeltaTime;

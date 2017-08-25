@@ -9,7 +9,8 @@ class Panther :
 {
 public:
 	static int index;
-	int distanceToSimon;
+	float distanceToSimon;
+	int distanceToSimonY;
 	int limitTop;
 	int limitDown;
 	int state; //0: runningLeft, 1: jumping, 2: downing, 3: runningRight

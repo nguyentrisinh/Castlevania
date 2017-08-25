@@ -1,6 +1,7 @@
 ﻿#include "Panther.h"
 #include "Sprite.h"
 #include "World.h"
+#include <math.h>
 int Panther::index = 0;
 Panther::Panther() {}
 
@@ -45,10 +46,11 @@ void Panther::Init(int _X, int _Y, bool _isRight) {
 	velocity.x = 200;
 	velocity.y = 50;
 	distanceToSimon = position.x - 200;
+	distanceToSimonY = position.y - 200;
 	health = 1;
 	damage = 1;
 	if (index == 1) {
-		distanceToSimon = position.x - 70;
+		//distanceToSimon = sqrt((double)position.x - 200 + (double)position.y - 40);
 	}
 }
 void Panther::moving() {
@@ -95,9 +97,10 @@ void Panther::downing() {
 			return;
 		}
 	}
-	position.y += ((-velocity.y * 6.5) * _deltaTime);
+	position.y += ((-velocity.y * 7.5) * _deltaTime);
 	position.x += ((-velocity.x + -10) * _deltaTime);
 }
+
 void Panther::runningRight() {
 	position.x += ((velocity.x) * _deltaTime);
 	sprite = spriteRight;
@@ -107,24 +110,19 @@ void Panther::Update(const float &_DeltaTime)
 {
 	if (isInCamera()) {
 		if (manager->Simon->position.x > distanceToSimon
-			&& position.x >= Sprite::cameraXLeft
-			&& position.x <= Sprite::cameraXRight)
+			&& manager->Simon->position.y >= distanceToSimonY
+			&& position.x > Sprite::cameraX
+			&& position.x < Sprite::cameraX+512)
 			isSleeping = false;
-
 		if (isSleeping)
 			return;
-
 		_deltaTime = _DeltaTime;
-
 		moving();
-
 		setSprite();
-
-		//kiem tra nam ngoai camera
 	}
+	
 	if (!IsInCamera())
 		isActive = false;
-		
 		
 }
 
@@ -196,7 +194,7 @@ bool Panther::CheckGroundCollision() {
 }
 
 bool Panther::isInCamera() {
-	if (position.x >= Sprite::cameraXLeft || position.x <= Sprite::cameraXRight)
+	if (position.x >= Sprite::cameraXLeft && position.x <= Sprite::cameraXRight)
 		return true;
 	return false;
 }

@@ -29,25 +29,15 @@ void VamBat::Init(int _X, int _Y)
 	velocity.y = -200;
 	velocity.x = -160;
 	timerPause = 2;
-	//if (manager->Simon->isRight)
-	//	velocity.x = -160;
-	//else
-	//	velocity.x = 160;
 }
 
 void VamBat::Update(const float &_DeltaTime)
 {
-	// set sprites with direction
-	/*if (velocity.x > 0)
-		sprite = spriteRight;
-	else
-		sprite = spriteLeft;*/
-	// move
-
 	if (isSleep)
 	{
 		sprite->Next(0, 0);
 		timerPause -= _DeltaTime;
+
 		if (timerPause < 0)
 		{
 			if (position.x < manager->Simon->position.x + 10)
@@ -66,14 +56,10 @@ void VamBat::Update(const float &_DeltaTime)
 		}
 		else
 		{
-			if (position.y < 550)
+			if (position.y > 650 && velocity.x == 0)
 			{
 				velocity.y = 150;
-			}
-
-			if (position.y > 650)
-			{
-				velocity.y = -150;
+				velocity.x = -150;
 			}
 
 			if (position.x < 5250 || position.x > 5656)
@@ -87,20 +73,26 @@ void VamBat::Update(const float &_DeltaTime)
 						velocity.x = 150;
 					else
 						velocity.x = -150;
-					timerPause = 1;
+					timerPause = 1; 
 				}
 			}
-			else
+
+			if (position.y < 550)
 			{
-				if (velocity.x == 0)
-					velocity.x = -160;
+				velocity.y = 150;
 			}
+
+			if (position.y > 650)
+			{
+				velocity.y = -150;
+			}
+
 		}
 
 		timerSprite += _DeltaTime;
 		if (timerSprite >= 0.2f)
 		{
-			velocity.y -= velocity.x / 5;
+			velocity.y -= velocity.x / 3;
 			sprite->Next(1, 2);
 			timerSprite -= 0.2f;
 		}
@@ -159,7 +151,7 @@ void VamBat::Collision()
 
 void VamBat::CheckActive()
 {
-	if (manager->Simon->position.x < position.x - 200) //zone của vamBat từ 10	00 - 1500, bắt đầu hành động khi simon còn cách 200
+	if (manager->Simon->position.x < position.x - 200)
 		isActive = false;  
 	else
 		isActive = true;
@@ -170,7 +162,7 @@ void VamBat::TakeDamage(int Damage)
 	Game::gameSound->playSound(HITSOFT);
 	Effect* effect = Effect::CreateEffect(EFFECT_HIT, position.x + 14, position.y, -1, spriteHandler, manager);
 	manager->groupEffect->AddObject(effect);
-	health -= Damage;
+	health -= (Damage / 2);
 
 	if (health <= 0)
 		Destroy();

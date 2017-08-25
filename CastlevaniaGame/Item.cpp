@@ -74,8 +74,8 @@ bool Item::CheckGroundCollision(World * manager, const float _DeltaTime)
 				switch (((Ground*)tempObject)->typeGround)
 				{
 				case GROUND_BLOCK:
-					//if
-						//(normaly > 0.1f)//chạm từ trên xuống
+					if
+						(normaly > 0.1f)
 						return true;
 					break;
 				}

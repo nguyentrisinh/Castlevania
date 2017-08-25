@@ -32,16 +32,17 @@ void Head::Init(int _X, int _Y)
 	lineY = manager->Simon->position.y;
 }
 
+// ham duoc goi khi vao vung spawner
 void Head::Init(int _X, int _Y, bool isRight)
 {
 	health = 1;
-	damage = 2;
+	damage = 1;
 	isActive = true;
 
 	lineY = manager->Simon->position.y;
 	
 	position.x = _X;
-	delta = 0.6f;
+	delta = 0.7f;
 
 	if (manager->Simon->isRight)
 	{
@@ -59,7 +60,7 @@ void Head::Init(int _X, int _Y, bool isRight)
 void Head::Update(const float &_DeltaTime)
 {
 	position.x += velocity.x * _DeltaTime;
-	delta += 0.035;
+	delta += 0.04f;
 
 	position.y = 120 * sin(delta) + lineY;
 
@@ -93,6 +94,6 @@ void Head::Collision()
 
 void Head::CheckActive()
 {
-	if ((position.x < Sprite::cameraX - 100) || (position.x > Sprite::cameraX + 512 + 100))
+	if ((position.x < Sprite::cameraX - 50) || (position.x > Sprite::cameraX + 512 + 50))
 		isActive = false;
 }

@@ -50,7 +50,7 @@ void Panther::Init(int _X, int _Y, bool _isRight) {
 	health = 1;
 	damage = 1;
 	if (index == 2) {
-		distanceToSimon = position.x - 160;
+		distanceToSimon = position.x - 200;
 	}
 }
 void Panther::moving() {

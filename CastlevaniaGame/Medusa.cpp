@@ -252,21 +252,21 @@ void Medusa::checkShow() {
 	if (manager->Simon->position.x <= position.x - 200)
 		isShown = true;
 }
-void Medusa::TakeDamage(int Damage)
-{
-	Game::gameSound->playSound(HITSOFT);
-	health -= (Damage/2);
-	if (health <= 0)
-	{
-		Destroy();
-	}
-	else
-	{
-		Effect* effect = Effect::CreateEffect(EFFECT_HIT, position.x + 14, position.y, -1, spriteHandler, manager);
-		manager->groupEffect->AddObject(effect);
-		position.x -= 4;
-	}
-}
+//void Medusa::TakeDamage(int Damage)
+//{
+//	Game::gameSound->playSound(HITSOFT);
+//	health -= (Damage/2);
+//	if (health <= 0)
+//	{
+//		Destroy();
+//	}
+//	else
+//	{
+//		Effect* effect = Effect::CreateEffect(EFFECT_HIT, position.x + 14, position.y, -1, spriteHandler, manager);
+//		manager->groupEffect->AddObject(effect);
+//		position.x -= 4;
+//	}
+//}
 
 void Medusa::createSnakes(const float &_DeltaTime) {
 	timePause -= _DeltaTime;

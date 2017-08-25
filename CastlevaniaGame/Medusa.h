@@ -44,7 +44,7 @@ public:
 	void setSprite();
 	virtual void CheckActive();
 	void checkShow();
-	void TakeDamage(int damage);
+	//void TakeDamage(int damage);
 	void createSnakes(const float &_DeltaTime);
 };
 #endif // !_MEDUSA_H_

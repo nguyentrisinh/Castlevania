@@ -227,8 +227,8 @@ void Medusa::Destroy()
 	isActive = false;
 
 	// tạo item add vào world
-	Item* newItem = Item::CreateItem(CRYSTAL, this->position.x, this->position.y, spriteHandler, manager);
-	manager->groupItem->AddObject(newItem);
+	//Item* newItem = Item::CreateItem(CRYSTAL, this->position.x, this->position.y, spriteHandler, manager);
+	//manager->groupItem->AddObject(newItem);
 }
 
 void Medusa::Collision()

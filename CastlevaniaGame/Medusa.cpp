@@ -59,9 +59,10 @@ void Medusa::setSprite() {
 }
 void Medusa::Update(const float &_DeltaTime)
 {
-	// left: 520
-	// right: 1100
-	// tam: 288, 1055
+	//right: 530
+	//left: 130
+	//bot: 980
+	//top: 1070
 
 	//Khi medusa đang ngủ
 	if (isSleep)

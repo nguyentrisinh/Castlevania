@@ -82,6 +82,8 @@ void OLoader::Reload()
 	Sprite::cameraXRight = initParam[3];
 	Sprite::cameraY = initParam[4];
 
+	manager->Simon->SavePoint(initParam[0], initParam[1], initParam[2], initParam[3], initParam[4]);
+
 	// cập nhật các con trỏ groupEnemy & rootGONode
 	manager->groupEnemy = this->groupEnemy;
 	manager->rootGONode = this->rootGONode;

@@ -55,8 +55,8 @@ void DeadZone::Init(int _X, int _Y, int _Width, int _Height,// rect
 // player đụng vào => phép màu xảy ra
 void DeadZone::Collision(Player *actor, const float &_DeltaTime)
 {
-	// chết ngay lập tức!
-	//actor->Destroy();
 	// Chết ngay lập tức
-	actor->Injured(1, 16);
+	//actor->Injured(1, 16);
+	// Relife ngay lập tức
+	actor->NewLife();
 }

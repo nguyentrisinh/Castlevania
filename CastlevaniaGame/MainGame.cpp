@@ -17,8 +17,6 @@ MainGame::MainGame(HINSTANCE hInstance, LPCSTR Name, int IsFullScreen, int Frame
 	timer = 0;
 	timeFlash = 0;
 	curEnemy = 16;
-
-	// create world
 }
 
 void MainGame::LoadResources(LPDIRECT3DDEVICE9 _d3ddevice)

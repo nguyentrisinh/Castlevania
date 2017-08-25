@@ -83,10 +83,10 @@ void Medusa::Update(const float &_DeltaTime)
 		}
 
 		//Bắt đầu đếm tới 4s
-		if (timeWait > -1.0 && timeWait <= 4.0)
+		if (timeWait > -1.0 && timeWait <= 3.0)
 		{
 			timeWait += _DeltaTime;
-			if (timeWait > 4.0) {
+			if (timeWait > 2.75) {
 				isSleep = false;
 				//Xét lại vị trí ở giữa cho medusa
 				position.x = 288;

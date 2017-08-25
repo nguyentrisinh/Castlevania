@@ -125,46 +125,28 @@ void Fish::Update(const float &_DeltaTime)
 		if (timerSprite >= 2 * ANIM_TIME)
 		{
 			// kiem tra con ca co dang tan cong hay không?
-			if (isFiring)
+			if (position.x < manager->Simon->position.x)
 			{
-				if (position.x < manager->Simon->position.x)
-				{
-					isRight = true;
-					sprite = spriteRight;
-					velocity.x = 70;
-				}
-				else
-				{
-					isRight = false;
-					sprite = spriteLeft;
-					velocity.x = -70;
-				}
-				isFiring = false;
-				/*if (velocity.x > 0)
-				{
-				sprite = spriteRight;
 				isRight = true;
-				}
-				else
-				{
-				sprite = spriteLeft;
-				isRight = false;
-				}*/
-
+				sprite = spriteRight;
+				velocity.x = 70;
 			}
-			else // con ca dang khong tan cong
+			else
 			{
-				sprite->Next(12, 13);
-				//kiem tra va cho con ca tan cong
-				if (TimeToAttack >= timer) // con ca khong ban lien tuc
-				{
-					ActivateFishFire();
-					sprite->_Index = 11;
-					TimeToAttack = 0;
-					isFiring = true;
-				}
-				timerSprite = 0;
+				isRight = false;
+				sprite = spriteLeft;
+				velocity.x = -70;
 			}
+
+			sprite->Next(12, 13);
+			//kiem tra va cho con ca tan cong
+			if (TimeToAttack >= timer) // con ca khong ban lien tuc
+			{
+				ActivateFishFire();
+				sprite->_Index = 11;
+				TimeToAttack = 0;
+			}
+			timerSprite = 0;
 		}
 
 	}

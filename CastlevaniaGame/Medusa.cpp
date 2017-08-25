@@ -213,6 +213,7 @@ void Medusa::Destroy()
 void Medusa::Collision()
 {
 	Enemy::Collision();
+	Game::gameSound->playSound(HITSOFT);
 }
 
 void Medusa::CheckActive()

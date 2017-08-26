@@ -18,21 +18,18 @@ public:
 	GroupObject(World *manager);
 	~GroupObject();
 
-	// ---- update K_1.5
 	// thêm đối tượng & xoá danh sách
 	void AddObject(GameObject* theObject);
 	void GetObjectFrom(GroupObject* theGroup);
 
 	void Update(const float &_DeltaTime);
 	void Render();
-	// ---------
-	void Clear();
 
+	void Clear();
 
 	// --- lấy danh sách đối tượng có thể va chạm
 	void GetCollisionSpecial();
 	void GetCollisionQuadtree();
-	// --- Dùng world chạy hàm này, chỉ dành cho CollisionGroup
 };
 
 

@@ -23,9 +23,8 @@ class Enemy :
 public:
 	int health;
 	int enemyType;
-	int damage; // this param is for Simon injure with this damage
+	int damage;
 
-	// Test for trigger damage
 	bool isDamage;
 
 	Sprite *spriteLeft;
@@ -36,7 +35,6 @@ public:
 	Enemy(LPD3DXSPRITE _SpriteHandler, World *_manager);
 	virtual ~Enemy();
 
-	//ham ao ke thua tu game object
 	virtual void Init(int _X, int _Y);
 	virtual void Init(int _X, int _Y, bool _IsRight);
 	virtual void Update(const float &_DeltaTime);
@@ -47,8 +45,7 @@ public:
 	//ham ao moi tao
 	virtual void CheckActive();
 	void TakeDamage(GameObject* actor, int damage);
-	static Enemy* CreateEnemy(int type, int X, int Y, LPD3DXSPRITE _SpriteHandler,
-		World *_manager);
+	static Enemy* CreateEnemy(int type, int X, int Y, LPD3DXSPRITE _SpriteHandler, World *_manager);
 	bool CheckGroundCollision(World *manager, const float _DeltaTime);
 	static Enemy* CreateEnemy(int* parameters, LPD3DXSPRITE spriteHandler, World *manager);
 };

@@ -28,6 +28,7 @@ void BackgroundQuadTree::setRootNode(map<int, BackgroundQuadTree*> &Nodes)
 {
 	//gan gia tri cua Nodes[1] vao node hien tai
 	nodeID = 1;
+
 	tl = Nodes[1]->tl;
 	tr = Nodes[1]->tr;
 	bl = Nodes[1]->bl;

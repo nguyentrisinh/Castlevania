@@ -20,7 +20,7 @@ public:
 	//LPDIRECT3DSURFACE9 Background;
 	//Sprite* bg;
 	// background -----------
-	//su dung TileMaps *_ by Le _*
+	//su dung TileMaps
 	TileMaps *map;
 	TileMaps *maps[2];
 	//map <int, int > ListTileBackgoundID;

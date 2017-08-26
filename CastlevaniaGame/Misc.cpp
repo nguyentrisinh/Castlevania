@@ -1,7 +1,4 @@
 ﻿#include "Misc.h"
-
-// --- update K_1.3
-
 // ======= DROP ITEM TABLE =============
 DropTable::DropTable()
 {
@@ -11,17 +8,9 @@ DropTable::DropTable()
 
 DropTable::~DropTable() {}
 
-// ----------------- update K_1.3
 // hàm trả về loại item sẽ rơi ra
 int DropTable::DropItem()
 {
-	/*if (numberItem)
-	{
-		luckyInt = rand() % numberItem;
-		if (dropLine[this->luckyInt].percent > rand() % 100)
-			return dropLine[luckyInt].itemType;
-	}*/
-
 	luckyInt = rand() % 100;
 
 	for (int i = 0; i < numberItem; i++)

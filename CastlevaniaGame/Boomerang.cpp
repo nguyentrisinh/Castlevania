@@ -58,55 +58,6 @@ void Boomerang::Init(int _X, int _Y)
 
 void Boomerang::Update(const float &_DeltaTime)
 {
-
-	// Hàm trên này quá dở nên viết lại hàm khác
-	//timerSprite += _DeltaTime;
-
-	//position.x += velocity.x*_DeltaTime;
-	//if (position.x >= Sprite::cameraX + 512 || position.x <= Sprite::cameraX)
-	//{
-	//	position.x -= velocity.x*_DeltaTime;
-	//	if (isRight)
-	//	{
-	//		if (isReverted)
-	//		{
-	//			isActive = false;
-	//			return;
-	//		}
-	//		velocity.x = -200;
-	//		sprite = spriteLeft;
-	//		isRight = false;
-	//		isReverted = true;
-	//	}
-	//	else
-	//	{
-
-	//		if (isReverted)
-	//		{
-	//			isActive = false;
-	//			return;
-	//		}
-	//		velocity.x = 200;
-	//		sprite = spriteRight;
-	//		isRight = true;
-	//		isReverted = true;
-	//	}
-	//	position.x += velocity.x*_DeltaTime;
-
-	//}
-	//if (timerSprite >= BOOM_ANIMATION_TIME)
-	//{
-	//	sprite->Next(5, 7);
-	//	timerSprite -= BOOM_ANIMATION_TIME;
-	//}
-	//
-	//if (SweptAABB(manager->Simon, _DeltaTime) < 1 && isReverted)
-	//	isActive = false;
-	//if (!IsInCamera())
-	//	isActive = false;
-
-	//CollisionObject(_DeltaTime);
-
 	this->timerSprite += _DeltaTime;
 
 

@@ -24,7 +24,7 @@ using namespace std;
 class TileMaps
 {
 public:
-	// ---- update K_1.6
+
 
 	// truyền vào lúc khởi tạo
 	int tileSize; 

@@ -3,8 +3,6 @@
 
 #include "ThamSo.h"
 
-// --- update K_1.2
-
 // ======== DROP ITEM TABLE =========
 struct DropLine
 {
@@ -18,7 +16,6 @@ class DropTable
 	int luckyInt;
 	DropLine dropLine[5];
 
-	// ---- update K_1.7
 public:
 	int DropItem();
 	void AddItem(int itemType, int percent);
@@ -33,11 +30,11 @@ class Collider
 {
 public:
 	// các biến
-		// trục Y hướng lên
+	// trục Y hướng lên
 	float top;	// luôn > 0
 	float bottom;	// luôn < 0
 		
-		// trục X hướng qua phải
+	// trục X hướng qua phải
 	float left;	// luôn < 0
 	float right;	// luôn > 0
 

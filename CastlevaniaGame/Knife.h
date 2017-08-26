@@ -16,7 +16,6 @@ public:
 	Knife(LPD3DXSPRITE _SpriteHandler, World *_manager);
 	~Knife();
 
-
 	// virtual function
 	virtual void Init(int _X, int _Y);
 	virtual void Update(const float &_DeltaTime);

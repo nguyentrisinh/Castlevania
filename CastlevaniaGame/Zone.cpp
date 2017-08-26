@@ -19,7 +19,6 @@ Zone :: ~Zone()
 
 }
 
-// ----- update K_1.9
 void Zone::Init(int _X, int _Y, int _Width, int _Height)
 {
 	position.x = _X;

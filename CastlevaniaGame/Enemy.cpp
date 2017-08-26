@@ -18,8 +18,6 @@ Enemy::Enemy(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	spriteLeft = new Sprite(_SpriteHandler, "Resources\\Sprites\\creep_left.bmp", sizeWidth, sizeHeight, 29, 6);
 	spriteRight = new Sprite(_SpriteHandler, "Resources\\Sprites\\creep_right.bmp", sizeWidth, sizeHeight, 29, 6);
 	sprite = spriteLeft;
-
-
 }
 
 Enemy :: ~Enemy()
@@ -66,8 +64,6 @@ void Enemy::TakeDamage(int Damage)
 
 void Enemy::Collision()
 {
-	//Effect* effect = Effect::CreateEffect(EFFECT_HIT, position.x, position.y, -1, spriteHandler, manager);
-	//manager->groupEffect->AddObject(effect);
 	TakeDamage(NULL, 1);
 }
 
@@ -163,20 +159,9 @@ Enemy* Enemy::CreateEnemy(int* parameters, LPD3DXSPRITE spriteHandler, World *ma
 	case BONE:
 		newEnemy = new Bone(spriteHandler, manager);
 		break;
-		/*
-		case HEAD:
-		newEnemy = new Head(spriteHandler, manager);
-		break;
-		case GHOST:
-		newEnemy = new Ghost(spriteHandler, manager);
-		break;
-		case BONE:
-		newEnemy = new Bone(spriteHandler, manager);
-		break;*/
 	default:
 		return NULL;
 		break;
-
 	}
 
 	// nếu vị trí == 0 thì enemy sẽ không active

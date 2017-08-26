@@ -15,8 +15,6 @@ GroupObject::GroupObject(World *manager)
 // clear: clear all pointers, no need to clear further
 GroupObject::~GroupObject() {}
 
-
-// ---- update K_1.5
 void GroupObject::AddObject(GameObject* theObject)
 {
 	// xem coi có đối tượng như vầy trong mảng chưa
@@ -24,8 +22,8 @@ void GroupObject::AddObject(GameObject* theObject)
 	{
 		if (objects[i] == theObject)
 			return;
-	}	// hàm này không hay chút nào, sử dụng vector cũng vì lười
-
+	}	
+	// hàm này không hay chút nào, sử dụng vector cũng vì lười
 	this->objects.push_back(theObject);
 	number++;
 }

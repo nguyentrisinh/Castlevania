@@ -70,11 +70,9 @@ public:
 	int P;
 	int score;
 
-
 	// constructor & destructor
 	Player(LPD3DXSPRITE _SpriteHandler, World *_manager);
 	~Player();
-
 
 	// virtual function
 	virtual void Init(int _X, int _Y);

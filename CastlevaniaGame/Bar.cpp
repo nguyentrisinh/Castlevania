@@ -4,7 +4,6 @@
 Bar::Bar(LPD3DXSPRITE _SpriteHandler, World *_manager)
 {
 	Ground::Ground(_SpriteHandler, _manager);
-	// ko hiểu sao bị NULL chỗ này
 	manager = _manager;
 	objectType = GROUND_TYPE;
 	typeGround = GROUND_BAR;
@@ -36,7 +35,7 @@ Bar::~Bar() {}
 void Bar::Init(int _X, int _Y, int rubbish1, int rubbish2)
 {
 	// không cần quan tâm tới rubbish làm gì
-		//chẳng qua init của mấy cái ground cần 4 parameter thôi
+	//chẳng qua init của mấy cái ground cần 4 parameter thôi
 
 	isActive = true;
 	position.x = _X;

@@ -44,7 +44,6 @@ void Whip::Init(int _X, int _Y)
 	if (manager->Simon->isRight)
 	{
 		sprite = spriteRight;
-		// --------- update by k
 		if (whipLevel < 2)
 			collider->setCollider(18, 4, 26, 72);
 		else
@@ -53,7 +52,6 @@ void Whip::Init(int _X, int _Y)
 	else
 	{
 		sprite = spriteLeft;
-		// --------- update by k
 		if (whipLevel < 2)
 			collider->setCollider(18, 4, -72, -26);
 		else
@@ -61,7 +59,6 @@ void Whip::Init(int _X, int _Y)
 	}
 
 	sprite->_Index = 3 * whipLevel;
-	// ---------- update by k
 	if (whipLevel < 1)
 		Damage = 3;
 	else
@@ -92,7 +89,6 @@ void Whip::Update(const float &_DeltaTime)
 	else
 		position.y = manager->Simon->position.y;
 
-	// update by khang -------------
 	if (manager->Simon->isChangeFrame)
 	{
 		switch (whipLevel)

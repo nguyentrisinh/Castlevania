@@ -31,30 +31,6 @@ void Sprite::CameraFollow(GameObject* object, float deltaTime)
 		return;
 	}
 
-	/*float speed = 100;
-
-	if (cameraX < (object->position.x - 256))
-	{
-		if ((cameraX + deltaTime*speed) < (object->position.x - 256))
-		{
-			cameraX = cameraX + deltaTime*speed;
-		}
-		else
-		{
-			cameraX = object->position.x - 256;
-		}
-	}
-	else
-	{
-		if ((cameraX - deltaTime*speed) > (object->position.x - 256))
-		{
-			cameraX = cameraX - deltaTime*speed;
-		}
-		else
-		{
-			cameraX = object->position.x - 256;
-		}
-	}*/
 }
 
 // --------------------------
@@ -150,13 +126,6 @@ void Sprite::Render(LPDIRECT3DSURFACE9 Target, int X, int Y)
 			D3DCOLOR_XRGB(red, green, blue)
 		);
 	}
-	/*_SpriteHandler->Draw(
-		_Image,
-		&srect,
-		&center,
-		&p,
-		D3DCOLOR_XRGB(255, 255, 255)
-		);*/
 }
 
 void Sprite::Next(int start,int end)

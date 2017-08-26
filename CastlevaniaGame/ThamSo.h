@@ -15,7 +15,6 @@ class MainGame;
 class Sprite;		// Sprite.h
 
 class Player;
-// ---- update K_1.7
 // gameobject prototype
 class Enemy;
 class Destructible;
@@ -36,7 +35,6 @@ class OTreeNode;
 class OLoader;
 // ---------------
 
-// ---- update K_1.6
 // ===== --- GAME OBJECT --- =====
 #define PLAYER_TYPE 1
 #define PROJECTILE_TYPE 2

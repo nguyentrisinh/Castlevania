@@ -33,9 +33,6 @@ Player::Player(LPD3DXSPRITE _SpriteHandler, World *_manager)
 	isDeath = false;
 	alreadyDeath = false;
 
-
-	//upKey = false;
-
 	spriteLeft = new Sprite(_SpriteHandler, "Resources\\Sprites\\simon_left.bmp", sizeWidth, sizeHeight, 27, 6);
 	spriteRight = new Sprite(_SpriteHandler, "Resources\\Sprites\\simon_right.bmp", sizeWidth, sizeHeight, 27, 6);
 	sprite = spriteRight;
@@ -127,7 +124,6 @@ void Player::Collision()
 // ---=== UPDATE ===---
 void Player::Update(const float &_DeltaTime)
 {
-	//this->heart = this->manager->vamBat->health;
 	if (isDeath)
 	{
 		this->UpdateSimonDeath(_DeltaTime);
@@ -222,7 +218,6 @@ void Player::Update(const float &_DeltaTime)
 		velocity.y = 0;
 	}
 
-	//UpdateCamera();
 	Sprite::CameraFollow(this, _DeltaTime);
 	if (position.x < (Sprite::cameraXLeft + 8))
 		position.x = Sprite::cameraXLeft + 8;
@@ -468,8 +463,6 @@ void Player::UpdateWhenOnStair(float _DeltaTime)
 		}
 
 	}
-
-
 }
 
 void Player::UpdateWhenMoveToPossionX(float _DeltaTime)
@@ -492,7 +485,6 @@ void Player::UpdateWhenMoveToPossionX(float _DeltaTime)
 	position.x += velocity.x*_DeltaTime / 2;
 
 }
-
 
 // Update trạng thái khi Simon death
 void Player::UpdateSimonDeath(float _DeltaTime)
@@ -520,7 +512,6 @@ void Player::UpdateSimonDeath(float _DeltaTime)
 			this->NewLife();
 		}
 	}
-
 }
 
 
@@ -626,8 +617,6 @@ void Player::Down(int downKey)
 			sprite = spriteLeft;
 		sprite->Next(4, 4);
 	}
-
-
 }
 
 void Player::Jump()
@@ -672,10 +661,8 @@ void Player::Attack(int keyAttack)
 	if (isUsingWeapon)
 		return;
 
-
 	//danh hop le
 	isAttack = true;
-
 
 	// tấn công bình thường
 	if (onStair <= 0)
@@ -717,7 +704,6 @@ void Player::ActivateWeapon()
 	{
 	case BOOMERANG:
 		count = 0;
-
 		//dem so luong weapon cung loai dang active
 		for (int i = 0; i < 3; i++)
 		{
@@ -837,7 +823,6 @@ void Player::Injured(int keyInjured)
 		return;
 	velocity.y = 300;
 
-
 	//bien xac dinh trang thai bi thuong
 	isHitted = true;
 
@@ -846,7 +831,6 @@ void Player::Injured(int keyInjured)
 	timeImmortal = 0;
 
 	sprite->Next(9, 9);
-	// update by K
 	if (keyInjured == 1) // va cham tu ben phai
 	{
 		velocity.x = 80;
@@ -878,9 +862,6 @@ void Player::Injured(int keyInjured)
 
 	if (this->health == 0)
 		this->SimonDeath();
-
-
-
 }
 
 void Player::Injured(int keyInjured, int damage)
@@ -889,7 +870,6 @@ void Player::Injured(int keyInjured, int damage)
 		return;
 	if (isHitted)
 		return;
-
 
 	//bien xac dinh trang thai bi thuong
 	isHitted = true;
@@ -927,7 +907,6 @@ void Player::Injured(int keyInjured, int damage)
 	isShowTime = false;
 	animStart = false;
 
-	//this->health--;
 	this->health -= damage;
 
 	if (this->health < 0)
@@ -940,8 +919,6 @@ void Player::Injured(int keyInjured, int damage)
 	}
 
 	velocity.y = 300;
-
-
 }
 
 void Player::MovingOnStair(int keyMove)
@@ -969,8 +946,6 @@ void Player::MovingOnStair(int keyMove)
 		timeStairAnim = 0;
 		isShowTime = true;
 	}
-
-
 }
 
 void Player::SimonDeath()
@@ -994,8 +969,6 @@ void Player::CollisionObject(float _DeltaTime)
 	//						CollisionObject() gọi ở đầu Update() trong mỗi object
 	// -------------------------------------------------------------------------------------
 	float collisionScale = 0;
-
-
 
 	GameObject* tempObject;
 	// Xét va chạm với nhóm đối tượng đặc biệt. Ví dụ như ghoul (Respawn), Item,...

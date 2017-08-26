@@ -52,10 +52,9 @@ void MainGame::LoadResources(LPDIRECT3DDEVICE9 _d3ddevice)
 
 	 NextLevel();
 
-	 
-	 // ---------------------------------------
+	// ---------------------------------------
 
-	 //Sprite::cameraY = 448;
+	//Sprite::cameraY = 448;
 
 	//Hình dùng để render thanh máu, trái tim, khung chứa đồ trên thanh status 
 	statusBar = new Sprite(_SpriteHandler, "Resources\\Sprites\\bar_health.bmp", 8, 16, 4, 4);

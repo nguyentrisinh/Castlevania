@@ -33,7 +33,6 @@ public:
 	static int cameraX;
 	static int cameraY;
 	
-	// update K_2.3
 	static void CameraFollow(GameObject* object, float deltaTime);
 	//================================
 

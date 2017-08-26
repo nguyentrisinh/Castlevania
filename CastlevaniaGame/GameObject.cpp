@@ -1,6 +1,4 @@
-﻿// ------------  update K_1.5
-
-#include "GameObject.h"
+﻿#include "GameObject.h"
 #include <limits>	// chứa std::numeric_limits
 
 //#define max(a, b) (((a) > (b)) ? (a) : (b))
@@ -22,7 +20,6 @@ GameObject::GameObject()
 	timerSprite = 0;
 	collider = NULL;
 
-	// ---- bo sung K_1.2
 	BroadPhaseBox = NULL;
 
 	position.x = 0;
@@ -98,7 +95,6 @@ bool GameObject::IsInside(GameObject* target)
 		((position.x + collider->bottom) > (target->position.x + target->collider->bottom)))	// vị trí cạnh dưới ta > địch
 		return true;
 
-	// else
 	return false;
 }
 
@@ -203,7 +199,6 @@ float GameObject::SweptAABB(GameObject *target, const float &_DeltaTime)
 	// end of Broad - Phasing
 	// --------------------------===============================----------------------------
 
-
 	// ---=== xét xem có lồng nhau ngay từ đầu không ===---
 	if (this->IsCollide(target))
 	{
@@ -213,8 +208,6 @@ float GameObject::SweptAABB(GameObject *target, const float &_DeltaTime)
 	}
 
 	// ---==== trường hợp không bị intersect ngay từ đầu ====---
-
-
 	// --- chiều x gần nhất & xa nhất giữa 2 đối tượng ---
 	float dxEntry, dyEntry;
 	float dxExit, dyExit;
@@ -249,7 +242,7 @@ float GameObject::SweptAABB(GameObject *target, const float &_DeltaTime)
 	float txExit, tyExit;
 
 	if (deltaVX == 0.0f)	// chống chia cho 0
-	{		// so sánh == trong số floating thì không hay, mà thầy thích thì làm theo thầy
+	{
 		txEntry = -std::numeric_limits<float>::infinity();
 		txExit = std::numeric_limits<float>::infinity();
 	}
@@ -270,7 +263,6 @@ float GameObject::SweptAABB(GameObject *target, const float &_DeltaTime)
 		tyExit = dyExit / deltaVY;
 	}
 
-	// --- thời gian "hun" và "ngừng hun" trên cả 2 chiều
 	float entryTimeScale = max(txEntry, tyEntry);
 	float exitTimeScale = min(txExit, tyExit);
 
@@ -282,9 +274,6 @@ float GameObject::SweptAABB(GameObject *target, const float &_DeltaTime)
 		normaly = 0.0f;
 		return 1.0f;
 	}
-	//else // nếu như có va chạm
-	// ở trên có return rồi thì còn else làm gì ta
-
 
 	// tính toán vector pháp tuyến của bề mặt va chạm
 	if (txEntry > tyEntry)
@@ -320,7 +309,6 @@ float GameObject::SweptAABB(GameObject *target, const float &_DeltaTime)
 	return entryTimeScale;
 }
 
-// ---------- update K_1.5
 // thay vì di chuyển lồng vào trong tường => di chuyển đến sát tường
 void GameObject::ResponseFrom(GameObject *target, const float &_DeltaTime, const float &_CollisionTimeScale)
 {
@@ -328,7 +316,7 @@ void GameObject::ResponseFrom(GameObject *target, const float &_DeltaTime, const
 	position.y += velocity.y * (_CollisionTimeScale * _DeltaTime);
 }// nếu chạy hàm này thì không chơi post += velocity * _DeltaTime trong update nữa
 
- // văng vào tường thì bật ra
+// văng vào tường thì bật ra
 void GameObject::DeflectFrom(GameObject *target, const float &_DeltaTime, const float &_CollisionTimeScale)
 {
 	// di chuyển vào sát tường trước
@@ -361,11 +349,9 @@ void GameObject::DeflectFrom(GameObject *target, const float &_DeltaTime, const 
 	position.y += velocity.y * (1.0f - _CollisionTimeScale) *_DeltaTime;
 }
 
-// ---------- update K_1.5
 // phản hồi sau khi va chạm với GROUND
 void GameObject::SlideFromGround(GameObject *target, const float &_DeltaTime, const float &_CollisionTimeScale)
 {
-	//ResponseFrom(target, _DeltaTime, collisionTimeScale);
 	// lỡ đụng 2,3 ground mà chạy cái này nhiều lần sẽ rất sai
 	// "góc lag" sẽ làm đi luôn vào trong tường
 
@@ -374,16 +360,13 @@ void GameObject::SlideFromGround(GameObject *target, const float &_DeltaTime, co
 	{
 		this->position.x = (target->position.x + target->collider->right - this->collider->left) + 0.1f;
 		position.x -= velocity.x*_DeltaTime;
-		//velocity.x = 0.0f;
 	}
 
 	else if (normalx < -0.1f)// tông bên trái
 	{
 		this->position.x = (target->position.x + target->collider->left - this->collider->right) - 0.1f;
 		position.x -= velocity.x*_DeltaTime;
-		//velocity.x = 0.0f;
 	}
-
 
 	else if (normaly > 0.1f)	// tông ở trên
 	{
@@ -404,27 +387,19 @@ void GameObject::Init(int _X, int _Y)
 // update object per frame
 void GameObject::Update(const float &_DeltaTime)
 {
-	// gọi xử lý va chạm (nếu có)
-
-
-	// xử lý vị trí
-	// xử lý các vấn đề khác
-
+	//Gọi hàm update của các game object
 }
 
 // render object per frame
 void GameObject::Render()
 {
-	// gọi sprite->Render() 
-	// !!! HẠN CHẾ XỬ LÝ CPU TẠI ĐÂY !!!
-	// video adapter đang chờ được "vẽ"
+
 }
 
 
 void GameObject::Destroy() {}
 void GameObject::Collision() {};
 
-// --- bo sung K_1.1
 void GameObject::CollisionObject(GameObject *target, const float &_DeltaTime)
 {
 	// xét xem object có active không

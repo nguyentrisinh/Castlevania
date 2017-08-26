@@ -1,13 +1,9 @@
-﻿// ------ update K_1.5
-
-#include "GateWay.h"
+﻿#include "GateWay.h"
 #include "Player.h"
 #include "Sprite.h"
 
-
 GateWay::GateWay(LPD3DXSPRITE _SpriteHandler, World *_manager) :Zone::Zone(_SpriteHandler, _manager)
 {
-	//manager = _manager;
 	objectType = ZONE_TYPE;
 	typeZone = ZONE_GATEWAY;
 	collider = new Collider();
@@ -27,8 +23,6 @@ void GateWay::Render()
 	//sprite->Render(position.x, position.y);
 }
 
-
-// ------- update K_1.5
 // virtual function
 void GateWay::Init(int _X, int _Y, int _Width, int _Height,// rect
 	int _triggerX, int _triggerY,	// đem player đi xa

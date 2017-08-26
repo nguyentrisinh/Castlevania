@@ -59,7 +59,6 @@ void World::Init()
 	// ---  init changable object
 	isFlash = false;
 
-	
 	// need to be clean, put into "GroupObject" ----
 	vamBat = new VamBat(spriteHandler, this);
 	// ---------------

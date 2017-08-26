@@ -61,28 +61,12 @@ void TileMaps::LoadTiledMap(int *tileIDs, int size)
 
 	//duyet tu dau den cuoi danh sach
 	for (int i = 0; i < size; i++)
-	{//--------- update K_1.6
+	{
 		//tim vi tri cua tileID thu i trong map1matrix
 		h = tileIDs[i] / worldSizeX;// +2;
 		w = tileIDs[i] % worldSizeX;
 		int id = map1Matrix[h][w];
 		source->Next(id, id);
-		source->Render(w * tileSize + 32 , /*896 - (h - 2)*/ (worldSizeY - h) * tileSize - 32) ; //896 là chiều cao cả world
+		source->Render(w * tileSize + 32 , (worldSizeY - h) * tileSize - 32) ; //896 là chiều cao cả world
 	}//---------------
 }
-
-//void TileMaps::LoadTiledMap(map<int, int> tileIDs)
-//{
-//	int h, w; //hang va cot trong ma tran map1Matrix
-//
-//	//duyet tu dau den cuoi danh sach
-//	for (map<int, int>::iterator i = tileIDs.begin(); i != tileIDs.end(); i++)
-//	{
-//		//tim vi tri cua tileID thu i trong map1matrix
-//		h = tileIDs[i->first] / 90 + 2;
-//		w = tileIDs[i->first] % 90;
-//		int id = map1Matrix[h][w];
-//		source->Next(id, id);
-//		source->Render(w * TILE_SIZE , 896 - (h - 2) * TILE_SIZE - 32) ; //896 là chiều cao cả world
-//	}
-//}

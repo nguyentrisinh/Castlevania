@@ -6,11 +6,9 @@ Knight::Knight() {}
 
 Knight::Knight(LPD3DXSPRITE _SpriteHandler, World *_manager):Enemy(_SpriteHandler, _manager)
 {
-	//collider->setCollider(24, -24, -14, 14);
 	collider->setCollider(24, -24, -14, 14);
 	this->_manager = _manager;
 	enemyType = KNIGHT;
-	// ---- update K_1.7
 	spriteLeft->_Index = 14;
 	spriteRight->_Index = 14;
 }
@@ -187,7 +185,6 @@ bool Knight::CheckGroundCollision()
 
 void Knight::Render()
 {
-	// Only render if knight in camera
 	if (isInCamera())
 		sprite->Render(position.x, position.y);
 }

@@ -1,6 +1,5 @@
 ﻿//======= GAMEOBJECT ========
 // cho kế thừa muôn nơi
-// --------- update K_1.3
 
 #ifndef _GAMEOBJECT_H_
 #define _GAMEOBJECT_H_
@@ -43,8 +42,7 @@ public:
 
 	int sizeWidth;
 	int sizeHeight;
-		
-	//LPD3DXSPRITE spriteHandler;
+
 	Sprite *sprite;
 	float timerSprite;
 
@@ -54,61 +52,40 @@ public:
 
 	D3DXVECTOR2 velocity;
 
-	// ------ bo sung K_1.3 --- xét va chạm
-	float normalx;	// "vector pháp tuyến" said thầy Dũng
+	float normalx;
 	float normaly;
 
-	
 	Collider *BroadPhaseBox;
 	float collisionTimeScale;
-	// ----- đây là game đơn luồng => các hàm chạy tuần tự
-	// ----------------------- => xài chung 1 biến là được rồi.
 
 	// constructor và destructor
 	GameObject();
 	virtual ~GameObject();
 
-	// ====== CÁC HÀM CHÍNH ======
-	// ------ bo sung K_1.3
-	// vị trí collistion (= vector0 nếu ko chạm)
-	D3DXVECTOR3 VecCollide(GameObject *target); // hàm này có thể không dùng tới
-	// xét coi có va chạm ko
+	D3DXVECTOR3 VecCollide(GameObject *target);
+
 	bool IsCollide(GameObject* target);
 	bool IsInside(GameObject* target);
-	//ham kiem tra doi tuong co nam trong camera hay khong
 	bool IsInCamera();
 
 	float SweptAABB(GameObject *target, const float &_DeltaTime);
 
-	//void CollisionWorld(World *manager, const float &_DeltaTime);		// các hàm chia để trị
-	//void CollisionGroup(GroupObject *theGroup, const float &_DeltaTime);
-	//void CollisionTreeNode(TreeNode *treeNode, const float &_DeltaTime);
-
-	// -------- bo sung K_1.3
 	void ResponseFrom(GameObject *target, const float &_DeltaTime, const float &_CollisionTimeScale);
 	void DeflectFrom(GameObject *target, const float &_DeltaTime, const float &_CollisionTimeScale);
 	void PushFrom(GameObject *target, const float &_DeltaTime, const float &_CollisionTimeScale) {};
 	void SlideFromGround(GameObject *target, const float &_DeltaTime, const float &_CollisionTimeScale);
-	
-	// ----------------
 
-	// ====== các phương thức ảo =====
-	virtual void Init(int _X, int _Y);		// reset object
-	virtual void Update(const float &_DeltaTime);	// update per frame
-	virtual void Render();							// render per frame
-	virtual void Destroy();					// clear sub object, without delete this
+	virtual void Init(int _X, int _Y);		
+	virtual void Update(const float &_DeltaTime);	
+	virtual void Render();							
+	virtual void Destroy();					
 
 	virtual void Collision();
 
-	// bo sung K_1.1
-
-	virtual void CollisionObject(GameObject *target, const float &_DeltaTime);	// xét có va chạm không, nếu có thì xử lý
+	virtual void CollisionObject(GameObject *target, const float &_DeltaTime);
 
 	//Bổ trợ làm hiệu ứng lấp lánh (Hit)
 	int RandomOutside(int radiusSmall, int radiusBig);
-	
-
-	
 };
 
 

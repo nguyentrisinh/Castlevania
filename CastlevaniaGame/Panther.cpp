@@ -10,7 +10,6 @@ Panther::Panther(LPD3DXSPRITE _SpriteHandler, World *_manager) :Enemy(_SpriteHan
 	collider->setCollider(14, -32, -7, 7);
 	enemyType = PANTHER;
 
-	// ---- update K_1.7
 	spriteLeft->_Index = 2;
 	spriteRight->_Index = 2;
 	// ----------

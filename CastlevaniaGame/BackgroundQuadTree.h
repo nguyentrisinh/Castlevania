@@ -1,7 +1,6 @@
 #ifndef _BACKGROUNDQUADTREE_H_
 #define _BACKGROUNDQUADTREE_H_
 
-
 #include "ThamSo.h"
 #include <iostream>
 #include <string>

@@ -16,7 +16,6 @@ Axe::Axe(LPD3DXSPRITE _SpriteHandler, World *_manager) :Projectile(_SpriteHandle
 	Damage = 3;
 	isReverted = false;
 
-	// update by k
 	collider->setCollider(18, -18, -18, 18);
 }
 Axe::~Axe()

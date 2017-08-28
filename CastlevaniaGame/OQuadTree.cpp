@@ -75,8 +75,8 @@ int OTreeNode::GetOffsetId()
 	return (id % 8);
 }
 
-	// ném object trong phạm vi camera vào destination group
-			// đây là hàm đệ quy
+// ném object trong phạm vi camera vào destination group
+// đây là hàm đệ quy
 void OTreeNode::SendObjectTo(GroupObject *destinationGroup)
 {
 	if (!(this->IsIntersectVP()))

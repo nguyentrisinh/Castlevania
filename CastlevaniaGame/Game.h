@@ -80,8 +80,6 @@ public:
 	std::string statusZone1;
 	std::string statusZone2;
 
-
-	//su dung TileMaps *_ by Le _*
 	TileMaps *maps1;
 	//map <int, int > ListTileBackgoundID;
 

@@ -75,7 +75,6 @@ void RedBat::Update(const float &_DeltaTime)
 
 	if ((position.x < Sprite::cameraX) || (position.x > Sprite::cameraX + 512))
 		isActive = false;
-
 }
 
 

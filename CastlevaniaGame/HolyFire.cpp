@@ -51,8 +51,6 @@ void HolyFire::Update(const float &_DeltaTime)
 	}
 	if (!IsInCamera())
 		isActive = false;
-	//if (manager->Simon->isAttack && manager->Simon->killingMoment)
-	//	CollisionObject(_DeltaTime);
 
 	this->CollisionObject(_DeltaTime);
 }

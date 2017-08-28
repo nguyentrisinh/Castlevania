@@ -58,7 +58,8 @@ void Knife::Update(const float &_DeltaTime)
 	position.x += velocity.x*_DeltaTime;
 	if (!IsInCamera())
 		isActive = false;
-	CollisionObject(_DeltaTime);
+	//if (manager->Simon->isAttack && manager->Simon->killingMoment)
+		CollisionObject(_DeltaTime);
 }
 void Knife::Render()
 {

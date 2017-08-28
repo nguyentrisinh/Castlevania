@@ -2,8 +2,6 @@
 #ifndef __SPRITE_H__
 #define __SPRITE_H__
 
-//#include <d3d9.h>
-//#include <d3dx9.h>
 #include "ThamSo.h"
 
 class Sprite

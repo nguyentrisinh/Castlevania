@@ -76,7 +76,6 @@ public:
 	Axe *axe[3];
 	HolyFire *holyFire[3];
 	HolyWater *holyWater[3];
-	// ---- bo sung K_1.3 ---
 	GroupObject *groupSpecialCollision;
 	GroupObject *groupQuadtreeCollision;
 	GroupObject *groupItem;
@@ -85,13 +84,10 @@ public:
 
 	// Crystal for test
 	Crystal *crystal;
-
-	
 	// update by OLoader, init as NULL
 	GroupObject* groupEnemy;
 	OTreeNode* rootGONode;
 
-	// ---- bo sung K_1.9 // con trỏ boss
 	Enemy* boss;
 	
 	int isPause;
